@@ -1,23 +1,11 @@
 "use client"
 
-import {
-  Star,
-  HomeIcon,
-  Search,
-  RefreshCw,
-  Wallet,
-  Plus,
-  TrendingDown,
-  Grid3X3,
-  Gamepad2,
-  Spade,
-  Fish,
-  Zap,
-} from "lucide-react"
+import { Star, HomeIcon, Search, RefreshCw, Wallet, Plus, Grid3X3, Gamepad2, Spade, Fish, Zap } from "lucide-react"
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { gameCardsData, bannerData } from "@/data/games"
+import BottomNavigation from "@/components/bottom-navigation"
 
 interface UserCredentials {
   username: string
@@ -640,43 +628,6 @@ export default function HomePage() {
         </div>
       )}
 
-      {/* Bottom Navigation - Only show in vertical mode */}
-      {!isHorizontal && (
-        <footer className="fixed bottom-0 left-0 right-0 bg-black/80 backdrop-blur-md border-t border-yellow-500/20 p-3 md:p-4 z-30">
-          <div className="max-w-6xl mx-auto flex justify-around">
-            <Link
-              href="/gifts"
-              className="flex flex-col items-center space-y-1 text-yellow-300/70 hover:text-yellow-400 transition-colors relative"
-            >
-              <div className="w-7 h-7 md:w-8 md:h-8 bg-black/60 border border-yellow-500/30 rounded-full flex items-center justify-center">
-                <span className="text-xs font-bold">G</span>
-              </div>
-              <span className="text-xs">Gifts</span>
-              <span className="absolute -top-1 -right-1 w-2.5 h-2.5 md:w-3 md:h-3 bg-yellow-500 rounded-full border border-black" />
-            </Link>
-            <Link
-              href="/inbox"
-              className="flex flex-col items-center space-y-1 text-yellow-300/70 hover:text-yellow-400 transition-colors relative"
-            >
-              <div className="w-7 h-7 md:w-8 md:h-8 bg-black/60 border border-yellow-500/30 rounded-full flex items-center justify-center">
-                <span className="text-xs font-bold">I</span>
-              </div>
-              <span className="text-xs">Inbox</span>
-              <span className="absolute -top-1 -right-1 w-2.5 h-2.5 md:w-3 md:h-3 bg-yellow-500 rounded-full border border-black" />
-            </Link>
-            <Link
-              href="/wallet"
-              className="flex flex-col items-center space-y-1 text-yellow-300/70 hover:text-yellow-400 transition-colors"
-            >
-              <div className="w-7 h-7 md:w-8 md:h-8 bg-black/60 border border-yellow-500/30 rounded-full flex items-center justify-center">
-                <TrendingDown size={16} className="md:w-4 md:h-4" />
-              </div>
-              <span className="text-xs">Withdraw</span>
-            </Link>
-          </div>
-        </footer>
-      )}
-
       {/* Custom CSS to hide scrollbars */}
       <style jsx global>{`
         .scrollbar-hide {
@@ -695,6 +646,8 @@ export default function HomePage() {
           display: none;
         }
       `}</style>
+
+      <BottomNavigation />
     </div>
   )
 }

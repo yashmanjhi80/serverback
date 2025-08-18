@@ -4,6 +4,7 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import { ArrowLeft, Minus, Building, Smartphone, CheckCircle, AlertCircle, Clock } from "lucide-react"
 import Link from "next/link"
+import BottomNavigation from "@/components/bottom-navigation"
 
 interface UserCredentials {
   username: string
@@ -217,7 +218,7 @@ export default function WithdrawPage() {
   const currentMethod = getCurrentMethod()
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white">
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white pb-20">
       {/* Header */}
       <header className="bg-black/80 backdrop-blur-sm border-b border-yellow-500/20 p-4">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
@@ -447,6 +448,7 @@ export default function WithdrawPage() {
           </div>
         </div>
       </div>
+      <BottomNavigation />
     </div>
   )
 }

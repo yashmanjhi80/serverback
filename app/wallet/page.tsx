@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { ArrowLeft, Plus, Minus, Wallet, TrendingUp, TrendingDown, RefreshCw, History, CreditCard } from "lucide-react"
 import Link from "next/link"
+import BottomNavigation from "@/components/bottom-navigation"
 
 interface UserCredentials {
   username: string
@@ -160,7 +161,7 @@ export default function WalletPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white">
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white pb-20">
       {/* Header */}
       <header className="bg-black/80 backdrop-blur-sm border-b border-yellow-500/20 p-4">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
@@ -179,12 +180,12 @@ export default function WalletPage() {
         </div>
       </header>
 
-      <div className="max-w-4xl mx-auto p-6 space-y-8">
+      <div className="max-w-4xl mx-auto p-6 space-y-6">
         {/* Balance Card */}
-        <div className="bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-600 rounded-2xl p-8 shadow-2xl border border-yellow-400/30">
+        <div className="bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-600 rounded-2xl p-6 shadow-2xl border border-yellow-400/30">
           <div className="text-center">
             <h2 className="text-lg font-medium text-black mb-2">Total Balance</h2>
-            <div className="text-5xl font-bold mb-4 text-black">
+            <div className="text-4xl font-bold mb-4 text-black">
               {isLoadingBalance ? (
                 <span className="animate-pulse">Loading...</span>
               ) : (
@@ -203,25 +204,20 @@ export default function WalletPage() {
           </div>
         </div>
 
-        {/* Action Buttons */}
-        <div className="grid md:grid-cols-2 gap-6">
+        {/* Action Buttons - Smaller Size */}
+        <div className="grid grid-cols-2 gap-4">
           {/* Deposit Button */}
           <Link
             href="/deposit"
-            className="group bg-black/60 backdrop-blur-sm rounded-xl p-8 border border-yellow-500/30 hover:bg-black/80 hover:border-yellow-400/50 transition-all duration-200 shadow-lg text-center"
+            className="group bg-black/60 backdrop-blur-sm rounded-xl p-4 border border-yellow-500/30 hover:bg-black/80 hover:border-yellow-400/50 transition-all duration-200 shadow-lg text-center"
           >
-            <div className="flex flex-col items-center space-y-4">
-              <div className="p-4 bg-yellow-500/20 rounded-full group-hover:bg-yellow-500/30 transition-colors border border-yellow-500/30 group-hover:scale-110 duration-200">
-                <Plus size={32} className="text-yellow-400" />
+            <div className="flex flex-col items-center space-y-3">
+              <div className="p-3 bg-yellow-500/20 rounded-full group-hover:bg-yellow-500/30 transition-colors border border-yellow-500/30 group-hover:scale-110 duration-200">
+                <Plus size={24} className="text-yellow-400" />
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-yellow-400 mb-2">Deposit</h3>
-                <p className="text-gray-300 mb-4">Add funds to your wallet</p>
-                <div className="bg-yellow-500/10 rounded-lg p-3 border border-yellow-500/20">
-                  <p className="text-sm text-yellow-300">
-                    <span className="font-semibold">Instant deposit</span> • Multiple payment methods
-                  </p>
-                </div>
+                <h3 className="text-lg font-bold text-yellow-400 mb-1">Deposit</h3>
+                <p className="text-gray-300 text-sm">Add funds to wallet</p>
               </div>
             </div>
           </Link>
@@ -229,46 +225,41 @@ export default function WalletPage() {
           {/* Withdraw Button */}
           <Link
             href="/withdraw"
-            className="group bg-black/60 backdrop-blur-sm rounded-xl p-8 border border-yellow-500/30 hover:bg-black/80 hover:border-yellow-400/50 transition-all duration-200 shadow-lg text-center"
+            className="group bg-black/60 backdrop-blur-sm rounded-xl p-4 border border-yellow-500/30 hover:bg-black/80 hover:border-yellow-400/50 transition-all duration-200 shadow-lg text-center"
           >
-            <div className="flex flex-col items-center space-y-4">
-              <div className="p-4 bg-yellow-500/20 rounded-full group-hover:bg-yellow-500/30 transition-colors border border-yellow-500/30 group-hover:scale-110 duration-200">
-                <Minus size={32} className="text-yellow-400" />
+            <div className="flex flex-col items-center space-y-3">
+              <div className="p-3 bg-yellow-500/20 rounded-full group-hover:bg-yellow-500/30 transition-colors border border-yellow-500/30 group-hover:scale-110 duration-200">
+                <Minus size={24} className="text-yellow-400" />
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-yellow-400 mb-2">Withdraw</h3>
-                <p className="text-gray-300 mb-4">Transfer funds to your account</p>
-                <div className="bg-yellow-500/10 rounded-lg p-3 border border-yellow-500/20">
-                  <p className="text-sm text-yellow-300">
-                    <span className="font-semibold">Fast processing</span> • Secure transfers
-                  </p>
-                </div>
+                <h3 className="text-lg font-bold text-yellow-400 mb-1">Withdraw</h3>
+                <p className="text-gray-300 text-sm">Transfer to account</p>
               </div>
             </div>
           </Link>
         </div>
 
-        {/* Quick Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="bg-black/60 backdrop-blur-sm rounded-xl p-4 border border-yellow-500/30 text-center shadow-lg">
-            <TrendingUp size={24} className="text-green-400 mx-auto mb-2" />
-            <p className="text-2xl font-bold text-green-400">₹2,450</p>
-            <p className="text-sm text-gray-400">Total Deposits</p>
+        {/* Quick Stats - Smaller */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div className="bg-black/60 backdrop-blur-sm rounded-lg p-3 border border-yellow-500/30 text-center shadow-lg">
+            <TrendingUp size={20} className="text-green-400 mx-auto mb-1" />
+            <p className="text-lg font-bold text-green-400">₹2,450</p>
+            <p className="text-xs text-gray-400">Total Deposits</p>
           </div>
-          <div className="bg-black/60 backdrop-blur-sm rounded-xl p-4 border border-yellow-500/30 text-center shadow-lg">
-            <TrendingDown size={24} className="text-red-400 mx-auto mb-2" />
-            <p className="text-2xl font-bold text-red-400">₹1,200</p>
-            <p className="text-sm text-gray-400">Total Withdrawals</p>
+          <div className="bg-black/60 backdrop-blur-sm rounded-lg p-3 border border-yellow-500/30 text-center shadow-lg">
+            <TrendingDown size={20} className="text-red-400 mx-auto mb-1" />
+            <p className="text-lg font-bold text-red-400">₹1,200</p>
+            <p className="text-xs text-gray-400">Total Withdrawals</p>
           </div>
-          <div className="bg-black/60 backdrop-blur-sm rounded-xl p-4 border border-yellow-500/30 text-center shadow-lg">
-            <Plus size={24} className="text-yellow-400 mx-auto mb-2" />
-            <p className="text-2xl font-bold text-yellow-400">₹850</p>
-            <p className="text-sm text-gray-400">Game Winnings</p>
+          <div className="bg-black/60 backdrop-blur-sm rounded-lg p-3 border border-yellow-500/30 text-center shadow-lg">
+            <Plus size={20} className="text-yellow-400 mx-auto mb-1" />
+            <p className="text-lg font-bold text-yellow-400">₹850</p>
+            <p className="text-xs text-gray-400">Game Winnings</p>
           </div>
-          <div className="bg-black/60 backdrop-blur-sm rounded-xl p-4 border border-yellow-500/30 text-center shadow-lg">
-            <History size={24} className="text-blue-400 mx-auto mb-2" />
-            <p className="text-2xl font-bold text-blue-400">24</p>
-            <p className="text-sm text-gray-400">Transactions</p>
+          <div className="bg-black/60 backdrop-blur-sm rounded-lg p-3 border border-yellow-500/30 text-center shadow-lg">
+            <History size={20} className="text-blue-400 mx-auto mb-1" />
+            <p className="text-lg font-bold text-blue-400">24</p>
+            <p className="text-xs text-gray-400">Transactions</p>
           </div>
         </div>
 
@@ -322,14 +313,16 @@ export default function WalletPage() {
         </div>
 
         {/* Security Notice */}
-        <div className="bg-gradient-to-r from-blue-900/50 to-purple-900/50 rounded-xl p-6 border border-blue-500/30 shadow-lg">
-          <h4 className="text-lg font-semibold mb-3 text-blue-400">🔒 Security Notice</h4>
+        <div className="bg-gradient-to-r from-blue-900/50 to-purple-900/50 rounded-xl p-4 border border-blue-500/30 shadow-lg">
+          <h4 className="text-lg font-semibold mb-2 text-blue-400">🔒 Security Notice</h4>
           <p className="text-blue-200 text-sm">
             Your wallet is protected with bank-level security. All transactions are encrypted and monitored 24/7. Never
-            share your login credentials with anyone. Contact support immediately if you notice any suspicious activity.
+            share your login credentials with anyone.
           </p>
         </div>
       </div>
+
+      <BottomNavigation />
     </div>
   )
 }

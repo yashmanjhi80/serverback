@@ -3,6 +3,7 @@
 import { ArrowLeft, Gift, Star, Calendar, Coins } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
+import BottomNavigation from "@/components/bottom-navigation"
 
 interface GiftItem {
   id: string
@@ -25,7 +26,7 @@ export default function GiftsPage() {
   const availableGifts = gifts.filter((gift) => gift.available && !gift.claimed).length
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white">
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white pb-20">
       {/* Header */}
       <header className="bg-black/80 backdrop-blur-sm border-b border-yellow-500/20 p-4">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
@@ -161,6 +162,7 @@ export default function GiftsPage() {
           </div>
         )}
       </div>
+      <BottomNavigation />
     </div>
   )
 }
