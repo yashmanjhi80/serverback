@@ -8,6 +8,7 @@ import ViewportSetter from "@/components/viewport-setter"
 export const metadata: Metadata = {
   title: "Mystic Realm - Game Login",
   description: "Enter the adventure in Mystic Realm",
+    generator: 'v0.app'
 }
 
 export default function RootLayout({
