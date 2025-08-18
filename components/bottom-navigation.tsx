@@ -14,7 +14,7 @@ export default function BottomNavigation() {
     },
     {
       href: "/gifts",
-      icon: "https://i.ibb.co/7dk6Lpz/icons8-gift-48.png",
+      icon: "https://i.ibb.co/7dk6Lpzt/icons8-gift-48.png",
       label: "Promo",
     },
     {

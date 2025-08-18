@@ -145,6 +145,7 @@ export default function DepositPage() {
           orderId,
           amount,
           username,
+          password,
           ip: "0.0.0.0",
           remark: `Deposit for user ${username} via ${selectedMethod}`,
         }),
