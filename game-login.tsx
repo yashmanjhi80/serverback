@@ -4,6 +4,7 @@ import type React from "react"
 import { useState, useEffect, useRef } from "react"
 import { Eye, EyeOff, Volume2, VolumeX, ArrowLeft } from "lucide-react"
 import { useRouter } from "next/navigation"
+import { APP_CONFIG, getStorageKey, isFeatureEnabled } from "@/config/app"
 
 export default function GameLogin() {
   const [username, setUsername] = useState("")
@@ -24,7 +25,7 @@ export default function GameLogin() {
   // Check if user is already logged in and redirect to home
   useEffect(() => {
     const checkExistingLogin = () => {
-      const storedCredentials = localStorage.getItem("userCredentials")
+      const storedCredentials = localStorage.getItem(getStorageKey("USER_CREDENTIALS"))
       if (storedCredentials) {
         try {
           const credentials = JSON.parse(storedCredentials)
@@ -34,7 +35,7 @@ export default function GameLogin() {
           }
         } catch (error) {
           console.error("Error parsing stored credentials:", error)
-          localStorage.removeItem("userCredentials")
+          localStorage.removeItem(getStorageKey("USER_CREDENTIALS"))
         }
       }
     }
@@ -43,13 +44,13 @@ export default function GameLogin() {
   }, [router])
 
   useEffect(() => {
-    if (backgroundMusicRef.current) {
-      backgroundMusicRef.current.volume = 0.3
+    if (backgroundMusicRef.current && isFeatureEnabled("MUSIC_ENABLED")) {
+      backgroundMusicRef.current.volume = APP_CONFIG.AUDIO.BACKGROUND_MUSIC_VOLUME
     }
   }, [])
 
   const toggleMusic = () => {
-    if (backgroundMusicRef.current) {
+    if (backgroundMusicRef.current && isFeatureEnabled("MUSIC_ENABLED")) {
       if (isMusicMuted) {
         backgroundMusicRef.current.muted = false
         backgroundMusicRef.current.play().catch((e) => console.error("Music play prevented:", e))
@@ -75,7 +76,7 @@ export default function GameLogin() {
 
   const makeApiRequest = async (endpoint: string, data: any) => {
     const controller = new AbortController()
-    const timeoutId = setTimeout(() => controller.abort(), 15000) // 15 second timeout
+    const timeoutId = setTimeout(() => controller.abort(), APP_CONFIG.API.TIMEOUT)
 
     try {
       const response = await fetch(`/api/auth${endpoint}`, {
@@ -142,11 +143,11 @@ export default function GameLogin() {
         loginTime: new Date().toISOString(),
       }
 
-      localStorage.setItem("userCredentials", JSON.stringify(userCredentials))
+      localStorage.setItem(getStorageKey("USER_CREDENTIALS"), JSON.stringify(userCredentials))
 
       // Store user data if provided (for backward compatibility)
       if (data.user) {
-        localStorage.setItem("userData", JSON.stringify(data.user))
+        localStorage.setItem(getStorageKey("USER_DATA"), JSON.stringify(data.user))
       }
 
       await new Promise((resolve) => setTimeout(resolve, 500))
@@ -179,16 +180,21 @@ export default function GameLogin() {
       return
     }
 
-    if (password.length < 6) {
-      setRegisterError("Password must be at least 6 characters long.")
+    if (password.length < APP_CONFIG.VALIDATION.PASSWORD.MIN_LENGTH) {
+      setRegisterError(`Password must be at least ${APP_CONFIG.VALIDATION.PASSWORD.MIN_LENGTH} characters long.`)
       setIsLoading(false)
       return
     }
 
-    // Username validation to match backend requirements
+    // Username validation using config
     const trimmedUsername = username.toLowerCase().trim()
-    if (trimmedUsername.length < 3 || trimmedUsername.length > 12) {
-      setRegisterError("Username must be 3-12 characters long.")
+    if (
+      trimmedUsername.length < APP_CONFIG.VALIDATION.USERNAME.MIN_LENGTH ||
+      trimmedUsername.length > APP_CONFIG.VALIDATION.USERNAME.MAX_LENGTH
+    ) {
+      setRegisterError(
+        `Username must be ${APP_CONFIG.VALIDATION.USERNAME.MIN_LENGTH}-${APP_CONFIG.VALIDATION.USERNAME.MAX_LENGTH} characters long.`,
+      )
       setIsLoading(false)
       return
     }
@@ -250,18 +256,22 @@ export default function GameLogin() {
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-gradient-to-br from-black via-gray-900 to-black">
       {/* Background Music */}
-      <audio ref={backgroundMusicRef} src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/casino-164235-cUCEIuEsbFSxYHamVkEpJSyuc2VQmu.mp3" loop muted={isMusicMuted} />
+      {isFeatureEnabled("MUSIC_ENABLED") && (
+        <audio ref={backgroundMusicRef} src={APP_CONFIG.AUDIO.ASSETS.BACKGROUND_MUSIC} loop muted={isMusicMuted} />
+      )}
       {/* Button Click Sound */}
-      <audio ref={buttonClickSoundRef} src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/button-305770-eNhAQVf6x4rLNcVuRBQ2Lq0WU30exr.mp3" />
+      <audio ref={buttonClickSoundRef} src={APP_CONFIG.AUDIO.ASSETS.BUTTON_CLICK} />
 
       {/* Music Toggle Button */}
-      <button
-        onClick={toggleMusic}
-        className="absolute top-4 right-4 z-20 p-2 rounded-full bg-black/70 border border-yellow-500/30 text-yellow-400 hover:bg-black/80 hover:border-yellow-400 transition-all duration-200"
-        aria-label={isMusicMuted ? "Unmute music" : "Mute music"}
-      >
-        {isMusicMuted ? <VolumeX size={24} /> : <Volume2 size={24} />}
-      </button>
+      {isFeatureEnabled("MUSIC_ENABLED") && (
+        <button
+          onClick={toggleMusic}
+          className="absolute top-4 right-4 z-20 p-2 rounded-full bg-black/70 border border-yellow-500/30 text-yellow-400 hover:bg-black/80 hover:border-yellow-400 transition-all duration-200"
+          aria-label={isMusicMuted ? "Unmute music" : "Mute music"}
+        >
+          {isMusicMuted ? <VolumeX size={24} /> : <Volume2 size={24} />}
+        </button>
+      )}
 
       {/* Main Container - Horizontal Layout */}
       <div className="flex min-h-screen">
@@ -279,9 +289,9 @@ export default function GameLogin() {
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
               <h1 className="text-6xl xl:text-7xl font-bold text-transparent bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500 bg-clip-text drop-shadow-2xl mb-4 font-serif">
-                MYSTIC REALM
+                {APP_CONFIG.APP_INFO.NAME.toUpperCase()}
               </h1>
-              <p className="text-yellow-200 text-2xl drop-shadow-lg font-medium">Enter the Adventure</p>
+              <p className="text-yellow-200 text-2xl drop-shadow-lg font-medium">{APP_CONFIG.APP_INFO.TAGLINE}</p>
             </div>
           </div>
         </div>
@@ -306,9 +316,9 @@ export default function GameLogin() {
               {/* Mobile Title (Only visible on mobile) */}
               <div className="text-center mb-8 lg:hidden">
                 <h1 className="text-4xl font-bold text-transparent bg-gradient-to-r from-yellow-400 to-yellow-300 bg-clip-text drop-shadow-lg mb-2 font-serif">
-                  MYSTIC REALM
+                  {APP_CONFIG.APP_INFO.NAME.toUpperCase()}
                 </h1>
-                <p className="text-yellow-200 text-lg drop-shadow-md font-medium">Enter the Adventure</p>
+                <p className="text-yellow-200 text-lg drop-shadow-md font-medium">{APP_CONFIG.APP_INFO.TAGLINE}</p>
               </div>
 
               {/* Back Button for Create Account */}
@@ -422,14 +432,14 @@ export default function GameLogin() {
                     <div className="relative w-full h-16 flex items-center px-8 bg-black/40 border border-yellow-500/30 rounded-lg backdrop-blur-sm">
                       <input
                         type="text"
-                        placeholder="Username (3-12 lowercase chars)"
+                        placeholder={`Username (${APP_CONFIG.VALIDATION.USERNAME.MIN_LENGTH}-${APP_CONFIG.VALIDATION.USERNAME.MAX_LENGTH} lowercase chars)`}
                         value={username}
                         onChange={(e) => setUsername(e.target.value.toLowerCase())}
                         className="w-full bg-transparent text-white placeholder-yellow-300/70 text-lg font-medium outline-none"
                         required
                         disabled={isLoading}
-                        minLength={3}
-                        maxLength={12}
+                        minLength={APP_CONFIG.VALIDATION.USERNAME.MIN_LENGTH}
+                        maxLength={APP_CONFIG.VALIDATION.USERNAME.MAX_LENGTH}
                       />
                     </div>
                   </div>
@@ -454,13 +464,13 @@ export default function GameLogin() {
                     <div className="relative w-full h-16 flex items-center px-8 bg-black/40 border border-yellow-500/30 rounded-lg backdrop-blur-sm">
                       <input
                         type={showPassword ? "text" : "password"}
-                        placeholder="Password (min 6 chars)"
+                        placeholder={`Password (min ${APP_CONFIG.VALIDATION.PASSWORD.MIN_LENGTH} chars)`}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         className="w-full bg-transparent text-white placeholder-yellow-300/70 text-lg font-medium outline-none pr-10"
                         required
                         disabled={isLoading}
-                        minLength={6}
+                        minLength={APP_CONFIG.VALIDATION.PASSWORD.MIN_LENGTH}
                       />
                       <button
                         type="button"
@@ -515,7 +525,7 @@ export default function GameLogin() {
 
               {/* Footer */}
               <div className="mt-8 text-center">
-                <p className="text-yellow-300/70 text-sm">© 2024 Mystic Realm. All rights reserved.</p>
+                <p className="text-yellow-300/70 text-sm">{APP_CONFIG.APP_INFO.COPYRIGHT}</p>
               </div>
             </div>
           </div>

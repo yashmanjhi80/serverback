@@ -1,6 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server"
-
-const API_BASE_URL = "https://congenial-space-computing-machine-p67v65p5wj4crpxw-4000.app.github.dev"
+import { getApiUrl } from "@/config/app"
 
 export async function GET(request: NextRequest) {
   try {
@@ -14,15 +13,14 @@ export async function GET(request: NextRequest) {
 
     console.log("Fetching balance for user:", username)
 
-    const response = await fetch(
-      `${API_BASE_URL}/balance?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
+    const balanceUrl = `${getApiUrl("BALANCE")}?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
+
+    const response = await fetch(balanceUrl, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
       },
-    )
+    })
 
     const data = await response.json()
     console.log("Balance API response:", data)

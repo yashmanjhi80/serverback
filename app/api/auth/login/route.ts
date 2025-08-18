@@ -1,6 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server"
-
-const API_BASE_URL = "https://congenial-space-computing-machine-p67v65p5wj4crpxw-4000.app.github.dev"
+import { getApiUrl } from "@/config/app"
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,7 +12,7 @@ export async function POST(request: NextRequest) {
 
     console.log("Proxying login request to backend for user:", body.username)
 
-    const response = await fetch(`${API_BASE_URL}/login`, {
+    const response = await fetch(getApiUrl("LOGIN"), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

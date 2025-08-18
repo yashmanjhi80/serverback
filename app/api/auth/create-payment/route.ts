@@ -1,6 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server"
-
-const API_BASE_URL = "https://congenial-space-computing-machine-p67v65p5wj4crpxw-4000.app.github.dev"
+import { APP_CONFIG, getApiUrl } from "@/config/app"
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,15 +13,18 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Validate minimum amount
+    // Validate minimum amount using config
     const amount = Number.parseInt(body.amount, 10)
-    if (isNaN(amount) || amount < 100) {
-      return NextResponse.json({ success: false, message: "Minimum deposit amount is ₹100" }, { status: 400 })
+    if (isNaN(amount) || amount < APP_CONFIG.PAYMENT.MIN_DEPOSIT) {
+      return NextResponse.json(
+        { success: false, message: `Minimum deposit amount is ₹${APP_CONFIG.PAYMENT.MIN_DEPOSIT}` },
+        { status: 400 },
+      )
     }
 
     console.log("Proxying payment creation request to backend for user:", body.username)
 
-    const response = await fetch(`${API_BASE_URL}/create-payment`, {
+    const response = await fetch(getApiUrl("CREATE_PAYMENT"), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

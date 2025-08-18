@@ -1,6 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server"
-
-const API_BASE_URL = "https://congenial-space-computing-machine-p67v65p5wj4crpxw-4000.app.github.dev"
+import { APP_CONFIG, getApiUrl } from "@/config/app"
 
 export async function GET(request: NextRequest) {
   try {
@@ -9,8 +8,8 @@ export async function GET(request: NextRequest) {
     const password = searchParams.get("password")
     const type = searchParams.get("type")
     const gameid = searchParams.get("gameid") || "0"
-    const lang = searchParams.get("lang") || "en-US"
-    const html5 = searchParams.get("html5") || "1"
+    const lang = searchParams.get("lang") || APP_CONFIG.GAME.DEFAULT_LANGUAGE
+    const html5 = searchParams.get("html5") || APP_CONFIG.GAME.HTML5_ENABLED
     const blimit = searchParams.get("blimit") || ""
 
     if (!username || !password || !type) {
@@ -36,7 +35,9 @@ export async function GET(request: NextRequest) {
       params.append("blimit", blimit)
     }
 
-    const response = await fetch(`${API_BASE_URL}/launch-game?${params.toString()}`, {
+    const launchGameUrl = `${getApiUrl("LAUNCH_GAME")}?${params.toString()}`
+
+    const response = await fetch(launchGameUrl, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
