@@ -394,14 +394,14 @@ export default function HomePage() {
           <div className="flex items-center space-x-2">
             <Link
               href="/deposit"
-              className="px-3 py-1.5 rounded-full bg-gradient-to-r from-yellow-600 to-yellow-400 text-black font-bold text-sm shadow-lg hover:scale-105 transition-transform flex items-center space-x-2"
+              className="px-2 py-1 rounded-full bg-gradient-to-r from-yellow-600 to-yellow-400 text-black font-bold text-xs shadow-lg hover:scale-105 transition-transform flex items-center space-x-2"
             >
               <img src="https://i.ibb.co/RGBYTTwB/Deposit-D0r-Ek-R4a.png" alt="Deposit" className="w-full h-6" />
               Deposit
             </Link>
             <Link
               href="/withdraw"
-              className="px-3 py-1.5 rounded-full bg-gradient-to-r from-yellow-600 to-yellow-400 text-black font-bold text-sm shadow-lg hover:scale-105 transition-transform flex items-center space-x-2"
+              className="px-2 py-1 rounded-full bg-gradient-to-r from-yellow-600 to-yellow-400 text-black font-bold text-xs shadow-lg hover:scale-105 transition-transform flex items-center space-x-2"
             >
               <img src="https://i.ibb.co/vv1Thd4c/Withdraw-DHhv-Ss-MY.png" alt="Withdraw" className="w-full h-6" />
               Withdraw
