@@ -1,6 +1,6 @@
 "use client"
 
-import { Star, HomeIcon, Search, RefreshCw, Wallet, Plus, Grid3X3, Gamepad2, Spade, Fish, Zap } from "lucide-react"
+import { Search, RefreshCw, Wallet, Plus, Grid3X3, Gamepad2, Spade, Fish, Zap } from "lucide-react"
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
@@ -329,8 +329,12 @@ export default function HomePage() {
       >
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <div className="flex items-center space-x-1">                          
-            <img src='https://i.ibb.co/B5bsQbr9/Picsart-25-08-19-19-18-32-062.png' alt="Telegram" className="w-full h-8" />
+            <div className="flex items-center space-x-1">
+              <img
+                src="https://i.ibb.co/B5bsQbr9/Picsart-25-08-19-19-18-32-062.png"
+                alt="Logo"
+                className="w-full h-8"
+              />
             </div>
           </div>
 
@@ -362,49 +366,48 @@ export default function HomePage() {
             </button>
           </div>
         </div>
+
         {/* Profile Section */}
-<div className="bg-black/80 border-b border-yellow-500/30 px-4 py-3 flex items-center justify-between">
-  {/* Left Side - Avatar & Username */}
-  <div className="flex items-center space-x-3">
-    <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-yellow-500/50">
-        <Link
-      href="/profile">
-      <Image
-        src="/profile-girl.jpeg"
-        alt="Profile"
-        width={40}
-        height={40}
-        className="object-cover w-full h-full"
-      />
-      </Link>
-    </div>
-    <div className="flex flex-col">
-      <span className="text-yellow-300 font-semibold text-sm">{username || "Player12345"}</span>
-      <span className="text-xs text-black-400 px-1.5 py-0.5 rounded-full bg-gradient-to-r from-yellow-600 to-yellow-400 
-      text-black font-bold text-sm shadow-lg hover:scale-105 transition-transform">VIP 0</span>
-    </div>
-  </div>
+        <div className="bg-black/80 border-b border-yellow-500/30 px-4 py-3 flex items-center justify-between">
+          {/* Left Side - Avatar & Username */}
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-yellow-500/50">
+              <Link href="/profile">
+                <Image
+                  src="/profile-girl.jpeg"
+                  alt="Profile"
+                  width={40}
+                  height={40}
+                  className="object-cover w-full h-full"
+                />
+              </Link>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-yellow-300 font-semibold text-sm">{username || "Player12345"}</span>
+              <span className="text-xs text-black px-1.5 py-0.5 rounded-full bg-gradient-to-r from-yellow-600 to-yellow-400 font-bold shadow-lg hover:scale-105 transition-transform">
+                VIP 0
+              </span>
+            </div>
+          </div>
 
-
-  {/* Right Side - Deposit & Withdraw */}
-  <div className="flex items-center space-x-2">
-    <Link
-      href="/deposit"
-      className="px-3 py-1.5 rounded-full bg-gradient-to-r from-yellow-600 to-yellow-400 
-      text-black font-bold text-sm shadow-lg hover:scale-105 transition-transform flex items-center space-x-2"
-    >            <img src='https://i.ibb.co/RGBYTTwB/Deposit-D0r-Ek-R4a.png' alt="Telegram" className="w-full h-6" />
-      Deposit
-    </Link>
-    <Link
-      href="/withdraw"
-      className="px-3 py-1.5 rounded-full bg-gradient-to-r from-yellow-600 to-yellow-400 
-      text-black font-bold text-sm shadow-lg hover:scale-105 transition-transform flex items-center space-x-2"
-    >            <img src='https://i.ibb.co/vv1Thd4c/Withdraw-DHhv-Ss-MY.png' alt="Telegram" className="w-full h-6" />
-      Withdraw
-    </Link>
-  </div>
-</div>
-
+          {/* Right Side - Deposit & Withdraw */}
+          <div className="flex items-center space-x-2">
+            <Link
+              href="/deposit"
+              className="px-3 py-1.5 rounded-full bg-gradient-to-r from-yellow-600 to-yellow-400 text-black font-bold text-sm shadow-lg hover:scale-105 transition-transform flex items-center space-x-2"
+            >
+              <img src="https://i.ibb.co/RGBYTTwB/Deposit-D0r-Ek-R4a.png" alt="Deposit" className="w-full h-6" />
+              Deposit
+            </Link>
+            <Link
+              href="/withdraw"
+              className="px-3 py-1.5 rounded-full bg-gradient-to-r from-yellow-600 to-yellow-400 text-black font-bold text-sm shadow-lg hover:scale-105 transition-transform flex items-center space-x-2"
+            >
+              <img src="https://i.ibb.co/vv1Thd4c/Withdraw-DHhv-Ss-MY.png" alt="Withdraw" className="w-full h-6" />
+              Withdraw
+            </Link>
+          </div>
+        </div>
       </header>
 
       {/* Floating Welcome Notification */}
