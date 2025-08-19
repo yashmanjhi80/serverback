@@ -1,408 +1,320 @@
 "use client"
 
-import type React from "react"
-import { useState, useEffect } from "react"
-import { ArrowLeft, Plus, CreditCard, Smartphone, Building, ExternalLink, CheckCircle, AlertCircle } from "lucide-react"
-import Link from "next/link"
+import { useState } from "react"
+import { ChevronLeft, FileText, Check } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { useToast } from "@/hooks/use-toast"
+import { useRouter } from "next/navigation"
 import BottomNavigation from "@/components/bottom-navigation"
 
-interface UserCredentials {
-  username: string
-  password: string
-  user?: {
-    username: string
-    email: string
-  }
-  loginTime: string
-}
+const presetAmounts = [
+  { amount: 100, bonus: 15 },
+  { amount: 200, bonus: 60 },
+  { amount: 300, bonus: 90 },
+  { amount: 500, bonus: 175 },
+  { amount: 1000, bonus: 450 },
+  { amount: 2000, bonus: 900 },
+  { amount: 3000, bonus: 1200 },
+  { amount: 5000, bonus: 1500 },
+  { amount: 10000, bonus: 3000 },
+  { amount: 20000, bonus: 4500 },
+  { amount: 30000, bonus: 6000 },
+  { amount: 50000, bonus: 7500 },
+]
 
-interface PaymentResponse {
-  status: number
-  msg: string
-  data: {
-    type: string
-    pay_url: string
-  }
-}
+const paymentMethods = [
+  { id: "lgpay", name: "LGPAY" },
+  { id: "fpay", name: "FPAY" },
+  { id: "stargo", name: "STARGO" },
+]
 
 export default function DepositPage() {
-  const [balance, setBalance] = useState<string>("Loading...")
-  const [username, setUsername] = useState<string>("")
-  const [isLoadingBalance, setIsLoadingBalance] = useState(true)
-  const [depositAmount, setDepositAmount] = useState("")
-  const [selectedMethod, setSelectedMethod] = useState("upi")
-  const [isProcessingPayment, setIsProcessingPayment] = useState(false)
-  const [paymentError, setPaymentError] = useState("")
-  const [paymentSuccess, setPaymentSuccess] = useState("")
+  const [selectedAmount, setSelectedAmount] = useState(1000)
+  const [selectedPromotion, setSelectedPromotion] = useState("bonus")
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("lgpay")
+  const [isLoading, setIsLoading] = useState(false)
+  const { toast } = useToast()
+  const router = useRouter()
 
-  const MIN_DEPOSIT = 100
-  const MAX_DEPOSIT = 50000
-
-  const paymentMethods = [
-    { id: "upi", name: "UPI", icon: <Smartphone size={20} />, description: "PhonePe, GPay, Paytm" },
-    { id: "netbanking", name: "Net Banking", icon: <Building size={20} />, description: "All major banks" },
-    { id: "card", name: "Debit/Credit Card", icon: <CreditCard size={20} />, description: "Visa, Mastercard" },
-  ]
-
-  const quickAmounts = [100, 500, 1000, 2000, 5000, 10000]
-
-  useEffect(() => {
-    const loadUserDataAndBalance = async () => {
-      try {
-        const storedCredentials = localStorage.getItem("userCredentials")
-        if (storedCredentials) {
-          const credentials: UserCredentials = JSON.parse(storedCredentials)
-          setUsername(credentials.username)
-          await fetchBalance(credentials.username, credentials.password)
-        } else {
-          setBalance("0")
-          setIsLoadingBalance(false)
-        }
-      } catch (error) {
-        console.error("Error loading user data:", error)
-        setBalance("Error")
-        setIsLoadingBalance(false)
-      }
-    }
-
-    loadUserDataAndBalance()
-  }, [])
-
-  const fetchBalance = async (username: string, password: string) => {
-    try {
-      setIsLoadingBalance(true)
-      const response = await fetch(
-        `/api/auth/balance?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`,
-      )
-      const data = await response.json()
-
-      if (data.success && data.data) {
-        const balanceValue = data.data.balance || data.data.rawResponse || "0"
-        setBalance(balanceValue.toString())
-      } else {
-        setBalance("Error")
-        console.error("Balance fetch failed:", data.message)
-      }
-    } catch (error) {
-      console.error("Error fetching balance:", error)
-      setBalance("Error")
-    } finally {
-      setIsLoadingBalance(false)
-    }
+  const handleAmountSelect = (amount: number) => {
+    setSelectedAmount(amount)
   }
 
-  const formatBalance = (balance: string) => {
-    if (balance === "Loading..." || balance === "Error") return balance
-    try {
-      const num = Number.parseFloat(balance)
-      if (isNaN(num)) return balance
-      return num.toLocaleString()
-    } catch {
-      return balance
-    }
+  const handlePromotionSelect = (promotion: string) => {
+    setSelectedPromotion(promotion)
   }
 
-  const generateOrderId = () => {
-    const timestamp = Date.now()
-    const random = Math.floor(Math.random() * 1000)
-      .toString()
-      .padStart(3, "0")
-    return `ORD${timestamp}${random}`
+  const handlePaymentMethodSelect = (method: string) => {
+    setSelectedPaymentMethod(method)
   }
 
-  const handleDeposit = async () => {
-    const amount = Number.parseInt(depositAmount, 10)
-
-    // Validation
-    if (!amount || amount < MIN_DEPOSIT) {
-      setPaymentError(`Minimum deposit amount is ₹${MIN_DEPOSIT}`)
+  const handlePayment = async () => {
+    if (selectedAmount < 100) {
+      toast({
+        title: "Invalid Amount",
+        description: "Minimum deposit amount is ₹100",
+        variant: "destructive",
+      })
       return
     }
 
-    if (amount > MAX_DEPOSIT) {
-      setPaymentError(`Maximum deposit amount is ₹${MAX_DEPOSIT}`)
+    if (selectedAmount > 50000) {
+      toast({
+        title: "Invalid Amount",
+        description: "Maximum deposit amount is ₹50,000",
+        variant: "destructive",
+      })
       return
     }
 
-    if (!username) {
-      setPaymentError("Please login to make a deposit")
-      return
-    }
-
-    setIsProcessingPayment(true)
-    setPaymentError("")
-    setPaymentSuccess("")
+    setIsLoading(true)
 
     try {
-      const orderId = generateOrderId()
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 2000))
 
-      const response = await fetch("/api/auth/create-payment", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          orderId,
-          amount,
-          username,
-          password,
-          ip: "0.0.0.0",
-          remark: `Deposit for user ${username} via ${selectedMethod}`,
-        }),
+      toast({
+        title: "Payment Initiated",
+        description: `Payment of ₹${selectedAmount} has been initiated successfully`,
       })
 
-      const paymentData: PaymentResponse = await response.json()
-
-      if (paymentData.status === 1 && paymentData.data?.pay_url) {
-        setPaymentSuccess("Redirecting to payment gateway...")
-
-        window.open(paymentData.data.pay_url, "_blank", "noopener,noreferrer")
-
-        setDepositAmount("")
-
-        setTimeout(() => {
-          setPaymentSuccess("Payment initiated successfully! Complete the payment in the new window.")
-        }, 1000)
-      } else {
-        setPaymentError(paymentData.msg || "Failed to create payment")
-      }
+      // Redirect to payment gateway (simulated)
+      setTimeout(() => {
+        router.push("/wallet")
+      }, 1000)
     } catch (error) {
-      console.error("Payment creation error:", error)
-      setPaymentError("Failed to create payment. Please try again.")
+      toast({
+        title: "Payment Failed",
+        description: "Failed to initiate payment. Please try again.",
+        variant: "destructive",
+      })
     } finally {
-      setIsProcessingPayment(false)
+      setIsLoading(false)
     }
   }
 
-  const handleDepositAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
-    setDepositAmount(value)
-    setPaymentError("")
-    setPaymentSuccess("")
-  }
-
-  const refreshBalance = async () => {
-    const storedCredentials = localStorage.getItem("userCredentials")
-    if (storedCredentials) {
-      const credentials: UserCredentials = JSON.parse(storedCredentials)
-      await fetchBalance(credentials.username, credentials.password)
-    }
-  }
+  const selectedPreset = presetAmounts.find((preset) => preset.amount === selectedAmount)
+  const bonusAmount = selectedPreset ? selectedPreset.bonus : 0
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white pb-20">
       {/* Header */}
-      <header className="bg-black/80 backdrop-blur-sm border-b border-yellow-500/20 p-4">
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <Link
-            href="/wallet"
-            className="flex items-center space-x-2 text-white hover:text-yellow-400 transition-colors"
-          >
-            <ArrowLeft size={24} />
-            <span className="font-semibold">Back to Wallet</span>
-          </Link>
-          <h1 className="text-2xl font-bold flex items-center space-x-2">
-            <Plus size={28} className="text-yellow-400" />
-            <span className="text-yellow-400">Deposit Funds</span>
-          </h1>
-          <div className="text-right">
-            <p className="text-sm text-gray-400">Balance</p>
-            <p className="font-bold text-yellow-300">
-              {isLoadingBalance ? "Loading..." : `₹${formatBalance(balance)}`}
-            </p>
-          </div>
-        </div>
+      <header className="flex items-center justify-between p-4 bg-black/80 backdrop-blur-md shadow-2xl border-b border-yellow-500/20">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="text-yellow-400 hover:bg-yellow-500/10 transition-all duration-200"
+          onClick={() => router.back()}
+        >
+          <ChevronLeft className="h-6 w-6" />
+        </Button>
+
+        <h1 className="text-white text-base font-semibold text-center flex-1 px-2">Deposit</h1>
+
+        <Button
+          variant="ghost"
+          size="icon"
+          className="text-yellow-400 hover:bg-yellow-500/10 transition-all duration-200"
+        >
+          <FileText className="h-5 w-5" />
+        </Button>
       </header>
 
-      <div className="max-w-4xl mx-auto p-6 space-y-8">
-        {/* Current Balance Card */}
-        <div className="bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-600 rounded-2xl p-6 shadow-2xl border border-yellow-400/30">
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-lg font-medium text-black mb-1">Current Balance</h2>
-              <div className="text-3xl font-bold text-black">
-                {isLoadingBalance ? (
-                  <span className="animate-pulse">Loading...</span>
-                ) : (
-                  <span>₹{formatBalance(balance)}</span>
-                )}
-              </div>
+      <div className="px-4 py-6 max-w-md mx-auto">
+        {/* Deposit Amount Section */}
+        <div className="mb-6">
+          <div className="flex justify-between items-center mb-3">
+            <span className="text-white text-xs font-medium">Deposit Amount</span>
+            <div className="text-gray-300 text-xs">
+              <span>Min: ₹100</span>
+              <span className="ml-3">Max: ₹50000</span>
             </div>
-            <button
-              onClick={refreshBalance}
-              disabled={isLoadingBalance}
-              className="px-4 py-2 bg-black/20 hover:bg-black/30 rounded-lg text-sm transition-colors disabled:opacity-50 text-black font-medium"
-            >
-              {isLoadingBalance ? "Refreshing..." : "Refresh"}
-            </button>
+          </div>
+
+          {/* Amount Input Field */}
+          <div className="mb-6">
+            <Input
+              type="number"
+              value={selectedAmount}
+              onChange={(e) => setSelectedAmount(Number(e.target.value))}
+              className="w-full text-yellow-400 text-2xl font-bold text-center py-3 h-auto bg-black/50 border-yellow-500/30 focus:border-yellow-400"
+              placeholder="Enter amount"
+              min={100}
+              max={50000}
+            />
+          </div>
+
+          {/* Preset Amount Cards */}
+          <div className="grid grid-cols-4 gap-1.5 mb-6">
+            {presetAmounts.map((preset) => (
+              <div
+                key={preset.amount}
+                className={`relative cursor-pointer rounded-lg p-2 text-center border transition-all duration-200 ${
+                  selectedAmount === preset.amount
+                    ? "bg-yellow-400/20 border-yellow-400 text-yellow-400"
+                    : "bg-black/50 border-yellow-500/30 text-white hover:bg-yellow-500/10"
+                }`}
+                onClick={() => handleAmountSelect(preset.amount)}
+              >
+                <div className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs px-1 py-0.5 rounded-full font-semibold leading-none">
+                  +{preset.bonus}
+                </div>
+                <div className="font-bold text-xs">₹{preset.amount.toLocaleString()}</div>
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* Payment Status Messages */}
-        {paymentError && (
-          <div className="bg-red-900/30 border border-red-500/50 rounded-xl p-4 backdrop-blur-sm flex items-center space-x-3">
-            <AlertCircle size={20} className="text-red-400 flex-shrink-0" />
-            <p className="text-red-300">{paymentError}</p>
-          </div>
-        )}
+        {/* Payment Methods Section */}
+        <div className="mb-6">
+          <h3 className="text-white text-xs font-medium mb-3">Payment Methods</h3>
 
-        {paymentSuccess && (
-          <div className="bg-green-900/30 border border-green-500/50 rounded-xl p-4 backdrop-blur-sm flex items-center space-x-3">
-            <CheckCircle size={20} className="text-green-400 flex-shrink-0" />
-            <p className="text-green-300 flex items-center gap-2">
-              {paymentSuccess}
-              {paymentSuccess.includes("new window") && <ExternalLink size={16} />}
-            </p>
+          <div className="grid grid-cols-3 gap-2 mb-4">
+            {paymentMethods.map((method) => (
+              <div
+                key={method.id}
+                className={`rounded-lg p-2.5 text-center cursor-pointer border transition-all duration-200 ${
+                  selectedPaymentMethod === method.id
+                    ? "bg-yellow-400/20 border-yellow-400 text-yellow-400"
+                    : "bg-black/50 border-yellow-500/30 text-white hover:bg-yellow-500/10"
+                }`}
+                onClick={() => handlePaymentMethodSelect(method.id)}
+              >
+                <div className="font-semibold text-xs">{method.name}</div>
+              </div>
+            ))}
           </div>
-        )}
+        </div>
 
-        {/* Deposit Form */}
-        <div className="bg-black/60 backdrop-blur-sm rounded-xl p-8 border border-yellow-500/30 shadow-lg">
-          <h3 className="text-2xl font-bold mb-6 text-yellow-400 flex items-center space-x-2">
-            <Plus size={24} />
-            <span>Add Money to Wallet</span>
+        {/* Deposit Event Section */}
+        <div className="mb-6">
+          <h3 className="text-white text-xs font-medium mb-3">
+            Deposit Event<span className="text-yellow-400 ml-1">*</span>
           </h3>
 
-          {/* Amount Input */}
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-yellow-300 mb-2">Enter Amount</label>
-            <input
-              type="number"
-              placeholder={`Enter amount (₹${MIN_DEPOSIT} - ₹${MAX_DEPOSIT.toLocaleString()})`}
-              value={depositAmount}
-              onChange={handleDepositAmountChange}
-              min={MIN_DEPOSIT}
-              max={MAX_DEPOSIT}
-              className="w-full px-4 py-4 bg-black/40 border border-yellow-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-lg"
-            />
-            <p className="text-sm text-gray-400 mt-2">
-              Minimum: ₹{MIN_DEPOSIT} | Maximum: ₹{MAX_DEPOSIT.toLocaleString()}
-            </p>
-          </div>
+          <div className="grid grid-cols-2 gap-2">
+            {/* Promotion Option */}
+            <div
+              className={`rounded-lg p-3 cursor-pointer border transition-all duration-200 ${
+                selectedPromotion === "bonus"
+                  ? "bg-yellow-400/20 border-yellow-400"
+                  : "bg-black/50 border-yellow-500/30 hover:bg-yellow-500/10"
+              }`}
+              onClick={() => handlePromotionSelect("bonus")}
+            >
+              <div className="text-center">
+                <h4 className="text-yellow-400 font-bold text-xs">Deposit Cash</h4>
+                <h4 className="text-yellow-400 font-bold text-xs">Bonus Multiplier</h4>
+                {selectedPromotion === "bonus" && <Check className="w-4 h-4 text-yellow-400 mx-auto mt-1" />}
+              </div>
+            </div>
 
-          {/* Quick Amount Buttons */}
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-yellow-300 mb-3">Quick Select</label>
-            <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
-              {quickAmounts.map((amount) => (
-                <button
-                  key={amount}
-                  onClick={() => setDepositAmount(amount.toString())}
-                  className="px-4 py-3 bg-black/40 hover:bg-yellow-500/20 border border-yellow-500/30 rounded-lg text-sm transition-colors text-yellow-300 hover:text-yellow-200 hover:border-yellow-400/50 font-medium"
-                >
-                  ₹{amount.toLocaleString()}
-                </button>
-              ))}
+            {/* No Promotion Option */}
+            <div
+              className={`rounded-lg p-3 cursor-pointer border transition-all duration-200 ${
+                selectedPromotion === "none"
+                  ? "bg-yellow-400/20 border-yellow-400"
+                  : "bg-black/50 border-yellow-500/30 hover:bg-yellow-500/10"
+              }`}
+              onClick={() => handlePromotionSelect("none")}
+            >
+              <div className="text-center">
+                <h4 className="text-gray-300 font-semibold text-xs">No promotion</h4>
+                {selectedPromotion === "none" && <Check className="w-4 h-4 text-yellow-400 mx-auto mt-1" />}
+              </div>
             </div>
           </div>
+        </div>
 
-          {/* Payment Methods */}
-          <div className="mb-8">
-            <label className="block text-sm font-medium text-yellow-300 mb-3">Select Payment Method</label>
-            <div className="grid md:grid-cols-3 gap-4">
-              {paymentMethods.map((method) => (
-                <button
-                  key={method.id}
-                  onClick={() => setSelectedMethod(method.id)}
-                  className={`p-4 rounded-lg border transition-all duration-200 text-left ${
-                    selectedMethod === method.id
-                      ? "bg-yellow-500/20 border-yellow-400 text-yellow-300"
-                      : "bg-black/40 border-yellow-500/30 text-gray-300 hover:bg-black/60 hover:border-yellow-400/50"
-                  }`}
-                >
-                  <div className="flex items-center space-x-3 mb-2">
-                    {method.icon}
-                    <span className="font-semibold">{method.name}</span>
-                  </div>
-                  <p className="text-sm opacity-80">{method.description}</p>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Deposit Button */}
-          <button
-            onClick={handleDeposit}
-            disabled={
-              !depositAmount ||
-              Number.parseInt(depositAmount) < MIN_DEPOSIT ||
-              Number.parseInt(depositAmount) > MAX_DEPOSIT ||
-              isProcessingPayment
-            }
-            className="w-full bg-gradient-to-r from-yellow-600 to-yellow-500 hover:from-yellow-700 hover:to-yellow-600 disabled:from-gray-600 disabled:to-gray-700 disabled:cursor-not-allowed text-black font-bold py-4 rounded-lg transition-all duration-200 flex items-center justify-center space-x-2 shadow-lg text-lg"
+        {/* Pay Now Button */}
+        <div className="mb-6">
+          <Button
+            className="w-full py-3 h-auto bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-bold text-base disabled:opacity-50"
+            onClick={handlePayment}
+            disabled={isLoading}
           >
-            {isProcessingPayment ? (
-              <>
-                <div className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
-                <span>Processing Payment...</span>
-              </>
-            ) : (
-              <>
-                <Plus size={20} />
-                <span>Deposit ₹{depositAmount || "0"}</span>
-              </>
-            )}
-          </button>
+            {isLoading ? "Processing..." : `Pay Now ₹${selectedAmount}`}
+          </Button>
         </div>
 
-        {/* Security & Info */}
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="bg-black/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30 shadow-lg">
-            <h4 className="text-lg font-semibold mb-3 text-yellow-400">🔒 Secure Payments</h4>
-            <ul className="space-y-2 text-sm text-gray-300">
-              <li>• 256-bit SSL encryption</li>
-              <li>• PCI DSS compliant</li>
-              <li>• Instant processing</li>
-              <li>• 24/7 fraud monitoring</li>
-            </ul>
-          </div>
+        {/* Promotional Text */}
+        <div className="mb-6 space-y-3">
+          <p className="text-yellow-400 text-xs leading-relaxed">
+            To participate in this promotion, your withdrawal must meet the wagering requirements.
+          </p>
 
-          <div className="bg-black/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30 shadow-lg">
-            <h4 className="text-lg font-semibold mb-3 text-yellow-400">⚡ Quick Facts</h4>
-            <ul className="space-y-2 text-sm text-gray-300">
-              <li>• Instant balance update</li>
-              <li>• No hidden charges</li>
-              <li>• Multiple payment options</li>
-              <li>• 24/7 customer support</li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Payment Instructions */}
-        <div className="bg-black/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30 shadow-lg">
-          <h3 className="text-xl font-semibold mb-4 text-yellow-400">How to Deposit</h3>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="space-y-3 text-sm text-gray-300">
-              <div className="flex items-start space-x-2">
-                <span className="text-yellow-400 font-bold">1.</span>
-                <span>Enter the amount you want to deposit</span>
+          {/* Additional Information */}
+          <div className="bg-black/50 rounded-lg p-3 border border-yellow-500/30">
+            <div className="space-y-2 text-xs text-white">
+              <div>
+                <span className="text-yellow-400 font-semibold">1.</span> Congratulations on obtaining the "
+                <span className="text-yellow-400">Deposit Cash Bonus Multiplier</span>" privilege.
               </div>
-              <div className="flex items-start space-x-2">
-                <span className="text-yellow-400 font-bold">2.</span>
-                <span>Select your preferred payment method</span>
+              <div>
+                <span className="text-yellow-400 font-semibold">2.</span> The privilege is valid for 2 hours.
               </div>
-              <div className="flex items-start space-x-2">
-                <span className="text-yellow-400 font-bold">3.</span>
-                <span>Click "Deposit" to proceed to payment gateway</span>
+              <div>
+                <span className="text-yellow-400 font-semibold">3.</span> Maximum deposit time is 6 times during the
+                privilege period.
+              </div>
+              <div>
+                <span className="text-yellow-400 font-semibold">4.</span> With each deposit, the cash bonus doubles.
+              </div>
+              <div>
+                <span className="text-yellow-400 font-semibold">5.</span> All deposit cash bonuses will be credited to
+                your account at once.
+              </div>
+              <div>
+                <span className="text-yellow-400 font-semibold">8.</span> Deposits to{" "}
+                <span className="text-yellow-400 font-bold">MYSTIC REALM</span> are typically credited within 1 to 5
+                minutes.
+              </div>
+              <div>
+                <span className="text-yellow-400 font-semibold">9.</span> If your deposit has not been credited within
+                30 minutes, please contact customer service or upload your UTR for self-service processing.
               </div>
             </div>
-            <div className="space-y-3 text-sm text-gray-300">
-              <div className="flex items-start space-x-2">
-                <span className="text-yellow-400 font-bold">4.</span>
-                <span>Complete payment using your chosen method</span>
+          </div>
+
+          {/* Deposit Bonus Table */}
+          <div className="bg-black/50 rounded-lg overflow-hidden border border-yellow-500/30">
+            <div className="grid grid-cols-2">
+              <div className="bg-yellow-400/20 text-yellow-400 text-center py-2 font-semibold text-xs border-r border-yellow-500/30">
+                Deposit times
               </div>
-              <div className="flex items-start space-x-2">
-                <span className="text-yellow-400 font-bold">5.</span>
-                <span>Your balance will be updated instantly</span>
+              <div className="bg-yellow-400/20 text-yellow-400 text-center py-2 font-semibold text-xs">Cash Bonus</div>
+            </div>
+            <div className="divide-y divide-yellow-500/20">
+              <div className="grid grid-cols-2">
+                <div className="text-white p-2 text-center text-xs border-r border-yellow-500/20">1st deposit ₹500</div>
+                <div className="text-white p-2 text-center text-xs">₹500</div>
               </div>
-              <div className="flex items-start space-x-2">
-                <span className="text-yellow-400 font-bold">6.</span>
-                <span>Start playing your favorite games!</span>
+              <div className="grid grid-cols-2">
+                <div className="text-white p-2 text-center text-xs border-r border-yellow-500/20">2nd deposit ₹500</div>
+                <div className="text-white p-2 text-center text-xs">₹1000</div>
+              </div>
+              <div className="grid grid-cols-2">
+                <div className="text-white p-2 text-center text-xs border-r border-yellow-500/20">3rd deposit ₹500</div>
+                <div className="text-white p-2 text-center text-xs">₹1500</div>
+              </div>
+              <div className="grid grid-cols-2">
+                <div className="text-white p-2 text-center text-xs border-r border-yellow-500/20">4th deposit ₹500</div>
+                <div className="text-white p-2 text-center text-xs">₹2000</div>
+              </div>
+              <div className="grid grid-cols-2">
+                <div className="text-white p-2 text-center text-xs border-r border-yellow-500/20">5th deposit ₹500</div>
+                <div className="text-white p-2 text-center text-xs">₹2500</div>
+              </div>
+              <div className="grid grid-cols-2">
+                <div className="text-white p-2 text-center text-xs border-r border-yellow-500/20">6th deposit ₹500</div>
+                <div className="text-white p-2 text-center text-xs">₹3000</div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
       <BottomNavigation />
     </div>
   )

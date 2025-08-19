@@ -1,7 +1,6 @@
 "use client"
-
 import { useState, useEffect } from "react"
-import { ArrowLeft, Plus, Minus, Wallet, TrendingUp, TrendingDown, RefreshCw, History, CreditCard } from "lucide-react"
+import { ArrowLeft, Plus, Minus, CreditCard, TrendingUp, Eye, EyeOff, RefreshCw } from "lucide-react"
 import Link from "next/link"
 import BottomNavigation from "@/components/bottom-navigation"
 
@@ -15,47 +14,11 @@ interface UserCredentials {
   loginTime: string
 }
 
-interface Transaction {
-  id: string
-  type: "deposit" | "withdrawal" | "game_win" | "game_loss"
-  amount: number
-  status: "completed" | "pending" | "failed"
-  timestamp: string
-  description: string
-}
-
 export default function WalletPage() {
   const [balance, setBalance] = useState<string>("Loading...")
   const [username, setUsername] = useState<string>("")
   const [isLoadingBalance, setIsLoadingBalance] = useState(true)
-
-  // Mock transaction data - in real app, this would come from API
-  const [transactions] = useState<Transaction[]>([
-    {
-      id: "1",
-      type: "deposit",
-      amount: 1000,
-      status: "completed",
-      timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
-      description: "Deposit via UPI",
-    },
-    {
-      id: "2",
-      type: "game_win",
-      amount: 250,
-      status: "completed",
-      timestamp: new Date(Date.now() - 5 * 60 * 60 * 1000).toISOString(),
-      description: "Won in Color Prediction",
-    },
-    {
-      id: "3",
-      type: "withdrawal",
-      amount: 500,
-      status: "pending",
-      timestamp: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
-      description: "Withdrawal to Bank Account",
-    },
-  ])
+  const [showBalance, setShowBalance] = useState(true)
 
   useEffect(() => {
     const loadUserDataAndBalance = async () => {
@@ -121,45 +84,6 @@ export default function WalletPage() {
     }
   }
 
-  const formatTransactionTime = (timestamp: string) => {
-    const date = new Date(timestamp)
-    const now = new Date()
-    const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60))
-
-    if (diffInHours < 1) return "Just now"
-    if (diffInHours < 24) return `${diffInHours}h ago`
-    if (diffInHours < 48) return "Yesterday"
-    return date.toLocaleDateString()
-  }
-
-  const getTransactionIcon = (type: string) => {
-    switch (type) {
-      case "deposit":
-        return <Plus size={16} className="text-green-400" />
-      case "withdrawal":
-        return <Minus size={16} className="text-red-400" />
-      case "game_win":
-        return <TrendingUp size={16} className="text-green-400" />
-      case "game_loss":
-        return <TrendingDown size={16} className="text-red-400" />
-      default:
-        return <CreditCard size={16} className="text-gray-400" />
-    }
-  }
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "completed":
-        return "text-green-400"
-      case "pending":
-        return "text-yellow-400"
-      case "failed":
-        return "text-red-400"
-      default:
-        return "text-gray-400"
-    }
-  }
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white pb-20">
       {/* Header */}
@@ -169,156 +93,142 @@ export default function WalletPage() {
             <ArrowLeft size={24} />
             <span className="font-semibold">Back to Home</span>
           </Link>
-          <h1 className="text-2xl font-bold flex items-center space-x-2">
-            <Wallet size={28} className="text-yellow-400" />
-            <span className="text-yellow-400">My Wallet</span>
-          </h1>
-          <div className="text-right">
-            <p className="text-sm text-gray-400">Welcome</p>
-            <p className="font-semibold text-yellow-300">{username}</p>
-          </div>
+          <h1 className="text-2xl font-bold text-yellow-400">My Wallet</h1>
+          <button
+            onClick={refreshBalance}
+            disabled={isLoadingBalance}
+            className="p-2 text-yellow-400 hover:text-yellow-300 transition-colors disabled:opacity-50"
+          >
+            <RefreshCw size={20} className={isLoadingBalance ? "animate-spin" : ""} />
+          </button>
         </div>
       </header>
 
       <div className="max-w-4xl mx-auto p-6 space-y-6">
         {/* Balance Card */}
         <div className="bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-600 rounded-2xl p-6 shadow-2xl border border-yellow-400/30">
-          <div className="text-center">
-            <h2 className="text-lg font-medium text-black mb-2">Total Balance</h2>
-            <div className="text-4xl font-bold mb-4 text-black">
-              {isLoadingBalance ? (
-                <span className="animate-pulse">Loading...</span>
-              ) : (
-                <span>₹{formatBalance(balance)}</span>
-              )}
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h2 className="text-lg font-medium text-black mb-1">Total Balance</h2>
+              <div className="flex items-center space-x-3">
+                <div className="text-3xl font-bold text-black">
+                  {showBalance ? (
+                    isLoadingBalance ? (
+                      <span className="animate-pulse">Loading...</span>
+                    ) : (
+                      <span>₹{formatBalance(balance)}</span>
+                    )
+                  ) : (
+                    <span>₹****</span>
+                  )}
+                </div>
+                <button
+                  onClick={() => setShowBalance(!showBalance)}
+                  className="p-2 bg-black/20 hover:bg-black/30 rounded-lg transition-colors"
+                >
+                  {showBalance ? <EyeOff size={20} className="text-black" /> : <Eye size={20} className="text-black" />}
+                </button>
+              </div>
             </div>
-            <p className="text-black/80 mb-4">Available for withdrawal</p>
-            <button
-              onClick={refreshBalance}
-              disabled={isLoadingBalance}
-              className="inline-flex items-center space-x-2 px-4 py-2 bg-black/20 hover:bg-black/30 rounded-lg text-sm transition-colors disabled:opacity-50 text-black font-medium"
-            >
-              <RefreshCw size={16} className={isLoadingBalance ? "animate-spin" : ""} />
-              <span>{isLoadingBalance ? "Refreshing..." : "Refresh Balance"}</span>
-            </button>
+            <div className="text-right">
+              <p className="text-sm text-black/70">User</p>
+              <p className="font-semibold text-black">{username || "Guest"}</p>
+            </div>
           </div>
-        </div>
-
-        {/* Action Buttons - Smaller Size */}
-        <div className="grid grid-cols-2 gap-4">
-          {/* Deposit Button */}
-          <Link
-            href="/deposit"
-            className="group bg-black/60 backdrop-blur-sm rounded-xl p-4 border border-yellow-500/30 hover:bg-black/80 hover:border-yellow-400/50 transition-all duration-200 shadow-lg text-center"
-          >
-            <div className="flex flex-col items-center space-y-3">
-              <div className="p-3 bg-yellow-500/20 rounded-full group-hover:bg-yellow-500/30 transition-colors border border-yellow-500/30 group-hover:scale-110 duration-200">
-                <Plus size={24} className="text-yellow-400" />
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-yellow-400 mb-1">Deposit</h3>
-                <p className="text-gray-300 text-sm">Add funds to wallet</p>
-              </div>
-            </div>
-          </Link>
 
           {/* Withdraw Button */}
           <Link
             href="/withdraw"
-            className="group bg-black/60 backdrop-blur-sm rounded-xl p-4 border border-yellow-500/30 hover:bg-black/80 hover:border-yellow-400/50 transition-all duration-200 shadow-lg text-center"
+            className="w-full bg-black/20 hover:bg-black/30 text-black font-bold py-3 rounded-lg transition-all duration-200 flex items-center justify-center space-x-2 shadow-lg"
           >
-            <div className="flex flex-col items-center space-y-3">
-              <div className="p-3 bg-yellow-500/20 rounded-full group-hover:bg-yellow-500/30 transition-colors border border-yellow-500/30 group-hover:scale-110 duration-200">
-                <Minus size={24} className="text-yellow-400" />
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-yellow-400 mb-1">Withdraw</h3>
-                <p className="text-gray-300 text-sm">Transfer to account</p>
-              </div>
-            </div>
+            <Minus size={20} />
+            <span>Withdraw</span>
           </Link>
         </div>
 
-        {/* Quick Stats - Smaller */}
+        {/* Quick Actions - Smaller Grid */}
+        <div className="grid grid-cols-2 gap-4">
+          <Link
+            href="/deposit"
+            className="bg-black/60 backdrop-blur-sm rounded-xl p-4 border border-yellow-500/30 hover:bg-black/80 hover:border-yellow-400/50 transition-all duration-200 shadow-lg text-center group"
+          >
+            <div className="w-12 h-12 bg-yellow-500/20 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:bg-yellow-500/30 transition-colors border border-yellow-400/30">
+              <Plus size={24} className="text-yellow-400" />
+            </div>
+            <h3 className="text-lg font-semibold text-yellow-400 mb-1">Deposit</h3>
+            <p className="text-gray-300 text-sm">Add money to wallet</p>
+          </Link>
+
+          <div className="bg-black/60 backdrop-blur-sm rounded-xl p-4 border border-yellow-500/30 hover:bg-black/80 hover:border-yellow-400/50 transition-all duration-200 shadow-lg text-center group cursor-pointer">
+            <div className="w-12 h-12 bg-yellow-500/20 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:bg-yellow-500/30 transition-colors border border-yellow-400/30">
+              <TrendingUp size={24} className="text-yellow-400" />
+            </div>
+            <h3 className="text-lg font-semibold text-yellow-400 mb-1">History</h3>
+            <p className="text-gray-300 text-sm">Transaction history</p>
+          </div>
+        </div>
+
+        {/* Stats Grid - Smaller */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          <div className="bg-black/60 backdrop-blur-sm rounded-lg p-3 border border-yellow-500/30 text-center shadow-lg">
-            <TrendingUp size={20} className="text-green-400 mx-auto mb-1" />
-            <p className="text-lg font-bold text-green-400">₹2,450</p>
-            <p className="text-xs text-gray-400">Total Deposits</p>
+          <div className="bg-black/60 backdrop-blur-sm rounded-xl p-3 border border-yellow-500/30 text-center shadow-lg">
+            <CreditCard size={20} className="text-yellow-400 mx-auto mb-2" />
+            <p className="text-lg font-bold text-yellow-400">₹0</p>
+            <p className="text-xs text-gray-400">Today's Deposit</p>
           </div>
-          <div className="bg-black/60 backdrop-blur-sm rounded-lg p-3 border border-yellow-500/30 text-center shadow-lg">
-            <TrendingDown size={20} className="text-red-400 mx-auto mb-1" />
-            <p className="text-lg font-bold text-red-400">₹1,200</p>
-            <p className="text-xs text-gray-400">Total Withdrawals</p>
+          <div className="bg-black/60 backdrop-blur-sm rounded-xl p-3 border border-yellow-500/30 text-center shadow-lg">
+            <Minus size={20} className="text-red-400 mx-auto mb-2" />
+            <p className="text-lg font-bold text-red-400">₹0</p>
+            <p className="text-xs text-gray-400">Today's Withdraw</p>
           </div>
-          <div className="bg-black/60 backdrop-blur-sm rounded-lg p-3 border border-yellow-500/30 text-center shadow-lg">
-            <Plus size={20} className="text-yellow-400 mx-auto mb-1" />
-            <p className="text-lg font-bold text-yellow-400">₹850</p>
-            <p className="text-xs text-gray-400">Game Winnings</p>
+          <div className="bg-black/60 backdrop-blur-sm rounded-xl p-3 border border-yellow-500/30 text-center shadow-lg">
+            <TrendingUp size={20} className="text-green-400 mx-auto mb-2" />
+            <p className="text-lg font-bold text-green-400">₹0</p>
+            <p className="text-xs text-gray-400">Today's Profit</p>
           </div>
-          <div className="bg-black/60 backdrop-blur-sm rounded-lg p-3 border border-yellow-500/30 text-center shadow-lg">
-            <History size={20} className="text-blue-400 mx-auto mb-1" />
-            <p className="text-lg font-bold text-blue-400">24</p>
-            <p className="text-xs text-gray-400">Transactions</p>
+          <div className="bg-black/60 backdrop-blur-sm rounded-xl p-3 border border-yellow-500/30 text-center shadow-lg">
+            <Plus size={20} className="text-blue-400 mx-auto mb-2" />
+            <p className="text-lg font-bold text-blue-400">₹0</p>
+            <p className="text-xs text-gray-400">Total Bonus</p>
           </div>
         </div>
 
         {/* Recent Transactions */}
         <div className="bg-black/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30 shadow-lg">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-xl font-semibold text-yellow-400 flex items-center space-x-2">
-              <History size={24} />
-              <span>Recent Transactions</span>
-            </h3>
-            <button className="text-yellow-400 hover:text-yellow-300 text-sm font-medium">View All</button>
-          </div>
-
-          {transactions.length === 0 ? (
-            <div className="text-center py-8 text-gray-400">
-              <div className="w-16 h-16 bg-yellow-500/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-yellow-500/20">
-                <History size={32} className="text-yellow-500/50" />
+          <h3 className="text-xl font-semibold text-yellow-400 mb-4">Recent Transactions</h3>
+          <div className="space-y-3">
+            <div className="text-center py-8">
+              <div className="w-16 h-16 bg-yellow-500/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-yellow-400/30">
+                <CreditCard size={32} className="text-yellow-400" />
               </div>
-              <p className="text-lg font-medium">No transactions yet</p>
-              <p className="text-sm">Your transaction history will appear here</p>
+              <p className="text-gray-400">No transactions yet</p>
+              <p className="text-sm text-gray-500 mt-2">Your transaction history will appear here</p>
             </div>
-          ) : (
-            <div className="space-y-4">
-              {transactions.map((transaction) => (
-                <div
-                  key={transaction.id}
-                  className="flex items-center justify-between p-4 bg-black/40 rounded-lg border border-yellow-500/20 hover:bg-black/60 transition-colors"
-                >
-                  <div className="flex items-center space-x-4">
-                    <div className="p-2 bg-black/60 rounded-full border border-yellow-500/20">
-                      {getTransactionIcon(transaction.type)}
-                    </div>
-                    <div>
-                      <p className="font-medium text-white">{transaction.description}</p>
-                      <p className="text-sm text-gray-400">{formatTransactionTime(transaction.timestamp)}</p>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <p
-                      className={`font-bold ${transaction.type === "deposit" || transaction.type === "game_win" ? "text-green-400" : "text-red-400"}`}
-                    >
-                      {transaction.type === "deposit" || transaction.type === "game_win" ? "+" : "-"}₹
-                      {transaction.amount.toLocaleString()}
-                    </p>
-                    <p className={`text-sm capitalize ${getStatusColor(transaction.status)}`}>{transaction.status}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
+          </div>
         </div>
 
-        {/* Security Notice */}
-        <div className="bg-gradient-to-r from-blue-900/50 to-purple-900/50 rounded-xl p-4 border border-blue-500/30 shadow-lg">
-          <h4 className="text-lg font-semibold mb-2 text-blue-400">🔒 Security Notice</h4>
-          <p className="text-blue-200 text-sm">
-            Your wallet is protected with bank-level security. All transactions are encrypted and monitored 24/7. Never
-            share your login credentials with anyone.
-          </p>
+        {/* Security Info */}
+        <div className="bg-black/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30 shadow-lg">
+          <h3 className="text-xl font-semibold text-yellow-400 mb-4">🔒 Security & Support</h3>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div>
+              <h4 className="text-lg font-semibold mb-2 text-yellow-400">Security Features</h4>
+              <ul className="space-y-1 text-sm text-gray-300">
+                <li>• 256-bit SSL encryption</li>
+                <li>• Two-factor authentication</li>
+                <li>• Real-time fraud monitoring</li>
+                <li>• Secure payment processing</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-lg font-semibold mb-2 text-yellow-400">Support</h4>
+              <ul className="space-y-1 text-sm text-gray-300">
+                <li>• 24/7 customer support</li>
+                <li>• Instant transaction processing</li>
+                <li>• Multiple payment methods</li>
+                <li>• Quick dispute resolution</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
 
