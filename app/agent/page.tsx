@@ -1,66 +1,45 @@
 "use client"
 
 import { useState } from "react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { useToast } from "@/hooks/use-toast"
-import {
-  Coins,
-  Users,
-  MessageCircle,
-  Copy,
-  User,
-  HelpCircle,
-  CheckCircle,
-  Gavel,
-  UserPlus,
-  ArrowUp,
-} from "lucide-react"
+import { ArrowLeft, Coins, Users, UserPlus, ArrowUp, HelpCircle, CheckCircle, Gavel, User } from "lucide-react"
+import Link from "next/link"
 import BottomNavigation from "@/components/bottom-navigation"
 
 export default function AgentPage() {
-  const { toast } = useToast()
   const [totalCommission] = useState(0)
   const [totalInvites] = useState(0)
-  const [dailyInvites] = useState("0/99")
 
   const handleShare = (platform: string) => {
-    toast({
-      title: `${platform} Share`,
-      description: `Sharing to ${platform} - UI Only`,
-      duration: 2000,
-    })
+    // Show notification
+    alert(`Sharing to ${platform} - UI Only`)
   }
 
   const handleCopyLink = () => {
-    const referralLink = "https://mysticgame.com/ref/user123"
+    // Copy referral link to clipboard
+    const referralLink = "https://aura7.com/ref/user123"
     navigator.clipboard
       .writeText(referralLink)
       .then(() => {
-        toast({
-          title: "Link Copied",
-          description: "Referral link copied to clipboard",
-          duration: 2000,
-        })
+        alert("Referral link copied to clipboard!")
       })
       .catch(() => {
-        toast({
-          title: "Copy Failed",
-          description: "Failed to copy link to clipboard",
-          duration: 2000,
-        })
+        alert("Failed to copy link")
       })
   }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white pb-20">
       {/* Header */}
-      <header className="bg-black/80 backdrop-blur-md shadow-2xl border-b border-yellow-500/20">
-        <div className="max-w-md mx-auto px-3 py-4">
-          <h1 className="text-xl font-bold text-yellow-400 text-center flex items-center justify-center">
+      <header className="bg-black/80 backdrop-blur-sm border-b border-yellow-500/20 p-4">
+        <div className="max-w-md mx-auto flex items-center justify-between">
+          <Link href="/home" className="text-yellow-300 hover:text-yellow-200 transition-colors">
+            <ArrowLeft size={24} />
+          </Link>
+          <h1 className="text-xl font-bold text-yellow-400 flex items-center">
             <User className="mr-2" size={20} />
             AGENT
           </h1>
+          <div className="w-6"></div>
         </div>
       </header>
 
@@ -68,38 +47,34 @@ export default function AgentPage() {
         {/* Stats Cards */}
         <section className="grid grid-cols-1">
           {/* Total Commission Card */}
-          <Card className="bg-gradient-to-r from-black/80 to-gray-900/80 backdrop-blur-md border-2 border-yellow-500/30 rounded-none">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between mb-2">
-                <h2 className="text-base font-semibold text-gray-300">Total Commission</h2>
-                <Coins className="text-yellow-400" size={24} />
-              </div>
-              <div className="text-2xl font-bold text-yellow-400 mb-1">₹{totalCommission}</div>
-              <div className="flex items-center text-green-400">
-                <ArrowUp size={12} className="mr-1" />
-                <span className="text-xs">Ready to withdraw</span>
-              </div>
-            </CardContent>
-          </Card>
+          <div className="bg-black/60 backdrop-blur-sm border-2 border-yellow-500/30 p-4">
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-base font-semibold text-gray-300">Total Commission</h2>
+              <Coins className="text-yellow-400" size={24} />
+            </div>
+            <div className="text-2xl font-bold text-yellow-400 mb-1">₹{totalCommission}</div>
+            <div className="flex items-center text-green-400">
+              <ArrowUp size={12} className="mr-1" />
+              <span className="text-xs">Ready to withdraw</span>
+            </div>
+          </div>
 
           {/* Total Invites Card */}
-          <Card className="bg-gradient-to-r from-black/80 to-gray-900/80 backdrop-blur-md border-2 border-yellow-500/30 rounded-none">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between mb-2">
-                <h2 className="text-base font-semibold text-gray-300">Total Invites</h2>
-                <Users className="text-yellow-400" size={24} />
-              </div>
-              <div className="text-2xl font-bold text-yellow-400 mb-1">{totalInvites}</div>
-              <div className="flex items-center text-blue-400">
-                <UserPlus size={12} className="mr-1" />
-                <span className="text-xs">Active referrals</span>
-              </div>
-            </CardContent>
-          </Card>
+          <div className="bg-black/60 backdrop-blur-sm border-2 border-yellow-500/30 p-4">
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-base font-semibold text-gray-300">Total Invites</h2>
+              <Users className="text-yellow-400" size={24} />
+            </div>
+            <div className="text-2xl font-bold text-yellow-400 mb-1">{totalInvites}</div>
+            <div className="flex items-center text-blue-400">
+              <UserPlus size={12} className="mr-1" />
+              <span className="text-xs">Active referrals</span>
+            </div>
+          </div>
         </section>
 
         {/* Invite Rewards */}
-        <section className="bg-gradient-to-r from-black/80 to-gray-900/80 backdrop-blur-md border-2 border-yellow-500/30 p-4">
+        <section className="bg-black/60 backdrop-blur-sm border-2 border-yellow-500/30 p-4">
           <div className="text-center mb-8">
             <div className="flex items-center justify-center mb-4">
               <h2 className="text-2xl font-bold text-white mr-3">Invite a new customer get</h2>
@@ -115,76 +90,70 @@ export default function AgentPage() {
 
           {/* Invite Now Section */}
           <div className="mb-8">
-            <div className="bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-xl p-4 mb-6 text-center">
+            <div className="bg-gradient-to-r from-yellow-600 to-yellow-500 rounded-xl p-4 mb-6 text-center">
               <span className="text-black font-bold text-xl">Invite friends to get money</span>
             </div>
 
             {/* Social Share Buttons */}
             <div className="flex justify-center gap-3 mb-4">
               {/* Telegram Share */}
-              <Button
+              <button
                 onClick={() => handleShare("Telegram")}
-                className="bg-transparent hover:bg-yellow-400/10 p-3 transition-all duration-300 border border-yellow-500/30"
+                className="bg-transparent hover:bg-yellow-500/10 p-3 transition-all duration-300 rounded-lg border border-yellow-500/30"
               >
                 <div className="flex flex-col items-center space-y-1">
-                  <MessageCircle className="w-8 h-8 text-blue-400" />
+                  <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center">
+                    <span className="text-white font-bold text-xs">TG</span>
+                  </div>
                   <span className="text-white text-xs">Telegram</span>
                 </div>
-              </Button>
+              </button>
 
               {/* WhatsApp Share */}
-              <Button
+              <button
                 onClick={() => handleShare("WhatsApp")}
-                className="bg-transparent hover:bg-yellow-400/10 p-3 transition-all duration-300 border border-yellow-500/30"
+                className="bg-transparent hover:bg-yellow-500/10 p-3 transition-all duration-300 rounded-lg border border-yellow-500/30"
               >
                 <div className="flex flex-col items-center space-y-1">
-                  <MessageCircle className="w-8 h-8 text-green-400" />
+                  <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
+                    <span className="text-white font-bold text-xs">WA</span>
+                  </div>
                   <span className="text-white text-xs">WhatsApp</span>
                 </div>
-              </Button>
+              </button>
 
               {/* Copy Link */}
-              <Button
+              <button
                 onClick={handleCopyLink}
-                className="bg-transparent hover:bg-yellow-400/10 p-3 transition-all duration-300 border border-yellow-500/30"
+                className="bg-transparent hover:bg-yellow-500/10 p-3 transition-all duration-300 rounded-lg border border-yellow-500/30"
               >
                 <div className="flex flex-col items-center space-y-1">
-                  <Copy className="w-8 h-8 text-yellow-400" />
+                  <div className="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center">
+                    <span className="text-black font-bold text-xs">COPY</span>
+                  </div>
                   <span className="text-white text-xs">Copy Link</span>
                 </div>
-              </Button>
+              </button>
             </div>
           </div>
         </section>
 
         {/* Agent Levels & Rules */}
         <section>
-          {/* Agent Levels Diagram */}
-          <div className="bg-gradient-to-r from-black/80 to-gray-900/80 backdrop-blur-md border-2 border-yellow-500/30 p-4">
-            <h3 className="text-lg font-bold text-center mb-4 text-yellow-400">Agent Level Structure</h3>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between p-3 bg-black/50 rounded-lg border border-yellow-500/20">
-                <span className="text-white">Level A (Direct)</span>
-                <span className="text-yellow-400 font-bold">40% Commission</span>
-              </div>
-              <div className="flex items-center justify-between p-3 bg-black/50 rounded-lg border border-yellow-500/20">
-                <span className="text-white">Level B (2nd Tier)</span>
-                <span className="text-yellow-400 font-bold">20% Commission</span>
-              </div>
-              <div className="flex items-center justify-between p-3 bg-black/50 rounded-lg border border-yellow-500/20">
-                <span className="text-white">Level C (3rd Tier)</span>
-                <span className="text-yellow-400 font-bold">10% Commission</span>
-              </div>
+          {/* Agent Levels - Image Placeholder */}
+          <div className="bg-black/60 backdrop-blur-sm border border-yellow-500/30 p-4">
+            <div className="w-full h-48 bg-gradient-to-r from-yellow-600/20 to-yellow-500/20 rounded-lg flex items-center justify-center border border-yellow-500/30">
+              <span className="text-yellow-400 font-bold text-lg">Agent Levels Diagram</span>
             </div>
           </div>
 
           {/* Commission Formula Section */}
-          <div className="bg-gradient-to-r from-black/80 to-gray-900/80 backdrop-blur-md border-2 border-yellow-500/30 p-4">
+          <div className="bg-black/60 backdrop-blur-sm border border-yellow-500/20 p-4">
             <h3 className="text-base font-bold text-center mb-4 text-yellow-400 border-b border-yellow-500/30 pb-2">
               Commission Formula (3 Tiers)
             </h3>
 
-            {/* Formula */}
+            {/* Formula - Simplified */}
             <div className="bg-black/50 rounded p-3 mb-4">
               <h4 className="text-yellow-400 font-semibold text-sm mb-2 text-center">Commission Calculation</h4>
               <div className="text-center text-white space-y-1">
@@ -194,7 +163,7 @@ export default function AgentPage() {
               </div>
             </div>
 
-            {/* Example */}
+            {/* Example - Simplified */}
             <div className="bg-black/50 rounded p-3 mb-4">
               <h4 className="text-yellow-400 font-semibold text-sm mb-2 text-center">Example</h4>
               <div className="text-xs text-gray-300 space-y-1">
@@ -295,7 +264,7 @@ export default function AgentPage() {
           </div>
 
           {/* Rules Section */}
-          <div className="bg-gradient-to-r from-black/80 to-gray-900/80 backdrop-blur-md border-2 border-yellow-500/30 p-4">
+          <div className="bg-black/60 backdrop-blur-sm border border-yellow-500/20 p-4">
             <h3 className="text-base font-bold text-center mb-4 text-yellow-400 border-b border-yellow-500/30 pb-2">
               <Gavel className="inline mr-1" size={16} />
               Rules & Guidelines

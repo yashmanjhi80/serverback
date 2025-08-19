@@ -4,12 +4,14 @@ import type React from "react"
 import { useState, useEffect, useRef } from "react"
 import { Eye, EyeOff, Volume2, VolumeX, ArrowLeft } from "lucide-react"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
 import { APP_CONFIG, getStorageKey, isFeatureEnabled } from "@/config/app"
 
 export default function GameLogin() {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [email, setEmail] = useState("")
+  const [referralId, setReferralId] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
@@ -204,6 +206,7 @@ export default function GameLogin() {
         username: trimmedUsername,
         email: email.toLowerCase().trim(),
         password,
+        referralId: referralId.trim() || undefined,
       })
 
       console.log("Registration successful!", data)
@@ -213,6 +216,7 @@ export default function GameLogin() {
       setUsername("")
       setPassword("")
       setEmail("")
+      setReferralId("")
       setConfirmPassword("")
 
       // Switch back to login form after successful registration
@@ -238,6 +242,7 @@ export default function GameLogin() {
     setUsername("")
     setPassword("")
     setEmail("")
+    setReferralId("")
     setConfirmPassword("")
   }
 
@@ -250,6 +255,7 @@ export default function GameLogin() {
     setUsername("")
     setPassword("")
     setEmail("")
+    setReferralId("")
     setConfirmPassword("")
   }
 
@@ -289,9 +295,11 @@ export default function GameLogin() {
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
               <h1 className="text-6xl xl:text-7xl font-bold text-transparent bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500 bg-clip-text drop-shadow-2xl mb-4 font-serif">
-                {APP_CONFIG.APP_INFO.NAME.toUpperCase()}
+                AURA7
               </h1>
-              <p className="text-yellow-200 text-2xl drop-shadow-lg font-medium">{APP_CONFIG.APP_INFO.TAGLINE}</p>
+              <p className="text-yellow-200 text-2xl drop-shadow-lg font-medium">
+                Enter the Ultimate Gaming Experience
+              </p>
             </div>
           </div>
         </div>
@@ -316,9 +324,11 @@ export default function GameLogin() {
               {/* Mobile Title (Only visible on mobile) */}
               <div className="text-center mb-8 lg:hidden">
                 <h1 className="text-4xl font-bold text-transparent bg-gradient-to-r from-yellow-400 to-yellow-300 bg-clip-text drop-shadow-lg mb-2 font-serif">
-                  {APP_CONFIG.APP_INFO.NAME.toUpperCase()}
+                  AURA7
                 </h1>
-                <p className="text-yellow-200 text-lg drop-shadow-md font-medium">{APP_CONFIG.APP_INFO.TAGLINE}</p>
+                <p className="text-yellow-200 text-lg drop-shadow-md font-medium">
+                  Enter the Ultimate Gaming Experience
+                </p>
               </div>
 
               {/* Back Button for Create Account */}
@@ -328,8 +338,7 @@ export default function GameLogin() {
                   className="flex items-center text-yellow-300 hover:text-yellow-200 transition-colors mb-4"
                   disabled={isLoading}
                 >
-                  <ArrowLeft size={20} className="mr-2" />
-                  Back to Login
+                  <ArrowLeft size={20} />
                 </button>
               )}
 
@@ -395,14 +404,12 @@ export default function GameLogin() {
 
                   {/* Additional Options */}
                   <div className="mt-8 text-center space-y-4">
-                    <button
-                      type="button"
+                    <Link
+                      href="/forgot-password"
                       className="text-yellow-300 hover:text-yellow-200 transition-colors underline disabled:opacity-50"
-                      onClick={playButtonClickSound}
-                      disabled={isLoading}
                     >
                       Forgot Password?
-                    </button>
+                    </Link>
 
                     <div className="flex items-center justify-center space-x-4">
                       <div className="h-px bg-yellow-400/30 flex-1"></div>
@@ -454,6 +461,20 @@ export default function GameLogin() {
                         onChange={(e) => setEmail(e.target.value)}
                         className="w-full bg-transparent text-white placeholder-yellow-300/70 text-lg font-medium outline-none"
                         required
+                        disabled={isLoading}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Referral ID Field */}
+                  <div className="relative">
+                    <div className="relative w-full h-16 flex items-center px-8 bg-black/40 border border-yellow-500/30 rounded-lg backdrop-blur-sm">
+                      <input
+                        type="text"
+                        placeholder="Referral ID (Optional)"
+                        value={referralId}
+                        onChange={(e) => setReferralId(e.target.value)}
+                        className="w-full bg-transparent text-white placeholder-yellow-300/70 text-lg font-medium outline-none"
                         disabled={isLoading}
                       />
                     </div>
@@ -525,7 +546,7 @@ export default function GameLogin() {
 
               {/* Footer */}
               <div className="mt-8 text-center">
-                <p className="text-yellow-300/70 text-sm">{APP_CONFIG.APP_INFO.COPYRIGHT}</p>
+                <p className="text-yellow-300/70 text-sm">© 2024 AURA7. All rights reserved.</p>
               </div>
             </div>
           </div>

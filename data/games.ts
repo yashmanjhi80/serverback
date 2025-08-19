@@ -1281,33 +1281,30 @@ export const gameCardsData = [
 
 export const bannerData = [
   {
-    id: "094",
-    name: "Rummy",
-    type: "CB",
-    image: "/banners/rummy-banner.png",
+    id: "banner1",
+    name: "Daily Rewards",
+    type: "PROMO",
+    image:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/BettingRankingStarted.jpg-DeTezTqm9kND07LazEneeFSreM1SzM.jpeg",
   },
   {
-    id: "473",
-    name: "Cricket War",
-    type: "OT",
-    image: "/banners/cricket-war-banner.png",
+    id: "banner2",
+    name: "VIP Card",
+    type: "VIP",
+    image:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/MonthlyCard.jpg-jVXAdF7xnDwFpUBoQgKmfol1YOmGlv.jpeg",
   },
   {
-    id: "123",
-    name: "Dragon & Tiger",
-    type: "OT",
-    image: "/banners/dragon-tiger-banner.png",
+    id: "banner3",
+    name: "VIP Bonus",
+    type: "VIP",
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/VIPBONUS.jpg-KtsSDgkPD7Vf4qwonYvrVbHryrD2sU.jpeg",
   },
   {
-    id: "254",
-    name: "Mines Gold",
-    type: "OT",
-    image: "/banners/mines-gold-banner.png",
-  },
-  {
-    id: "072",
-    name: "Teen Patti",
-    type: "CB",
-    image: "/banners/teen-patti-banner.png",
+    id: "banner4",
+    name: "7 Days Sign In",
+    type: "SIGNIN",
+    image:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/SignIn7Days.jpg-3DMW8HdNn8IHvfEdL2JZ8Htu3wlehg.jpeg",
   },
 ]

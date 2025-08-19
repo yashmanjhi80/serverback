@@ -1,11 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import { ChevronLeft, FileText, Check } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { useToast } from "@/hooks/use-toast"
-import { useRouter } from "next/navigation"
+import { ArrowLeft, FileText } from "lucide-react"
+import Link from "next/link"
 import BottomNavigation from "@/components/bottom-navigation"
 
 const presetAmounts = [
@@ -23,19 +20,10 @@ const presetAmounts = [
   { amount: 50000, bonus: 7500 },
 ]
 
-const paymentMethods = [
-  { id: "lgpay", name: "LGPAY" },
-  { id: "fpay", name: "FPAY" },
-  { id: "stargo", name: "STARGO" },
-]
-
 export default function DepositPage() {
   const [selectedAmount, setSelectedAmount] = useState(1000)
   const [selectedPromotion, setSelectedPromotion] = useState("bonus")
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("lgpay")
   const [isLoading, setIsLoading] = useState(false)
-  const { toast } = useToast()
-  const router = useRouter()
 
   const handleAmountSelect = (amount: number) => {
     setSelectedAmount(amount)
@@ -45,80 +33,33 @@ export default function DepositPage() {
     setSelectedPromotion(promotion)
   }
 
-  const handlePaymentMethodSelect = (method: string) => {
-    setSelectedPaymentMethod(method)
-  }
-
   const handlePayment = async () => {
-    if (selectedAmount < 100) {
-      toast({
-        title: "Invalid Amount",
-        description: "Minimum deposit amount is ₹100",
-        variant: "destructive",
-      })
-      return
-    }
-
-    if (selectedAmount > 50000) {
-      toast({
-        title: "Invalid Amount",
-        description: "Maximum deposit amount is ₹50,000",
-        variant: "destructive",
-      })
-      return
-    }
-
     setIsLoading(true)
 
     try {
-      // Simulate API call
+      // Simulate payment processing
       await new Promise((resolve) => setTimeout(resolve, 2000))
-
-      toast({
-        title: "Payment Initiated",
-        description: `Payment of ₹${selectedAmount} has been initiated successfully`,
-      })
-
-      // Redirect to payment gateway (simulated)
-      setTimeout(() => {
-        router.push("/wallet")
-      }, 1000)
+      alert(`Processing payment for ₹${selectedAmount}`)
     } catch (error) {
-      toast({
-        title: "Payment Failed",
-        description: "Failed to initiate payment. Please try again.",
-        variant: "destructive",
-      })
+      alert("Payment failed. Please try again.")
     } finally {
       setIsLoading(false)
     }
   }
 
-  const selectedPreset = presetAmounts.find((preset) => preset.amount === selectedAmount)
-  const bonusAmount = selectedPreset ? selectedPreset.bonus : 0
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white pb-20">
       {/* Header */}
-      <header className="flex items-center justify-between p-4 bg-black/80 backdrop-blur-md shadow-2xl border-b border-yellow-500/20">
-        <Button
-          variant="ghost"
-          size="icon"
-          className="text-yellow-400 hover:bg-yellow-500/10 transition-all duration-200"
-          onClick={() => router.back()}
-        >
-          <ChevronLeft className="h-6 w-6" />
-        </Button>
+      <header className="flex items-center justify-between p-4 bg-black/80 backdrop-blur-sm border-b border-yellow-500/20">
+        <Link href="/home" className="text-yellow-300 hover:text-yellow-200 transition-colors">
+          <ArrowLeft className="h-6 w-6" />
+        </Link>
 
         <h1 className="text-white text-base font-semibold text-center flex-1 px-2">Deposit</h1>
 
-        <Button
-          variant="ghost"
-          size="icon"
-          className="text-yellow-400 hover:bg-yellow-500/10 transition-all duration-200"
-        >
+        <button className="text-yellow-400 hover:text-yellow-300 transition-colors">
           <FileText className="h-5 w-5" />
-        </Button>
+        </button>
       </header>
 
       <div className="px-4 py-6 max-w-md mx-auto">
@@ -134,14 +75,12 @@ export default function DepositPage() {
 
           {/* Amount Input Field */}
           <div className="mb-6">
-            <Input
+            <input
               type="number"
               value={selectedAmount}
               onChange={(e) => setSelectedAmount(Number(e.target.value))}
-              className="w-full text-yellow-400 text-2xl font-bold text-center py-3 h-auto bg-black/50 border-yellow-500/30 focus:border-yellow-400"
+              className="w-full text-yellow-400 text-2xl font-bold text-center py-3 h-auto bg-black/40 border border-yellow-500/30 rounded-lg backdrop-blur-sm outline-none focus:ring-2 focus:ring-yellow-500"
               placeholder="Enter amount"
-              min={100}
-              max={50000}
             />
           </div>
 
@@ -152,12 +91,12 @@ export default function DepositPage() {
                 key={preset.amount}
                 className={`relative cursor-pointer rounded-lg p-2 text-center border transition-all duration-200 ${
                   selectedAmount === preset.amount
-                    ? "bg-yellow-400/20 border-yellow-400 text-yellow-400"
-                    : "bg-black/50 border-yellow-500/30 text-white hover:bg-yellow-500/10"
+                    ? "bg-yellow-500 text-black border-yellow-400"
+                    : "bg-black/40 text-white border-yellow-500/30 hover:bg-black/60"
                 }`}
                 onClick={() => handleAmountSelect(preset.amount)}
               >
-                <div className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs px-1 py-0.5 rounded-full font-semibold leading-none">
+                <div className="absolute -top-2 -right-2 bg-yellow-500 text-black text-xs px-1 py-0.5 rounded-full font-semibold leading-none">
                   +{preset.bonus}
                 </div>
                 <div className="font-bold text-xs">₹{preset.amount.toLocaleString()}</div>
@@ -171,19 +110,15 @@ export default function DepositPage() {
           <h3 className="text-white text-xs font-medium mb-3">Payment Methods</h3>
 
           <div className="grid grid-cols-3 gap-2 mb-4">
-            {paymentMethods.map((method) => (
-              <div
-                key={method.id}
-                className={`rounded-lg p-2.5 text-center cursor-pointer border transition-all duration-200 ${
-                  selectedPaymentMethod === method.id
-                    ? "bg-yellow-400/20 border-yellow-400 text-yellow-400"
-                    : "bg-black/50 border-yellow-500/30 text-white hover:bg-yellow-500/10"
-                }`}
-                onClick={() => handlePaymentMethodSelect(method.id)}
-              >
-                <div className="font-semibold text-xs">{method.name}</div>
-              </div>
-            ))}
+            <div className="bg-black/40 border border-yellow-500/30 rounded-lg p-2.5 text-center cursor-pointer hover:bg-black/60 transition-colors">
+              <div className="text-white font-semibold text-xs">LGPAY</div>
+            </div>
+            <div className="bg-black/40 border border-yellow-500/30 rounded-lg p-2.5 text-center cursor-pointer hover:bg-black/60 transition-colors">
+              <div className="text-white font-semibold text-xs">FPAY</div>
+            </div>
+            <div className="bg-black/40 border border-yellow-500/30 rounded-lg p-2.5 text-center cursor-pointer hover:bg-black/60 transition-colors">
+              <div className="text-white font-semibold text-xs">STARGO</div>
+            </div>
           </div>
         </div>
 
@@ -196,17 +131,20 @@ export default function DepositPage() {
           <div className="grid grid-cols-2 gap-2">
             {/* Promotion Option */}
             <div
-              className={`rounded-lg p-3 cursor-pointer border transition-all duration-200 ${
+              className={`rounded-lg p-3 cursor-pointer relative border transition-all duration-200 ${
                 selectedPromotion === "bonus"
-                  ? "bg-yellow-400/20 border-yellow-400"
-                  : "bg-black/50 border-yellow-500/30 hover:bg-yellow-500/10"
+                  ? "bg-yellow-500 text-black border-yellow-400"
+                  : "bg-black/40 text-white border-yellow-500/30 hover:bg-black/60"
               }`}
               onClick={() => handlePromotionSelect("bonus")}
             >
               <div className="text-center">
-                <h4 className="text-yellow-400 font-bold text-xs">Deposit Cash</h4>
-                <h4 className="text-yellow-400 font-bold text-xs">Bonus Multiplier</h4>
-                {selectedPromotion === "bonus" && <Check className="w-4 h-4 text-yellow-400 mx-auto mt-1" />}
+                <h4 className={`font-bold text-xs ${selectedPromotion === "bonus" ? "text-black" : "text-yellow-400"}`}>
+                  Deposit Cash
+                </h4>
+                <h4 className={`font-bold text-xs ${selectedPromotion === "bonus" ? "text-black" : "text-yellow-400"}`}>
+                  Bonus Multiplier
+                </h4>
               </div>
             </div>
 
@@ -214,14 +152,13 @@ export default function DepositPage() {
             <div
               className={`rounded-lg p-3 cursor-pointer border transition-all duration-200 ${
                 selectedPromotion === "none"
-                  ? "bg-yellow-400/20 border-yellow-400"
-                  : "bg-black/50 border-yellow-500/30 hover:bg-yellow-500/10"
+                  ? "bg-yellow-500 text-black border-yellow-400"
+                  : "bg-black/40 text-gray-300 border-yellow-500/30 hover:bg-black/60"
               }`}
               onClick={() => handlePromotionSelect("none")}
             >
               <div className="text-center">
-                <h4 className="text-gray-300 font-semibold text-xs">No promotion</h4>
-                {selectedPromotion === "none" && <Check className="w-4 h-4 text-yellow-400 mx-auto mt-1" />}
+                <h4 className="font-semibold text-xs">No promotion</h4>
               </div>
             </div>
           </div>
@@ -229,13 +166,13 @@ export default function DepositPage() {
 
         {/* Pay Now Button */}
         <div className="mb-6">
-          <Button
-            className="w-full py-3 h-auto bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-bold text-base disabled:opacity-50"
+          <button
+            className="w-full py-3 h-auto bg-gradient-to-r from-yellow-600 to-yellow-500 hover:from-yellow-700 hover:to-yellow-600 text-black font-bold text-base rounded-lg transition-all duration-200 disabled:opacity-50"
             onClick={handlePayment}
             disabled={isLoading}
           >
-            {isLoading ? "Processing..." : `Pay Now ₹${selectedAmount}`}
-          </Button>
+            {isLoading ? "Processing..." : "Pay Now"}
+          </button>
         </div>
 
         {/* Promotional Text */}
@@ -245,7 +182,7 @@ export default function DepositPage() {
           </p>
 
           {/* Additional Information */}
-          <div className="bg-black/50 rounded-lg p-3 border border-yellow-500/30">
+          <div className="bg-black/40 rounded-lg p-3 border border-yellow-500/30">
             <div className="space-y-2 text-xs text-white">
               <div>
                 <span className="text-yellow-400 font-semibold">1.</span> Congratulations on obtaining the "
@@ -267,8 +204,7 @@ export default function DepositPage() {
               </div>
               <div>
                 <span className="text-yellow-400 font-semibold">8.</span> Deposits to{" "}
-                <span className="text-yellow-400 font-bold">MYSTIC REALM</span> are typically credited within 1 to 5
-                minutes.
+                <span className="text-yellow-400 font-bold">AURA7</span> are typically credited within 1 to 5 minutes.
               </div>
               <div>
                 <span className="text-yellow-400 font-semibold">9.</span> If your deposit has not been credited within
@@ -278,36 +214,34 @@ export default function DepositPage() {
           </div>
 
           {/* Deposit Bonus Table */}
-          <div className="bg-black/50 rounded-lg overflow-hidden border border-yellow-500/30">
+          <div className="bg-black/40 rounded-lg overflow-hidden border border-yellow-500/30">
             <div className="grid grid-cols-2">
-              <div className="bg-yellow-400/20 text-yellow-400 text-center py-2 font-semibold text-xs border-r border-yellow-500/30">
-                Deposit times
-              </div>
-              <div className="bg-yellow-400/20 text-yellow-400 text-center py-2 font-semibold text-xs">Cash Bonus</div>
+              <div className="bg-yellow-600 text-black text-center py-2 font-semibold text-xs">Deposit times</div>
+              <div className="bg-yellow-600 text-black text-center py-2 font-semibold text-xs">Cash Bonus</div>
             </div>
-            <div className="divide-y divide-yellow-500/20">
+            <div className="divide-y divide-yellow-500/30">
               <div className="grid grid-cols-2">
-                <div className="text-white p-2 text-center text-xs border-r border-yellow-500/20">1st deposit ₹500</div>
+                <div className="text-white p-2 text-center text-xs">1st deposit ₹500</div>
                 <div className="text-white p-2 text-center text-xs">₹500</div>
               </div>
               <div className="grid grid-cols-2">
-                <div className="text-white p-2 text-center text-xs border-r border-yellow-500/20">2nd deposit ₹500</div>
+                <div className="text-white p-2 text-center text-xs">2nd deposit ₹500</div>
                 <div className="text-white p-2 text-center text-xs">₹1000</div>
               </div>
               <div className="grid grid-cols-2">
-                <div className="text-white p-2 text-center text-xs border-r border-yellow-500/20">3rd deposit ₹500</div>
+                <div className="text-white p-2 text-center text-xs">3rd deposit ₹500</div>
                 <div className="text-white p-2 text-center text-xs">₹1500</div>
               </div>
               <div className="grid grid-cols-2">
-                <div className="text-white p-2 text-center text-xs border-r border-yellow-500/20">4th deposit ₹500</div>
+                <div className="text-white p-2 text-center text-xs">4th deposit ₹500</div>
                 <div className="text-white p-2 text-center text-xs">₹2000</div>
               </div>
               <div className="grid grid-cols-2">
-                <div className="text-white p-2 text-center text-xs border-r border-yellow-500/20">5th deposit ₹500</div>
+                <div className="text-white p-2 text-center text-xs">5th deposit ₹500</div>
                 <div className="text-white p-2 text-center text-xs">₹2500</div>
               </div>
               <div className="grid grid-cols-2">
-                <div className="text-white p-2 text-center text-xs border-r border-yellow-500/20">6th deposit ₹500</div>
+                <div className="text-white p-2 text-center text-xs">6th deposit ₹500</div>
                 <div className="text-white p-2 text-center text-xs">₹3000</div>
               </div>
             </div>

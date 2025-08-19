@@ -2,14 +2,14 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Home, User, Wallet, Gift, MessageSquare } from "lucide-react"
+import { Home, User, Gift, MessageSquare, UserCircle } from "lucide-react"
 
 const navigationItems = [
   { href: "/home", icon: Home, label: "Home" },
   { href: "/agent", icon: User, label: "Agent" },
-  { href: "/wallet", icon: Wallet, label: "Wallet" },
   { href: "/gifts", icon: Gift, label: "Gifts" },
   { href: "/inbox", icon: MessageSquare, label: "Inbox" },
+  { href: "/profile", icon: UserCircle, label: "Profile" },
 ]
 
 export default function BottomNavigation() {

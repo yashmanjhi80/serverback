@@ -288,7 +288,7 @@ export default function HomePage() {
                   Cancel
                 </button>
                 <Link
-                  href="/wallet"
+                  href="/deposit"
                   className="flex-1 bg-gradient-to-r from-yellow-600 to-yellow-500 hover:from-yellow-700 hover:to-yellow-600 text-black font-bold py-3 px-4 rounded-lg transition-all text-center border border-yellow-400/30"
                   onClick={() => setShowInsufficientBalancePopup(false)}
                 >
@@ -332,14 +332,14 @@ export default function HomePage() {
             <div className="flex items-center space-x-1">
               <HomeIcon size={isHorizontal ? 16 : 20} className="text-yellow-400" />
               <span className={`font-bold text-yellow-400 ${isHorizontal ? "text-sm" : "text-lg md:text-xl"}`}>
-                Mystic Realm
+                AURA7
               </span>
             </div>
           </div>
 
           <div className="flex items-center space-x-2">
             <Link
-              href="/wallet"
+              href="/deposit"
               className={`flex items-center space-x-1 bg-gradient-to-r from-yellow-600 to-yellow-500 hover:from-yellow-700 hover:to-yellow-600 rounded-full transition-all duration-200 hover:scale-105 shadow-lg border border-yellow-400/30 ${
                 isHorizontal ? "px-3 py-1.5 text-sm" : "px-3 md:px-6 py-2 md:py-3 text-sm md:text-lg"
               }`}
@@ -511,7 +511,7 @@ export default function HomePage() {
                     src={banner.image || "/placeholder.svg"}
                     alt={banner.name}
                     fill
-                    className="object-contain bg-gradient-to-r from-black to-gray-900 group-hover:scale-105 transition-transform duration-300"
+                    className="object-cover bg-gradient-to-r from-black to-gray-900 group-hover:scale-105 transition-transform duration-300"
                     priority={index === 0}
                   />
 
