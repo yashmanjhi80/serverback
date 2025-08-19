@@ -102,9 +102,8 @@ export default function AgentPage() {
                 className="bg-transparent hover:bg-yellow-500/10 p-3 transition-all duration-300 rounded-lg border border-yellow-500/30"
               >
                 <div className="flex flex-col items-center space-y-1">
-                  <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center">
-                    <span className="text-white font-bold text-xs">TG</span>
-                  </div>
+
+                    <img src='https://i.ibb.co/CpV41nkD/telegramgift-1755497674589.png' alt="Telegram" className="w-12 h-12" />
                   <span className="text-white text-xs">Telegram</span>
                 </div>
               </button>
@@ -115,9 +114,9 @@ export default function AgentPage() {
                 className="bg-transparent hover:bg-yellow-500/10 p-3 transition-all duration-300 rounded-lg border border-yellow-500/30"
               >
                 <div className="flex flex-col items-center space-y-1">
-                  <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
-                    <span className="text-white font-bold text-xs">WA</span>
-                  </div>
+
+                    <img src='https://i.ibb.co/cSKQ8nY8/whatsappshare-1755497674589.png' alt="Telegram" className="w-12 h-12" />
+     
                   <span className="text-white text-xs">WhatsApp</span>
                 </div>
               </button>
@@ -128,9 +127,9 @@ export default function AgentPage() {
                 className="bg-transparent hover:bg-yellow-500/10 p-3 transition-all duration-300 rounded-lg border border-yellow-500/30"
               >
                 <div className="flex flex-col items-center space-y-1">
-                  <div className="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center">
-                    <span className="text-black font-bold text-xs">COPY</span>
-                  </div>
+
+                    <img src='https://i.ibb.co/KZCq0Qz/linkcopy.png' alt="Telegram" className="w-12 h-12" />
+                  
                   <span className="text-white text-xs">Copy Link</span>
                 </div>
               </button>
@@ -142,8 +141,9 @@ export default function AgentPage() {
         <section>
           {/* Agent Levels - Image Placeholder */}
           <div className="bg-black/60 backdrop-blur-sm border border-yellow-500/30 p-4">
-            <div className="w-full h-48 bg-gradient-to-r from-yellow-600/20 to-yellow-500/20 rounded-lg flex items-center justify-center border border-yellow-500/30">
-              <span className="text-yellow-400 font-bold text-lg">Agent Levels Diagram</span>
+            <div className="w-full h-wrap-content bg-gradient-to-r from-yellow-600/20 to-yellow-500/20 rounded-lg flex items-center justify-center border border-yellow-500/30">
+             <img src='https://i.ibb.co/846hdtWd/asdfas-1755497927766.jpg' alt="Agent level" className="w-full h-full" />
+          
             </div>
           </div>
 

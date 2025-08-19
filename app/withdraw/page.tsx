@@ -222,12 +222,8 @@ export default function WithdrawPage() {
       {/* Header */}
       <header className="bg-black/80 backdrop-blur-sm border-b border-yellow-500/20 p-4">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <Link
-            href="/wallet"
-            className="flex items-center space-x-2 text-white hover:text-yellow-400 transition-colors"
-          >
+          <Link href="/wallet" className="text-yellow-300 hover:text-yellow-200 transition-colors">
             <ArrowLeft size={24} />
-            <span className="font-semibold">Back to Wallet</span>
           </Link>
           <h1 className="text-2xl font-bold flex items-center space-x-2">
             <Minus size={28} className="text-yellow-400" />

@@ -60,9 +60,8 @@ export default function ForgotPasswordPage() {
           </div>
 
           {/* Back Button */}
-          <Link href="/" className="flex items-center text-yellow-300 hover:text-yellow-200 transition-colors mb-6">
-            <ArrowLeft size={20} />
-            <span className="ml-2">Back to Login</span>
+          <Link href="/" className="text-yellow-300 hover:text-yellow-200 transition-colors">
+            <ArrowLeft size={24} />
           </Link>
 
           {!isEmailSent ? (
