@@ -269,6 +269,14 @@ export default function HomePage() {
     return matchesSearch && matchesFilter
   })
 
+  console.log("[v0] gameCardsData length:", gameCardsData?.length)
+  console.log("[v0] NgameCardsData length:", NgameCardsData?.length)
+  console.log("[v0] filteredGames length:", filteredGames?.length)
+  console.log("[v0] NfilteredGames length:", NfilteredGames?.length)
+  console.log("[v0] searchTerm:", searchTerm)
+  console.log("[v0] selectedFilter:", selectedFilter)
+  console.log("[v0] Sample game data:", gameCardsData?.[0])
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white">
       {/* Insufficient Balance Popup */}
