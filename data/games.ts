@@ -1493,7 +1493,7 @@ export const gameCardsData = [
   },
 ]
 export const NgameCardsData = [
-    [
+    
   {
     "gameName": "Honey Trap of Diao Chan",
     "p_type": "SL",
