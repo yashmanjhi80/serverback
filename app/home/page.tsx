@@ -175,6 +175,8 @@ export default function HomePage() {
         html5: "1",
       })
 
+      console.log(params.toString())
+
       const response = await fetch(`/api/auth/launch-game?${params.toString()}`)
       const data = await response.json()
 
