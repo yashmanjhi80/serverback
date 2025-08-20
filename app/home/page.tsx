@@ -140,7 +140,7 @@ export default function HomePage() {
     return !isNaN(numericBalance) && numericBalance >= 10
   }
 
-  const launchGame = async (gameCode: string, gameType: string, gameName: string) => {
+  const launchGame = async (gameCode: string, Pcode: string, gameType: string, gameName: string) => {
     if (!userCredentials) {
       alert("Please login to play games")
       return
@@ -169,6 +169,7 @@ export default function HomePage() {
         username: userCredentials.username,
         password: userCredentials.password,
         type: gameType,
+        provider_code: Pcode,
         gameid: gameCode,
         lang: "en-US",
         html5: "1",
@@ -884,7 +885,7 @@ export default function HomePage() {
               <div
                 key={game.g_code}
                 className="relative cursor-pointer hover:scale-105 transition-all duration-300 group"
-                onClick={() => launchGame(game.g_code, game.p_type, game.gameName)}
+                onClick={() => launchGame(game.g_code, game.p_type, game.gameName, game.Pcode)}
               >
                 <div className="relative w-full aspect-[3/4] bg-gradient-to-br from-black via-gray-900 to-black rounded-xl md:rounded-2xl overflow-hidden shadow-lg md:shadow-2xl border border-yellow-500/30">
                   <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 via-transparent to-yellow-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -941,7 +942,7 @@ export default function HomePage() {
                     <div
                       key={game.g_code}
                       className="relative cursor-pointer hover:scale-105 transition-all duration-300 group"
-                      onClick={() => launchGame(game.g_code, game.p_type, game.gameName)}
+                      onClick={() => launchGame(game.g_code, game.p_type, game.gameName, game.Pcode)}
                     >
                       <div className="relative w-full aspect-[3/4] bg-gradient-to-br from-black via-gray-900 to-black rounded-xl md:rounded-2xl overflow-hidden shadow-lg md:shadow-2xl border border-yellow-500/30">
                         <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 via-transparent to-yellow-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
