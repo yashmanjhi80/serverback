@@ -258,25 +258,25 @@ export default function HomePage() {
     }
   }
 
-const filteredGames = gameCardsData.filter((game) => {
-  const name = (game?.gameName || "").toLowerCase();
-  const term = (searchTerm || "").toLowerCase();
+const filterGames = (games) => {
+  const term = (searchTerm ?? "").toLowerCase();
 
-  const matchesSearch = name.includes(term);
-  const matchesFilter = selectedFilter === "ALL" || game?.p_type === selectedFilter;
+  return games.filter((game) => {
+    const name = (game?.gameName ?? "").toLowerCase();
+    const type = game?.p_type ?? "";
 
-  return matchesSearch && matchesFilter;
-});
+    // If search term is empty, always true
+    const matchesSearch = term === "" || name.includes(term);
 
-const NfilteredGames = NgameCardsData.filter((game) => {
-  const name = (game?.gameName || "").toLowerCase();
-  const term = (searchTerm || "").toLowerCase();
+    // If filter is ALL, always true
+    const matchesFilter = selectedFilter === "ALL" || type === selectedFilter;
 
-  const matchesSearch = name.includes(term);
-  const matchesFilter = selectedFilter === "ALL" || game?.p_type === selectedFilter;
+    return matchesSearch && matchesFilter;
+  });
+};
 
-  return matchesSearch && matchesFilter;
-});
+const filteredGames = filterGames(gameCardsData);
+const NfilteredGames = filterGames(NgameCardsData);
 
 
   return (
