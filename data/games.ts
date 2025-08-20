@@ -1490,9 +1490,8 @@ export const gameCardsData = [
     "g_code": "554",
     "imgFileName": "https://img.55115515.com/JL/en-us/554.png",
     "Pcode": "JE"
-  }
+  },
 ]
-
 export const NgameCardsData = [
     [
   {
@@ -2278,10 +2277,8 @@ export const NgameCardsData = [
     "g_code": "1529867",
     "imgFileName": "https://img.55115515.com/PG/en-us/ninja-raccoon.jpg",
     "Pcode": "PG"
-  }
+  },
 ]
-    
-    
 
 export const bannerData = [
   {
