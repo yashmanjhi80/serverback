@@ -1,5 +1,5 @@
 export const gameCardsData = [
-[
+
   {
     "gameName": "Royal Fishing",
     "p_type": "FH",
@@ -1491,8 +1491,8 @@ export const gameCardsData = [
     "imgFileName": "https://img.55115515.com/JL/en-us/554.png",
     "Pcode": "JE"
   }
-],
 ]
+
 export const NgameCardsData = [
     [
   {
@@ -2279,9 +2279,9 @@ export const NgameCardsData = [
     "imgFileName": "https://img.55115515.com/PG/en-us/ninja-raccoon.jpg",
     "Pcode": "PG"
   }
-],
+]
     
-    ]
+    
 
 export const bannerData = [
   {
