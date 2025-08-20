@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
     const username = searchParams.get("username")
     const password = searchParams.get("password")
     const type = searchParams.get("type")
-    const provider_code = searchParams.get("Pvcode")
+    const provider_code = searchParams.get("provider_code")
     const gameid = searchParams.get("gameid") || "0"
     const lang = searchParams.get("lang") || APP_CONFIG.GAME.DEFAULT_LANGUAGE
     const html5 = searchParams.get("html5") || APP_CONFIG.GAME.HTML5_ENABLED
