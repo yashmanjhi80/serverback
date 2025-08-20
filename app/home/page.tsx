@@ -593,7 +593,7 @@ export default function HomePage() {
                 <button className="text-yellow-300 text-sm hover:text-yellow-200 transition-colors">View All</button>
               </div>
               <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-2">
-                {filteredGames.slice(0, 8).map((game) => (
+                {filteredGames.slice(0, 20).map((game) => (
                   <div
                     key={`popular-${game.g_code}`}
                     className="relative cursor-pointer hover:scale-105 transition-all duration-300 group flex-shrink-0"
@@ -652,7 +652,7 @@ export default function HomePage() {
                 <div className="flex gap-3 overflow-x-auto scrollbar-hide bg-black mx-0 py-2.5 px-2.5 border-0 rounded-2xl">
                   {filteredGames
                     .filter((game) => game.p_type === "SL")
-                    .slice(0, 8)
+                    .slice(0, 20)
                     .map((game) => (
                       <div
                         key={`slots-${game.g_code}`}
@@ -713,7 +713,7 @@ export default function HomePage() {
                 <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-2">
                   {filteredGames
                     .filter((game) => game.p_type === "FH")
-                    .slice(0, 8)
+                    .slice(0, 20)
                     .map((game) => (
                       <div
                         key={`fishing-${game.g_code}`}
@@ -774,7 +774,7 @@ export default function HomePage() {
                 <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-2">
                   {filteredGames
                     .filter((game) => game.p_type === "CB")
-                    .slice(0, 8)
+                    .slice(0, 20)
                     .map((game) => (
                       <div
                         key={`cards-${game.g_code}`}
@@ -835,7 +835,7 @@ export default function HomePage() {
                 <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-2">
                   {filteredGames
                     .filter((game) => game.p_type === "OT")
-                    .slice(0, 8)
+                    .slice(0, 20)
                     .map((game) => (
                       <div
                         key={`others-${game.g_code}`}
