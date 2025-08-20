@@ -150,7 +150,7 @@ export default function HomePage() {
       setShowInsufficientBalancePopup(true)
       return
     }
-    console.log(Pvcode)
+    console.log(Pvcode , error)
     setGameLoading({
       isLoading: true,
       progress: 0,
