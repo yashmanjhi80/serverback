@@ -258,26 +258,16 @@ export default function HomePage() {
     }
   }
 
-const filterGames = (games) => {
-  const term = (searchTerm ?? "").toLowerCase();
-
-  return games.filter((game) => {
-    const name = (game?.gameName ?? "").toLowerCase();
-    const type = game?.p_type ?? "";
-
-    // If search term is empty, always true
-    const matchesSearch = term === "" || name.includes(term);
-
-    // If filter is ALL, always true
-    const matchesFilter = selectedFilter === "ALL" || type === selectedFilter;
-
-    return matchesSearch && matchesFilter;
-  });
-};
-
-const filteredGames = filterGames(gameCardsData);
-const NfilteredGames = filterGames(NgameCardsData);
-
+  const filteredGames = gameCardsData.filter((game) => {
+    const matchesSearch = game.gameName.toLowerCase().includes(searchTerm.toLowerCase())
+    const matchesFilter = selectedFilter === "ALL" || game.p_type === selectedFilter
+    return matchesSearch && matchesFilter
+  })
+  const NfilteredGames = NgameCardsData.filter((game) => {
+    const matchesSearch = game.gameName.toLowerCase().includes(searchTerm.toLowerCase())
+    const matchesFilter = selectedFilter === "ALL" || game.p_type === selectedFilter
+    return matchesSearch && matchesFilter
+  })
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white">
