@@ -262,6 +262,11 @@ export default function HomePage() {
     const matchesFilter = selectedFilter === "ALL" || game.p_type === selectedFilter
     return matchesSearch && matchesFilter
   })
+  const NfilteredGames = NgameCardsData.filter((game) => {
+    const matchesSearch = game.gameName.toLowerCase().includes(searchTerm.toLowerCase())
+    const matchesFilter = selectedFilter === "ALL" || game.p_type === selectedFilter
+    return matchesSearch && matchesFilter
+  })
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white">
