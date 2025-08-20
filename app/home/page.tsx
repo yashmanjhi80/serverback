@@ -880,7 +880,7 @@ export default function HomePage() {
             )}
              {/* Games Grid */}
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-3 md:gap-6">
-            {filteredGames.map((game) => (
+            {NfilteredGames.map((game) => (
               <div
                 key={game.g_code}
                 className="relative cursor-pointer hover:scale-105 transition-all duration-300 group"
