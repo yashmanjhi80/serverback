@@ -644,7 +644,7 @@ export default function HomePage() {
                     View All
                   </button>
                 </div>
-                <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-2">
+                <div className="flex gap-3 overflow-x-auto scrollbar-hide bg-black mx-0 py-2.5">
                   {filteredGames
                     .filter((game) => game.p_type === "SL")
                     .slice(0, 8)
