@@ -259,12 +259,12 @@ export default function HomePage() {
   }
 
   const filteredGames = gameCardsData.filter((game) => {
-    const matchesSearch = (game.gameName?.toLowerCase() ?? "").includes(searchTerm.toLowerCase())
+    const matchesSearch = game.gameName.toLowerCase().includes(searchTerm.toLowerCase())
     const matchesFilter = selectedFilter === "ALL" || game.p_type === selectedFilter
     return matchesSearch && matchesFilter
   })
   const NfilteredGames = NgameCardsData.filter((game) => {
-    const matchesSearch = (game.gameName?.toLowerCase() ?? "").includes(searchTerm.toLowerCase())
+    const matchesSearch = game.gameName.toLowerCase().includes(searchTerm.toLowerCase())
     const matchesFilter = selectedFilter === "ALL" || game.p_type === selectedFilter
     return matchesSearch && matchesFilter
   })
