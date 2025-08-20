@@ -4,8 +4,9 @@ import { Search, RefreshCw, Wallet, Plus, Grid3X3, Gamepad2, Spade, Fish, Zap } 
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { gameCardsData, bannerData } from "@/data/games"
+import { NgameCardsData,gameCardsData, bannerData } from "@/data/games"
 import BottomNavigation from "@/components/bottom-navigation"
+import WithdrawTicker from "@/components/withdraw-ticker"
 
 interface UserCredentials {
   username: string
@@ -139,7 +140,7 @@ export default function HomePage() {
     return !isNaN(numericBalance) && numericBalance >= 10
   }
 
-  const launchGame = async (gameCode: string, gameType: string, gameName: string) => {
+  const launchGame = async (gameCode: string, gameType: string, gameName: string, Pvcode: string) => {
     if (!userCredentials) {
       alert("Please login to play games")
       return
@@ -149,7 +150,7 @@ export default function HomePage() {
       setShowInsufficientBalancePopup(true)
       return
     }
-
+    console.log(Pvcode)
     setGameLoading({
       isLoading: true,
       progress: 0,
@@ -168,10 +169,13 @@ export default function HomePage() {
         username: userCredentials.username,
         password: userCredentials.password,
         type: gameType,
+        provider_code: Pvcode,
         gameid: gameCode,
         lang: "en-US",
         html5: "1",
       })
+
+      console.log(params.toString())
 
       const response = await fetch(`/api/auth/launch-game?${params.toString()}`)
       const data = await response.json()
@@ -257,6 +261,11 @@ export default function HomePage() {
   }
 
   const filteredGames = gameCardsData.filter((game) => {
+    const matchesSearch = game.gameName.toLowerCase().includes(searchTerm.toLowerCase())
+    const matchesFilter = selectedFilter === "ALL" || game.p_type === selectedFilter
+    return matchesSearch && matchesFilter
+  })
+  const NfilteredGames = NgameCardsData.filter((game) => {
     const matchesSearch = game.gameName.toLowerCase().includes(searchTerm.toLowerCase())
     const matchesFilter = selectedFilter === "ALL" || game.p_type === selectedFilter
     return matchesSearch && matchesFilter
@@ -410,6 +419,9 @@ export default function HomePage() {
         </div>
       </header>
 
+      {/* Withdraw Ticker */}
+      <WithdrawTicker />
+
       {/* Floating Welcome Notification */}
       {showWelcomeNotification && (
         <div className="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 animate-in slide-in-from-top duration-500">
@@ -424,15 +436,6 @@ export default function HomePage() {
         /* Horizontal Layout */
         <div className="flex h-[calc(100vh-60px)]">
           {/* Vertical Banner */}
-          <div className="w-48 bg-gradient-to-b from-yellow-600 via-yellow-500 to-yellow-600 flex items-center justify-center relative overflow-hidden border-r border-yellow-400/30">
-            <div className="absolute inset-0 bg-black/20" />
-            <div className="relative z-10 text-center p-4">
-              <div className="text-black text-2xl font-bold mb-2">🎁 WELCOME</div>
-              <div className="text-black/80 text-sm mb-2">First Deposit</div>
-              <div className="text-black text-lg font-bold mb-2">+215%</div>
-              <div className="text-black/80 text-xs">Bonus</div>
-            </div>
-          </div>
 
           {/* Left Sidebar */}
           <div className="w-16 bg-black/80 backdrop-blur-sm border-r border-yellow-500/20 flex flex-col items-center py-2 space-y-2">
@@ -470,7 +473,7 @@ export default function HomePage() {
                   <div
                     key={game.g_code}
                     className="relative cursor-pointer hover:scale-105 transition-all duration-300 group"
-                    onClick={() => launchGame(game.g_code, game.p_type, game.gameName)}
+                    onClick={() => launchGame(game.g_code, game.p_type, game.gameName, game.Pcode)}
                   >
                     <div className="relative w-28 h-36 bg-gradient-to-br from-black via-gray-900 to-black rounded-lg overflow-hidden shadow-lg border border-yellow-500/30">
                       <Image
@@ -583,12 +586,308 @@ export default function HomePage() {
           </div>
 
           {/* Games Grid */}
+          <div className="space-y-6">
+            {/* Popular Games Section */}
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xl md:text-2xl font-bold text-yellow-400 flex items-center gap-2">
+                  🔥 Popular Games
+                </h2>
+                <button className="text-yellow-300 text-sm hover:text-yellow-200 transition-colors">View All</button>
+              </div>
+              <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-2">
+                {filteredGames.slice(0, 20).map((game) => (
+                  <div
+                    key={`popular-${game.g_code}`}
+                    className="relative cursor-pointer hover:scale-105 transition-all duration-300 group flex-shrink-0"
+                    onClick={() => launchGame(game.g_code, game.p_type, game.gameName, game.Pcode)}
+                  >
+                    <div className="relative w-24 md:w-32 aspect-[3/4] bg-gradient-to-br from-black via-gray-900 to-black rounded-xl overflow-hidden shadow-lg border border-yellow-500/30">
+                      <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 via-transparent to-yellow-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                      <div className="relative w-full h-full p-2 flex items-center justify-center">
+                        <Image
+                          src={game.imgFileName || "/placeholder.svg"}
+                          alt={game.gameName}
+                          width={80}
+                          height={100}
+                          className="object-contain drop-shadow-lg max-w-full max-h-full group-hover:scale-110 transition-transform duration-300"
+                        />
+
+                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <div className="bg-black/50 backdrop-blur-sm rounded-full p-2 border border-yellow-500/30">
+                            <div className="w-6 h-6 bg-gradient-to-r from-yellow-600 to-yellow-500 rounded-full flex items-center justify-center shadow-lg border border-yellow-400/30">
+                              <div className="w-0 h-0 border-l-[4px] border-l-black border-t-[3px] border-t-transparent border-b-[3px] border-b-transparent ml-0.5" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="absolute top-1 right-1">
+                        <span className="bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full font-bold">HOT</span>
+                      </div>
+
+                      <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-black/80 to-transparent" />
+
+                      <div className="absolute bottom-1 left-1 right-1 text-center">
+                        <h3 className="text-yellow-300 font-bold text-xs truncate">{game.gameName}</h3>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Slots Games Section */}
+            {filteredGames.filter((game) => game.p_type === "SL").length > 0 && (
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-xl md:text-2xl font-bold text-yellow-400 flex items-center gap-2">
+                    🎰 Slot Games
+                  </h2>
+                  <button
+                    onClick={() => setSelectedFilter("SL")}
+                    className="text-yellow-300 text-sm hover:text-yellow-200 transition-colors"
+                  >
+                    View All
+                  </button>
+                </div>
+                <div className="flex gap-3 overflow-x-auto scrollbar-hide bg-black mx-0 py-2.5 px-2.5 border-0 rounded-2xl">
+                  {filteredGames
+                    .filter((game) => game.p_type === "SL")
+                    .slice(0, 20)
+                    .map((game) => (
+                      <div
+                        key={`slots-${game.g_code}`}
+                        className="relative cursor-pointer hover:scale-105 transition-all duration-300 group flex-shrink-0"
+                        onClick={() => launchGame(game.g_code, game.p_type, game.gameName, game.Pcode)}
+                      >
+                        <div className="relative w-24 md:w-32 aspect-[3/4] bg-gradient-to-br from-black via-gray-900 to-black rounded-xl overflow-hidden shadow-lg border border-yellow-500/30">
+                          <div className="relative w-full h-full p-2 flex items-center justify-center">
+                            <Image
+                              src={game.imgFileName || "/placeholder.svg"}
+                              alt={game.gameName}
+                              width={80}
+                              height={100}
+                              className="object-contain drop-shadow-lg max-w-full max-h-full group-hover:scale-110 transition-transform duration-300"
+                            />
+
+                            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                              <div className="bg-black/50 backdrop-blur-sm rounded-full p-2 border border-yellow-500/30">
+                                <div className="w-6 h-6 bg-gradient-to-r from-yellow-600 to-yellow-500 rounded-full flex items-center justify-center shadow-lg border border-yellow-400/30">
+                                  <div className="w-0 h-0 border-l-[4px] border-l-black border-t-[3px] border-t-transparent border-b-[3px] border-b-transparent ml-0.5" />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="absolute top-1 right-1">
+                            <span className="bg-purple-500 text-white text-xs px-1.5 py-0.5 rounded-full font-bold">
+                              SLOT
+                            </span>
+                          </div>
+
+                          <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-black/80 to-transparent" />
+
+                          <div className="absolute bottom-1 left-1 right-1 text-center">
+                            <h3 className="text-yellow-300 font-bold text-xs truncate">{game.gameName}</h3>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              </div>
+            )}
+
+            {/* Fishing Games Section */}
+            {filteredGames.filter((game) => game.p_type === "FH").length > 0 && (
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-xl md:text-2xl font-bold text-yellow-400 flex items-center gap-2">
+                    🐟 Fishing Games
+                  </h2>
+                  <button
+                    onClick={() => setSelectedFilter("FH")}
+                    className="text-yellow-300 text-sm hover:text-yellow-200 transition-colors"
+                  >
+                    View All
+                  </button>
+                </div>
+                <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-2">
+                  {filteredGames
+                    .filter((game) => game.p_type === "FH")
+                    .slice(0, 20)
+                    .map((game) => (
+                      <div
+                        key={`fishing-${game.g_code}`}
+                        className="relative cursor-pointer hover:scale-105 transition-all duration-300 group flex-shrink-0"
+                        onClick={() => launchGame(game.g_code, game.p_type, game.gameName, game.Pcode)}
+                      >
+                        <div className="relative w-24 md:w-32 aspect-[3/4] bg-gradient-to-br from-black via-gray-900 to-black rounded-xl overflow-hidden shadow-lg border border-yellow-500/30">
+                          <div className="relative w-full h-full p-2 flex items-center justify-center">
+                            <Image
+                              src={game.imgFileName || "/placeholder.svg"}
+                              alt={game.gameName}
+                              width={80}
+                              height={100}
+                              className="object-contain drop-shadow-lg max-w-full max-h-full group-hover:scale-110 transition-transform duration-300"
+                            />
+
+                            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                              <div className="bg-black/50 backdrop-blur-sm rounded-full p-2 border border-yellow-500/30">
+                                <div className="w-6 h-6 bg-gradient-to-r from-yellow-600 to-yellow-500 rounded-full flex items-center justify-center shadow-lg border border-yellow-400/30">
+                                  <div className="w-0 h-0 border-l-[4px] border-l-black border-t-[3px] border-t-transparent border-b-[3px] border-b-transparent ml-0.5" />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="absolute top-1 right-1">
+                            <span className="bg-blue-500 text-white text-xs px-1.5 py-0.5 rounded-full font-bold">
+                              FISH
+                            </span>
+                          </div>
+
+                          <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-black/80 to-transparent" />
+
+                          <div className="absolute bottom-1 left-1 right-1 text-center">
+                            <h3 className="text-yellow-300 font-bold text-xs truncate">{game.gameName}</h3>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              </div>
+            )}
+
+            {/* Card Games Section */}
+            {filteredGames.filter((game) => game.p_type === "CB").length > 0 && (
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-xl md:text-2xl font-bold text-yellow-400 flex items-center gap-2">
+                    🃏 Card Games
+                  </h2>
+                  <button
+                    onClick={() => setSelectedFilter("CB")}
+                    className="text-yellow-300 text-sm hover:text-yellow-200 transition-colors"
+                  >
+                    View All
+                  </button>
+                </div>
+                <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-2">
+                  {filteredGames
+                    .filter((game) => game.p_type === "CB")
+                    .slice(0, 20)
+                    .map((game) => (
+                      <div
+                        key={`cards-${game.g_code}`}
+                        className="relative cursor-pointer hover:scale-105 transition-all duration-300 group flex-shrink-0"
+                        onClick={() => launchGame(game.g_code, game.p_type, game.gameName, game.Pcode)}
+                      >
+                        <div className="relative w-24 md:w-32 aspect-[3/4] bg-gradient-to-br from-black via-gray-900 to-black rounded-xl overflow-hidden shadow-lg border border-yellow-500/30">
+                          <div className="relative w-full h-full p-2 flex items-center justify-center">
+                            <Image
+                              src={game.imgFileName || "/placeholder.svg"}
+                              alt={game.gameName}
+                              width={80}
+                              height={100}
+                              className="object-contain drop-shadow-lg max-w-full max-h-full group-hover:scale-110 transition-transform duration-300"
+                            />
+
+                            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                              <div className="bg-black/50 backdrop-blur-sm rounded-full p-2 border border-yellow-500/30">
+                                <div className="w-6 h-6 bg-gradient-to-r from-yellow-600 to-yellow-500 rounded-full flex items-center justify-center shadow-lg border border-yellow-400/30">
+                                  <div className="w-0 h-0 border-l-[4px] border-l-black border-t-[3px] border-t-transparent border-b-[3px] border-b-transparent ml-0.5" />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="absolute top-1 right-1">
+                            <span className="bg-green-500 text-white text-xs px-1.5 py-0.5 rounded-full font-bold">
+                              CARD
+                            </span>
+                          </div>
+
+                          <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-black/80 to-transparent" />
+
+                          <div className="absolute bottom-1 left-1 right-1 text-center">
+                            <h3 className="text-yellow-300 font-bold text-xs truncate">{game.gameName}</h3>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              </div>
+            )}
+
+            {/* Other Games Section */}
+            {filteredGames.filter((game) => game.p_type === "OT").length > 0 && (
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-xl md:text-2xl font-bold text-yellow-400 flex items-center gap-2">
+                    ⚡ Other Games
+                  </h2>
+                  <button
+                    onClick={() => setSelectedFilter("OT")}
+                    className="text-yellow-300 text-sm hover:text-yellow-200 transition-colors"
+                  >
+                    View All
+                  </button>
+                </div>
+                <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-2">
+                  {filteredGames
+                    .filter((game) => game.p_type === "OT")
+                    .slice(0, 20)
+                    .map((game) => (
+                      <div
+                        key={`others-${game.g_code}`}
+                        className="relative cursor-pointer hover:scale-105 transition-all duration-300 group flex-shrink-0"
+                        onClick={() => launchGame(game.g_code, game.p_type, game.gameName, game.Pcode)}
+                      >
+                        <div className="relative w-24 md:w-32 aspect-[3/4] bg-gradient-to-br from-black via-gray-900 to-black rounded-xl overflow-hidden shadow-lg border border-yellow-500/30">
+                          <div className="relative w-full h-full p-2 flex items-center justify-center">
+                            <Image
+                              src={game.imgFileName || "/placeholder.svg"}
+                              alt={game.gameName}
+                              width={80}
+                              height={100}
+                              className="object-contain drop-shadow-lg max-w-full max-h-full group-hover:scale-110 transition-transform duration-300"
+                            />
+
+                            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                              <div className="bg-black/50 backdrop-blur-sm rounded-full p-2 border border-yellow-500/30">
+                                <div className="w-6 h-6 bg-gradient-to-r from-yellow-600 to-yellow-500 rounded-full flex items-center justify-center shadow-lg border border-yellow-400/30">
+                                  <div className="w-0 h-0 border-l-[4px] border-l-black border-t-[3px] border-t-transparent border-b-[3px] border-b-transparent ml-0.5" />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="absolute top-1 right-1">
+                            <span className="bg-orange-500 text-white text-xs px-1.5 py-0.5 rounded-full font-bold">
+                              NEW
+                            </span>
+                          </div>
+
+                          <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-black/80 to-transparent" />
+
+                          <div className="absolute bottom-1 left-1 right-1 text-center">
+                            <h3 className="text-yellow-300 font-bold text-xs truncate">{game.gameName}</h3>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              </div>
+            )}
+             {/* Games Grid */}
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-3 md:gap-6">
-            {filteredGames.map((game) => (
+            {NfilteredGames.map((game) => (
               <div
                 key={game.g_code}
                 className="relative cursor-pointer hover:scale-105 transition-all duration-300 group"
-                onClick={() => launchGame(game.g_code, game.p_type, game.gameName)}
+                onClick={() => launchGame(game.g_code, game.p_type, game.gameName, game.Pcode)}
               >
                 <div className="relative w-full aspect-[3/4] bg-gradient-to-br from-black via-gray-900 to-black rounded-xl md:rounded-2xl overflow-hidden shadow-lg md:shadow-2xl border border-yellow-500/30">
                   <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 via-transparent to-yellow-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -631,6 +930,66 @@ export default function HomePage() {
             ))}
           </div>
 
+            {/* All Games Section (fallback when search is active) */}
+            {searchTerm && (
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-xl md:text-2xl font-bold text-yellow-400 flex items-center gap-2">
+                    🔍 Search Results
+                  </h2>
+                  <span className="text-yellow-300 text-sm">{filteredGames.length} games found</span>
+                </div>
+                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-3 md:gap-6">
+                  {filteredGames.map((game) => (
+                    <div
+                      key={game.g_code}
+                      className="relative cursor-pointer hover:scale-105 transition-all duration-300 group"
+                      onClick={() => launchGame(game.g_code, game.p_type, game.gameName, game.Pcode)}
+                    >
+                      <div className="relative w-full aspect-[3/4] bg-gradient-to-br from-black via-gray-900 to-black rounded-xl md:rounded-2xl overflow-hidden shadow-lg md:shadow-2xl border border-yellow-500/30">
+                        <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 via-transparent to-yellow-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                        <div className="relative w-full h-full p-2 md:p-4 flex items-center justify-center">
+                          <Image
+                            src={game.imgFileName || "/placeholder.svg"}
+                            alt={game.gameName}
+                            width={120}
+                            height={160}
+                            className="object-contain drop-shadow-lg md:drop-shadow-2xl max-w-full max-h-full group-hover:scale-110 transition-transform duration-300"
+                          />
+
+                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div className="bg-black/50 backdrop-blur-sm rounded-full p-2 md:p-3 border border-yellow-500/30">
+                              <div className="w-8 h-8 md:w-12 md:h-12 bg-gradient-to-r from-yellow-600 to-yellow-500 rounded-full flex items-center justify-center shadow-lg border border-yellow-400/30">
+                                <div className="w-0 h-0 border-l-[6px] md:border-l-[8px] border-l-black border-t-[4px] md:border-t-[6px] border-t-transparent border-b-[4px] md:border-b-[6px] border-b-transparent ml-1" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="absolute top-1 md:top-2 right-1 md:right-2">
+                          <span className="bg-black/70 backdrop-blur-sm text-yellow-300 text-xs px-1.5 md:px-2 py-0.5 md:py-1 rounded-full border border-yellow-500/30">
+                            {getGameTypeLabel(game.p_type)}
+                          </span>
+                        </div>
+
+                        <div className="absolute bottom-0 left-0 right-0 h-12 md:h-16 bg-gradient-to-t from-black/80 to-transparent" />
+
+                        <div className="absolute bottom-1 md:bottom-2 left-1 md:left-2 right-1 md:right-2 text-center">
+                          <h3 className="text-yellow-300 font-bold text-xs md:text-sm drop-shadow-lg truncate">
+                            {game.gameName}
+                          </h3>
+                        </div>
+
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-yellow-400/10 to-transparent -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
           {filteredGames.length === 0 && (
             <div className="text-center py-16">
               <div className="text-6xl mb-4">🎮</div>
@@ -640,25 +999,6 @@ export default function HomePage() {
           )}
         </div>
       )}
-
-      {/* Custom CSS to hide scrollbars */}
-      <style jsx global>{`
-        .scrollbar-hide {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-        
-        * {
-          scrollbar-width: none;
-          -ms-overflow-style: none;
-        }
-        *::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
 
       <BottomNavigation />
     </div>
