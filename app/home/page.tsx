@@ -140,7 +140,7 @@ export default function HomePage() {
     return !isNaN(numericBalance) && numericBalance >= 10
   }
 
-  const launchGame = async (gameCode: string, gameType: string, gameName: string, Pcode: string) => {
+  const launchGame = async (gameCode: string, gameType: string, gameName: string, Pvcode: string) => {
     if (!userCredentials) {
       alert("Please login to play games")
       return
@@ -169,7 +169,7 @@ export default function HomePage() {
         username: userCredentials.username,
         password: userCredentials.password,
         type: gameType,
-        provider_code: Pcode,
+        provider_code: Pvcode,
         gameid: gameCode,
         lang: "en-US",
         html5: "1",
