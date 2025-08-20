@@ -26,6 +26,7 @@ export async function GET(request: NextRequest) {
       username,
       password,
       type,
+      provider_code,
       gameid,
       lang,
       html5,
