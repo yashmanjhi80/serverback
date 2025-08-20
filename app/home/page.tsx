@@ -426,6 +426,8 @@ export default function HomePage() {
       {/* Main Content */}
       {isHorizontal ? (
         /* Horizontal Layout */
+        <div className="flex h-[calc(100vh-60px)]">
+          {/* Vertical Banner */}
 
           {/* Left Sidebar */}
           <div className="w-16 bg-black/80 backdrop-blur-sm border-r border-yellow-500/20 flex flex-col items-center py-2 space-y-2">
@@ -941,25 +943,6 @@ export default function HomePage() {
           )}
         </div>
       )}
-
-      {/* Custom CSS to hide scrollbars */}
-      <style jsx global>{`
-        .scrollbar-hide {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-        
-        * {
-          scrollbar-width: none;
-          -ms-overflow-style: none;
-        }
-        *::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
 
       <BottomNavigation />
     </div>
