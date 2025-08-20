@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    console.log("Launching game for user:", username, "type:", type, "gameid:", gameid)
+    console.log("Launching game for user:", username, "type:", type, "gameid:", gameid , "providercode:", Pvcode)
 
     // Build query parameters
     const params = new URLSearchParams({
