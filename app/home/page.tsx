@@ -426,17 +426,6 @@ export default function HomePage() {
       {/* Main Content */}
       {isHorizontal ? (
         /* Horizontal Layout */
-        <div className="flex h-[calc(100vh-60px)]">
-          {/* Vertical Banner */}
-          <div className="w-48 bg-gradient-to-b from-yellow-600 via-yellow-500 to-yellow-600 flex items-center justify-center relative overflow-hidden border-r border-yellow-400/30">
-            <div className="absolute inset-0 bg-black/20" />
-            <div className="relative z-10 text-center p-4">
-              <div className="text-black text-2xl font-bold mb-2">🎁 WELCOME</div>
-              <div className="text-black/80 text-sm mb-2">First Deposit</div>
-              <div className="text-black text-lg font-bold mb-2">+215%</div>
-              <div className="text-black/80 text-xs">Bonus</div>
-            </div>
-          </div>
 
           {/* Left Sidebar */}
           <div className="w-16 bg-black/80 backdrop-blur-sm border-r border-yellow-500/20 flex flex-col items-center py-2 space-y-2">
