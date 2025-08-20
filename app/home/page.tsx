@@ -4,7 +4,7 @@ import { Search, RefreshCw, Wallet, Plus, Grid3X3, Gamepad2, Spade, Fish, Zap } 
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { gameCardsData, bannerData } from "@/data/games"
+import { NgameCardsData,gameCardsData, bannerData } from "@/data/games"
 import BottomNavigation from "@/components/bottom-navigation"
 import WithdrawTicker from "@/components/withdraw-ticker"
 

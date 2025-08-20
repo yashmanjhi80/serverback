@@ -1278,6 +1278,681 @@ export const gameCardsData = [
     imgFileName: "https://img.55115515.com/JL/en-us/554.png",
   },
 ]
+export const NgameCardsData = [
+    {
+        "gameName": "Honey Trap of Diao Chan",
+        "p_type": "SL",
+        "g_code": "1",
+        "imgFileName": "https://img.55115515.com/PG/en-us/diaochan.jpg"
+    },
+    {
+        "gameName": "Gem Saviour",
+        "p_type": "SL",
+        "g_code": "2",
+        "imgFileName": "https://img.55115515.com/PG/en-us/gem-saviour.jpg"
+    },
+    {
+        "gameName": "Fortune Gods",
+        "p_type": "SL",
+        "g_code": "3",
+        "imgFileName": "https://img.55115515.com/PG/en-us/fortune-gods.jpg"
+    },
+    {
+        "gameName": "Medusa 2: The Quest of Perseus",
+        "p_type": "SL",
+        "g_code": "6",
+        "imgFileName": "https://img.55115515.com/PG/en-us/medusa2.jpg"
+    },
+    {
+        "gameName": "Medusa 1: The Curse of Athena",
+        "p_type": "SL",
+        "g_code": "7",
+        "imgFileName": "https://img.55115515.com/PG/en-us/medusa.jpg"
+    },
+    {
+        "gameName": "Hood vs Wolf",
+        "p_type": "SL",
+        "g_code": "18",
+        "imgFileName": "https://img.55115515.com/PG/en-us/hood-wolf.jpg"
+    },
+    {
+        "gameName": "Reel Love",
+        "p_type": "SL",
+        "g_code": "20",
+        "imgFileName": "https://img.55115515.com/PG/en-us/reel-love.jpg"
+    },
+    {
+        "gameName": "Win Win Won",
+        "p_type": "SL",
+        "g_code": "24",
+        "imgFileName": "https://img.55115515.com/PG/en-us/win-win-won.jpg"
+    },
+    {
+        "gameName": "Plushie Frenzy",
+        "p_type": "SL",
+        "g_code": "25",
+        "imgFileName": "https://img.55115515.com/PG/en-us/plushie-frenzy.jpg"
+    },
+    {
+        "gameName": "Tree of Fortune",
+        "p_type": "SL",
+        "g_code": "26",
+        "imgFileName": "https://img.55115515.com/PG/en-us/fortune-tree.jpg"
+    },
+    {
+        "gameName": "Hotpot",
+        "p_type": "SL",
+        "g_code": "28",
+        "imgFileName": "https://img.55115515.com/PG/en-us/hotpot.jpg"
+    },
+    {
+        "gameName": "Dragon Legend",
+        "p_type": "SL",
+        "g_code": "29",
+        "imgFileName": "https://img.55115515.com/PG/en-us/dragon-legend.jpg"
+    },
+    {
+        "gameName": "Baccarat Deluxe",
+        "p_type": "CB",
+        "g_code": "31",
+        "imgFileName": "https://img.55115515.com/PG/en-us/baccarat-deluxe.jpg"
+    },
+    {
+        "gameName": "Hip Hop Panda",
+        "p_type": "SL",
+        "g_code": "33",
+        "imgFileName": "https://img.55115515.com/PG/en-us/hip-hop-panda.jpg"
+    },
+    {
+        "gameName": "Legend of Hou Yi",
+        "p_type": "SL",
+        "g_code": "34",
+        "imgFileName": "https://img.55115515.com/PG/en-us/legend-of-hou-yi.jpg"
+    },
+    {
+        "gameName": "Mr. Hallow-Win",
+        "p_type": "SL",
+        "g_code": "35",
+        "imgFileName": "https://img.55115515.com/PG/en-us/mr-hallow-win.jpg"
+    },
+    {
+        "gameName": "Prosperity Lion",
+        "p_type": "SL",
+        "g_code": "36",
+        "imgFileName": "https://img.55115515.com/PG/en-us/prosperity-lion.jpg"
+    },
+    {
+        "gameName": "Santa's Gift Rush",
+        "p_type": "SL",
+        "g_code": "37",
+        "imgFileName": "https://img.55115515.com/PG/en-us/santas-gift-rush.jpg"
+    },
+    {
+        "gameName": "Gem Saviour Sword",
+        "p_type": "SL",
+        "g_code": "38",
+        "imgFileName": "https://img.55115515.com/PG/en-us/gem-saviour-sword.jpg"
+    },
+    {
+        "gameName": "Piggy Gold",
+        "p_type": "SL",
+        "g_code": "39",
+        "imgFileName": "https://img.55115515.com/PG/en-us/piggy-gold.jpg"
+    },
+    {
+        "gameName": "Jungle Delight",
+        "p_type": "SL",
+        "g_code": "40",
+        "imgFileName": "https://img.55115515.com/PG/en-us/jungle-delight.jpg"
+    },
+    {
+        "gameName": "Symbols Of Egypt",
+        "p_type": "SL",
+        "g_code": "41",
+        "imgFileName": "https://img.55115515.com/PG/en-us/symbols-of-egypt.jpg"
+    },
+    {
+        "gameName": "Ganesha Gold",
+        "p_type": "SL",
+        "g_code": "42",
+        "imgFileName": "https://img.55115515.com/PG/en-us/ganesha-gold.jpg"
+    },
+    {
+        "gameName": "Emperor's Favour",
+        "p_type": "SL",
+        "g_code": "44",
+        "imgFileName": "https://img.55115515.com/PG/en-us/emperors-favour.jpg"
+    },
+    {
+        "gameName": "Double Fortune",
+        "p_type": "SL",
+        "g_code": "48",
+        "imgFileName": "https://img.55115515.com/PG/en-us/double-fortune.jpg"
+    },
+    {
+        "gameName": "Journey to the Wealth",
+        "p_type": "SL",
+        "g_code": "50",
+        "imgFileName": "https://img.55115515.com/PG/en-us/journey-to-the-wealth.jpg"
+    },
+    {
+        "gameName": "The Great Icescape",
+        "p_type": "SL",
+        "g_code": "53",
+        "imgFileName": "https://img.55115515.com/PG/en-us/the-great-icescape.jpg"
+    },
+    {
+        "gameName": "Captain's Bounty",
+        "p_type": "SL",
+        "g_code": "54",
+        "imgFileName": "https://img.55115515.com/PG/en-us/captains-bounty.jpg"
+    },
+    {
+        "gameName": "Dragon Hatch",
+        "p_type": "SL",
+        "g_code": "57",
+        "imgFileName": "https://img.55115515.com/PG/en-us/dragon-hatch.jpg"
+    },
+    {
+        "gameName": "Vampire's Charm",
+        "p_type": "SL",
+        "g_code": "58",
+        "imgFileName": "https://img.55115515.com/PG/en-us/vampires-charm.jpg"
+    },
+    {
+        "gameName": "Ninja vs Samurai",
+        "p_type": "SL",
+        "g_code": "59",
+        "imgFileName": "https://img.55115515.com/PG/en-us/ninja-vs-samurai.jpg"
+    },
+    {
+        "gameName": "Leprechaun Riches",
+        "p_type": "SL",
+        "g_code": "60",
+        "imgFileName": "https://img.55115515.com/PG/en-us/leprechaun-riches.jpg"
+    },
+    {
+        "gameName": "Flirting Scholar",
+        "p_type": "SL",
+        "g_code": "61",
+        "imgFileName": "https://img.55115515.com/PG/en-us/flirting-scholar.jpg"
+    },
+    {
+        "gameName": "Gem Saviour Conquest",
+        "p_type": "SL",
+        "g_code": "62",
+        "imgFileName": "https://img.55115515.com/PG/en-us/gem-saviour-conquest.jpg"
+    },
+    {
+        "gameName": "Dragon Tiger Luck",
+        "p_type": "SL",
+        "g_code": "63",
+        "imgFileName": "https://img.55115515.com/PG/en-us/dragon-tiger-luck.jpg"
+    },
+    {
+        "gameName": "Muay Thai Champion",
+        "p_type": "SL",
+        "g_code": "64",
+        "imgFileName": "https://img.55115515.com/PG/en-us/muay-thai-champion.jpg"
+    },
+    {
+        "gameName": "Mahjong Ways",
+        "p_type": "SL",
+        "g_code": "65",
+        "imgFileName": "https://img.55115515.com/PG/en-us/mahjong-ways.jpg"
+    },
+    {
+        "gameName": "Shaolin Soccer",
+        "p_type": "SL",
+        "g_code": "67",
+        "imgFileName": "https://img.55115515.com/PG/en-us/shaolin-soccer.jpg"
+    },
+    {
+        "gameName": "Fortune Mouse",
+        "p_type": "SL",
+        "g_code": "68",
+        "imgFileName": "https://img.55115515.com/PG/en-us/fortune-mouse.jpg"
+    },
+    {
+        "gameName": "Bikini Paradise",
+        "p_type": "SL",
+        "g_code": "69",
+        "imgFileName": "https://img.55115515.com/PG/en-us/bikini-paradise.jpg"
+    },
+    {
+        "gameName": "Candy Burst",
+        "p_type": "SL",
+        "g_code": "70",
+        "imgFileName": "https://img.55115515.com/PG/en-us/candy-burst.jpg"
+    },
+    {
+        "gameName": "CaiShen Wins",
+        "p_type": "SL",
+        "g_code": "71",
+        "imgFileName": "https://img.55115515.com/PG/en-us/cai-shen-wins.jpg"
+    },
+    {
+        "gameName": "Egypt's Book of Mystery",
+        "p_type": "SL",
+        "g_code": "73",
+        "imgFileName": "https://img.55115515.com/PG/en-us/egypts-book-mystery.jpg"
+    },
+    {
+        "gameName": "Mahjong Ways 2",
+        "p_type": "SL",
+        "g_code": "74",
+        "imgFileName": "https://img.55115515.com/PG/en-us/mahjong-ways2.jpg"
+    },
+    {
+        "gameName": "Ganesha Fortune",
+        "p_type": "SL",
+        "g_code": "75",
+        "imgFileName": "https://img.55115515.com/PG/en-us/ganesha-fortune.jpg"
+    },
+    {
+        "gameName": "Dreams of Macau",
+        "p_type": "SL",
+        "g_code": "79",
+        "imgFileName": "https://img.55115515.com/PG/en-us/dreams-of-macau.jpg"
+    },
+    {
+        "gameName": "Circus Delight",
+        "p_type": "SL",
+        "g_code": "80",
+        "imgFileName": "https://img.55115515.com/PG/en-us/circus-delight.jpg"
+    },
+    {
+        "gameName": "Phoenix Rises",
+        "p_type": "SL",
+        "g_code": "82",
+        "imgFileName": "https://img.55115515.com/PG/en-us/phoenix-rises.jpg"
+    },
+    {
+        "gameName": "Wild Fireworks",
+        "p_type": "SL",
+        "g_code": "83",
+        "imgFileName": "https://img.55115515.com/PG/en-us/wild-fireworks.jpg"
+    },
+    {
+        "gameName": "Queen of Bounty",
+        "p_type": "SL",
+        "g_code": "84",
+        "imgFileName": "https://img.55115515.com/PG/en-us/queen-bounty.jpg"
+    },
+    {
+        "gameName": "Genie's 3 Wishes",
+        "p_type": "SL",
+        "g_code": "85",
+        "imgFileName": "https://img.55115515.com/PG/en-us/genies-wishes.jpg"
+    },
+    {
+        "gameName": "Galactic Gems",
+        "p_type": "SL",
+        "g_code": "86",
+        "imgFileName": "https://img.55115515.com/PG/en-us/galactic-gems.jpg"
+    },
+    {
+        "gameName": "Treasures of Aztec",
+        "p_type": "SL",
+        "g_code": "87",
+        "imgFileName": "https://img.55115515.com/PG/en-us/treasures-aztec.jpg"
+    },
+    {
+        "gameName": "Jewels of Prosperity",
+        "p_type": "SL",
+        "g_code": "88",
+        "imgFileName": "https://img.55115515.com/PG/en-us/jewels-prosper.jpg"
+    },
+    {
+        "gameName": "Lucky Neko",
+        "p_type": "SL",
+        "g_code": "89",
+        "imgFileName": "https://img.55115515.com/PG/en-us/lucky-neko.jpg"
+    },
+    {
+        "gameName": "Secrets of Cleopatra",
+        "p_type": "SL",
+        "g_code": "90",
+        "imgFileName": "https://img.55115515.com/PG/en-us/sct-cleopatra.jpg"
+    },
+    {
+        "gameName": "Guardians of Ice & Fire",
+        "p_type": "SL",
+        "g_code": "91",
+        "imgFileName": "https://img.55115515.com/PG/en-us/gdn-ice-fire.jpg"
+    },
+    {
+        "gameName": "Thai River Wonders",
+        "p_type": "SL",
+        "g_code": "92",
+        "imgFileName": "https://img.55115515.com/PG/en-us/thai-river.jpg"
+    },
+    {
+        "gameName": "Opera Dynasty",
+        "p_type": "SL",
+        "g_code": "93",
+        "imgFileName": "https://img.55115515.com/PG/en-us/opera-dynasty.jpg"
+    },
+    {
+        "gameName": "Bali Vacation",
+        "p_type": "SL",
+        "g_code": "94",
+        "imgFileName": "https://img.55115515.com/PG/en-us/bali-vacation.jpg"
+    },
+    {
+        "gameName": "Majestic Treasures",
+        "p_type": "SL",
+        "g_code": "95",
+        "imgFileName": "https://img.55115515.com/PG/en-us/majestic-ts.jpg"
+    },
+    {
+        "gameName": "Jack Frost's Winter",
+        "p_type": "SL",
+        "g_code": "97",
+        "imgFileName": "https://img.55115515.com/PG/en-us/jack-frosts.jpg"
+    },
+    {
+        "gameName": "Fortune Ox",
+        "p_type": "SL",
+        "g_code": "98",
+        "imgFileName": "https://img.55115515.com/PG/en-us/fortune-ox.jpg"
+    },
+    {
+        "gameName": "Candy Bonanza",
+        "p_type": "SL",
+        "g_code": "100",
+        "imgFileName": "https://img.55115515.com/PG/en-us/candy-bonanza.jpg"
+    },
+    {
+        "gameName": "Rise of Apollo",
+        "p_type": "SL",
+        "g_code": "101",
+        "imgFileName": "https://img.55115515.com/PG/en-us/rise-of-apollo.jpg"
+    },
+    {
+        "gameName": "Mermaid Riches",
+        "p_type": "SL",
+        "g_code": "102",
+        "imgFileName": "https://img.55115515.com/PG/en-us/mermaid-riches.jpg"
+    },
+    {
+        "gameName": "Crypto Gold",
+        "p_type": "SL",
+        "g_code": "103",
+        "imgFileName": "https://img.55115515.com/PG/en-us/crypto-gold.jpg"
+    },
+    {
+        "gameName": "Wild Bandito",
+        "p_type": "SL",
+        "g_code": "104",
+        "imgFileName": "https://img.55115515.com/PG/en-us/wild-bandito.jpg"
+    },
+    {
+        "gameName": "Heist Stakes",
+        "p_type": "SL",
+        "g_code": "105",
+        "imgFileName": "https://img.55115515.com/PG/en-us/heist-stakes.jpg"
+    },
+    {
+        "gameName": "Ways of the Qilin",
+        "p_type": "SL",
+        "g_code": "106",
+        "imgFileName": "https://img.55115515.com/PG/en-us/ways-of-qilin.jpg"
+    },
+    {
+        "gameName": "Legendary Monkey King",
+        "p_type": "SL",
+        "g_code": "107",
+        "imgFileName": "https://img.55115515.com/PG/en-us/lgd-monkey-kg.jpg"
+    },
+    {
+        "gameName": "Buffalo Win",
+        "p_type": "SL",
+        "g_code": "108",
+        "imgFileName": "https://img.55115515.com/PG/en-us/buffalo-win.jpg"
+    },
+    {
+        "gameName": "Jurassic Kingdom",
+        "p_type": "SL",
+        "g_code": "110",
+        "imgFileName": "https://img.55115515.com/PG/en-us/jurassic-kdm.jpg"
+    },
+    {
+        "gameName": "Oriental Prosperity",
+        "p_type": "SL",
+        "g_code": "112",
+        "imgFileName": "https://img.55115515.com/PG/en-us/oriental-pros.jpg"
+    },
+    {
+        "gameName": "Raider Jane's Crypt of Fortune",
+        "p_type": "SL",
+        "g_code": "113",
+        "imgFileName": "https://img.55115515.com/PG/en-us/crypt-fortune.jpg"
+    },
+    {
+        "gameName": "Emoji Riches",
+        "p_type": "SL",
+        "g_code": "114",
+        "imgFileName": "https://img.55115515.com/PG/en-us/emoji-riches.jpg"
+    },
+    {
+        "gameName": "Supermarket Spree",
+        "p_type": "SL",
+        "g_code": "115",
+        "imgFileName": "https://img.55115515.com/PG/en-us/sprmkt-spree.jpg"
+    },
+    {
+        "gameName": "Cocktail Nights",
+        "p_type": "SL",
+        "g_code": "117",
+        "imgFileName": "https://img.55115515.com/PG/en-us/cocktail-nite.jpg"
+    },
+    {
+        "gameName": "Mask Carnival",
+        "p_type": "SL",
+        "g_code": "118",
+        "imgFileName": "https://img.55115515.com/PG/en-us/mask-carnival.jpg"
+    },
+    {
+        "gameName": "Spirited Wonders",
+        "p_type": "SL",
+        "g_code": "119",
+        "imgFileName": "https://img.55115515.com/PG/en-us/spirit-wonder.jpg"
+    },
+    {
+        "gameName": "The Queen's Banquet",
+        "p_type": "SL",
+        "g_code": "120",
+        "imgFileName": "https://img.55115515.com/PG/en-us/queen-banquet.jpg"
+    },
+    {
+        "gameName": "Destiny of Sun & Moon",
+        "p_type": "SL",
+        "g_code": "121",
+        "imgFileName": "https://img.55115515.com/PG/en-us/dest-sun-moon.jpg"
+    },
+    {
+        "gameName": "Garuda Gems",
+        "p_type": "SL",
+        "g_code": "122",
+        "imgFileName": "https://img.55115515.com/PG/en-us/garuda-gems.jpg"
+    },
+    {
+        "gameName": "Rooster Rumble",
+        "p_type": "SL",
+        "g_code": "123",
+        "imgFileName": "https://img.55115515.com/PG/en-us/rooster-rbl.jpg"
+    },
+    {
+        "gameName": "Battleground Royale",
+        "p_type": "SL",
+        "g_code": "124",
+        "imgFileName": "https://img.55115515.com/PG/en-us/battleground.jpg"
+    },
+    {
+        "gameName": "Butterfly Blossom",
+        "p_type": "SL",
+        "g_code": "125",
+        "imgFileName": "https://img.55115515.com/PG/en-us/btrfly-blossom.jpg"
+    },
+    {
+        "gameName": "Fortune Tiger",
+        "p_type": "SL",
+        "g_code": "126",
+        "imgFileName": "https://img.55115515.com/PG/en-us/fortune-tiger.jpg"
+    },
+    {
+        "gameName": "Speed Winner",
+        "p_type": "SL",
+        "g_code": "127",
+        "imgFileName": "https://img.55115515.com/PG/en-us/speed-winner.jpg"
+    },
+    {
+        "gameName": "Legend of Perseus",
+        "p_type": "SL",
+        "g_code": "128",
+        "imgFileName": "https://img.55115515.com/PG/en-us/legend-perseus.jpg"
+    },
+    {
+        "gameName": "Win Win Fish Prawn Crab",
+        "p_type": "SL",
+        "g_code": "129",
+        "imgFileName": "https://img.55115515.com/PG/en-us/win-win-fpc.jpg"
+    },
+    {
+        "gameName": "Lucky Piggy",
+        "p_type": "SL",
+        "g_code": "130",
+        "imgFileName": "https://img.55115515.com/PG/en-us/lucky-piggy.jpg"
+    },
+    {
+        "gameName": "Wild Coaster",
+        "p_type": "SL",
+        "g_code": "132",
+        "imgFileName": "https://img.55115515.com/PG/en-us/wild-coaster.jpg"
+    },
+    {
+        "gameName": "Wild Bounty Showdown",
+        "p_type": "SL",
+        "g_code": "135",
+        "imgFileName": "https://img.55115515.com/PG/en-us/wild-bounty-sd.jpg"
+    },
+    {
+        "gameName": "Prosperity Fortune Tree",
+        "p_type": "SL",
+        "g_code": "1312883",
+        "imgFileName": "https://img.55115515.com/PG/en-us/prosper-ftree.jpg"
+    },
+    {
+        "gameName": "Totem Wonders",
+        "p_type": "SL",
+        "g_code": "1338274",
+        "imgFileName": "https://img.55115515.com/PG/en-us/totem-wonders.jpg"
+    },
+    {
+        "gameName": "Asgardian Rising",
+        "p_type": "SL",
+        "g_code": "1340277",
+        "imgFileName": "https://img.55115515.com/PG/en-us/asgardian-rs.jpg"
+    },
+    {
+        "gameName": "Alchemy Gold",
+        "p_type": "SL",
+        "g_code": "1368367",
+        "imgFileName": "https://img.55115515.com/PG/en-us/alchemy-gold.jpg"
+    },
+    {
+        "gameName": "Diner Delights",
+        "p_type": "SL",
+        "g_code": "1372643",
+        "imgFileName": "https://img.55115515.com/PG/en-us/diner-delights.jpg"
+    },
+    {
+        "gameName": "Hawaiian Tiki",
+        "p_type": "SL",
+        "g_code": "1381200",
+        "imgFileName": "https://img.55115515.com/PG/en-us/hawaiian-tiki.jpg"
+    },
+    {
+        "gameName": "Fruity Candy",
+        "p_type": "SL",
+        "g_code": "1397455",
+        "imgFileName": "https://img.55115515.com/PG/en-us/fruity-candy.jpg"
+    },
+    {
+        "gameName": "Midas Fortune",
+        "p_type": "SL",
+        "g_code": "1402846",
+        "imgFileName": "https://img.55115515.com/PG/en-us/midas-fortune.jpg"
+    },
+    {
+        "gameName": "Bakery Bonanza",
+        "p_type": "SL",
+        "g_code": "1418544",
+        "imgFileName": "https://img.55115515.com/PG/en-us/bakery-bonanza.jpg"
+    },
+    {
+        "gameName": "Rave Party Fever",
+        "p_type": "SL",
+        "g_code": "1420892",
+        "imgFileName": "https://img.55115515.com/PG/en-us/rave-party-fvr.jpg"
+    },
+    {
+        "gameName": "Mystical Spirits",
+        "p_type": "SL",
+        "g_code": "1432733",
+        "imgFileName": "https://img.55115515.com/PG/en-us/myst-spirits.jpg"
+    },
+    {
+        "gameName": "Songkran Splash",
+        "p_type": "SL",
+        "g_code": "1448762",
+        "imgFileName": "https://img.55115515.com/PG/en-us/songkran-spl.jpg"
+    },
+    {
+        "gameName": "Dragon Hatch2",
+        "p_type": "SL",
+        "g_code": "1451122",
+        "imgFileName": "https://img.55115515.com/PG/en-us/dragon-hatch2.jpg"
+    },
+    {
+        "gameName": "Cruise Royale",
+        "p_type": "SL",
+        "g_code": "1473388",
+        "imgFileName": "https://img.55115515.com/PG/en-us/cruise-royale.jpg"
+    },
+    {
+        "gameName": "Ultimate Striker",
+        "p_type": "SL",
+        "g_code": "1489936",
+        "imgFileName": "https://img.55115515.com/PG/en-us/ult-striker.jpg"
+    },
+    {
+        "gameName": "Pinata Wins",
+        "p_type": "SL",
+        "g_code": "1492288",
+        "imgFileName": "https://img.55115515.com/PG/en-us/pinata-wins.jpg"
+    },
+    {
+        "gameName": "Wild Ape #3258",
+        "p_type": "SL",
+        "g_code": "1508783",
+        "imgFileName": "https://img.55115515.com/PG/en-us/wild-ape-3258.jpg"
+    },
+    {
+        "gameName": "Super Golf Drive",
+        "p_type": "SL",
+        "g_code": "1513328",
+        "imgFileName": "https://img.55115515.com/PG/en-us/spr-golf-drive.jpg"
+    },
+    {
+        "gameName": "Ninja Raccoon Frenzy",
+        "p_type": "SL",
+        "g_code": "1529867",
+        "imgFileName": "https://img.55115515.com/PG/en-us/ninja-raccoon.jpg"
+    },
+    
+    ]
 
 export const bannerData = [
   {
