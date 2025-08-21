@@ -114,7 +114,7 @@ export default function HomePage() {
       )
       const data = await response.json()
 
-      if (data.success && data.data) {
+      if (data.success) {
         const balanceValue = data.data.balance || data.data.rawResponse || "0"
         setBalance(balanceValue.toString())
       } else {
