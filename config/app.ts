@@ -4,7 +4,7 @@
 export const APP_CONFIG = {
   // API Configuration
   API: {
-    BASE_URL: "https://congenial-space-computing-machine-p67v65p5wj4crpxw-3000.app.github.dev",
+    BASE_URL: "https://gam-63b1249c8e8b.herokuapp.com",
     ENDPOINTS: {
       LOGIN: "/login",
       REGISTER: "/register",
