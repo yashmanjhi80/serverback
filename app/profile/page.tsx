@@ -38,6 +38,9 @@ interface UserCredentials {
 export default function ProfilePage() {
   const [userCredentials, setUserCredentials] = useState<UserCredentials | null>(null)
   const router = useRouter()
+  const [balance, setBalance] = useState<string>("Loading...")
+  const [isLoadingBalance, setIsLoadingBalance] = useState(true)
+  const [showBalance, setShowBalance] = useState(true)
 
   useEffect(() => {
     const storedCredentials = localStorage.getItem("userCredentials")
@@ -50,6 +53,40 @@ export default function ProfilePage() {
     localStorage.removeItem("userCredentials")
     localStorage.removeItem("userData")
     router.push("/")
+  }
+
+    const fetchBalance = async (username: string, password: string) => {
+    try {
+      setIsLoadingBalance(true)
+      const response = await fetch(
+        `/api/auth/balance?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`,
+      )
+      const data = await response.json()
+
+      if (data.success) {
+        const balanceValue = data.balance || data.rawResponse || "0"
+        setBalance(balanceValue.toString())
+      } else {
+        setBalance("Error")
+        console.error("Balance fetch failed:", data.message)
+      }
+    } catch (error) {
+      console.error("Error fetching balance:", error)
+      setBalance("Error")
+    } finally {
+      setIsLoadingBalance(false)
+    }
+  }
+
+  const formatBalance = (balance: string) => {
+    if (balance === "Loading..." || balance === "Error") return balance
+    try {
+      const num = Number.parseFloat(balance)
+      if (isNaN(num)) return balance
+      return num.toLocaleString()
+    } catch {
+      return balance
+    }
   }
 
   const menuItems = [
@@ -102,7 +139,16 @@ export default function ProfilePage() {
               <div className="text-sm text-gray-400 mb-2">
                 {userCredentials?.user?.email || "No email"}
               </div>
-              <div className="text-lg font-bold text-yellow-400">₹0</div>
+              <div className="text-lg font-bold text-yellow-400">                  
+              {showBalance ? (
+                    isLoadingBalance ? (
+                      <span className="animate-pulse">Loading...</span>
+                    ) : (
+                      <span>₹{formatBalance(balance)}</span>
+                    )
+                  ) : (
+                    <span>₹****</span>
+                  )}</div>
             </div>
           </div>
         </div>
