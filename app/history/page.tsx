@@ -62,7 +62,7 @@ useEffect(() => {
   if (credentials?.username) {
     fetchTransactions(credentials.username);
   }
-}, []);
+}, [credentials]);
 
 
   // filter by selectedDate
