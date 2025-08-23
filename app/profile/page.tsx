@@ -89,6 +89,14 @@ export default function ProfilePage() {
     }
   }
 
+    const refreshBalance = async () => {
+    const storedCredentials = localStorage.getItem("userCredentials")
+    if (storedCredentials) {
+      const credentials: UserCredentials = JSON.parse(storedCredentials)
+      await fetchBalance(credentials.username, credentials.password)
+    }
+  }
+
   const menuItems = [
     { icon: Bell, label: "Notifications", badge: 2, href: "/notifications" },
     { icon: CreditCard, label: "Wallet", href: "/wallet" },
