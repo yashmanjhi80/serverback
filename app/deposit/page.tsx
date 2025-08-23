@@ -166,13 +166,14 @@ export default function DepositPage() {
 
         <h1 className="text-white text-lg font-semibold text-center flex-1 px-2">Deposit</h1>
 
-        <Button
+        <Link
+          href="/history"
           variant="ghost"
           size="icon"
           className="text-yellow-400 hover:bg-yellow-500/10 transition-all duration-200"
         >
           <FileText className="h-5 w-5" />
-        </Button>
+        </Link>
       </header>
 
       <div className="px-4 py-6 max-w-md mx-auto">
