@@ -20,18 +20,13 @@ export default function History() {
 
   // fetch from API
   useEffect(() => {
-    const fetchTransactions = async () => {
-      try {
-        const res = await fetch("/api/auth/history") // 🔥 change to your backend route
-        const data = await res.json()
-        if (data.success) {
-          setTransactions(data.transactions)
-          // default filter date = latest
-          if (data.transactions.length > 0) {
-            const latest = new Date(data.transactions[0].createdAt)
-            setSelectedDate(latest.toISOString().split("T")[0])
-          }
-        }
+const fetchTransactions = async (username) => {
+  try {
+    const response = await fetch(`/api/transactions/${username}`);
+    const data = await response.json();
+    if (data.success) {
+      setTransactions(data.transactions);
+    }
       } catch (error) {
         console.error("Error fetching transactions:", error)
       } finally {
