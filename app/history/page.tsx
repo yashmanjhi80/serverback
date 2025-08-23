@@ -22,7 +22,7 @@ export default function History() {
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
-        const res = await fetch("/api/transactions") // 🔥 change to your backend route
+        const res = await fetch("https://congenial-space-computing-machine-p67v65p5wj4crpxw-3000.app.github.dev/api/transactions/yash7879") // 🔥 change to your backend route
         const data = await res.json()
         if (data.success) {
           setTransactions(data.transactions)
