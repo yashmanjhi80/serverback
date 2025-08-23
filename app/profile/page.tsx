@@ -41,6 +41,7 @@ export default function ProfilePage() {
   const [balance, setBalance] = useState<string>("Loading...")
   const [isLoadingBalance, setIsLoadingBalance] = useState(true)
   const [showBalance, setShowBalance] = useState(true)
+  const [username, setUsername] = useState<string>("")
 
   useEffect(() => {
     const loadUserDataAndBalance = async () => {
