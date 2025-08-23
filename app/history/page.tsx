@@ -136,7 +136,7 @@ export default function HistoryPage() {
                         <span>{formattedTime}</span>
                       </div>
                       <div className="text-xs text-yellow-500/80 font-mono mb-1">{t.orderId}</div>
-                      <div className="text-xs text-gray-400">{t.walletProvider || "Wallet"}</div>
+                      <div className="text-xs text-gray-400">Online Payment</div>
                     </div>
 
                     {/* Right */}
