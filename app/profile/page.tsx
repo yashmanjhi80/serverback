@@ -214,7 +214,7 @@ export default function ProfilePage() {
         </div>
 
         {/* Menu */}
-        <div className="space-y-10">
+        <div className="space-y-2">
           {menuItems.map((item, i) => {
             const Icon = item.icon
             const isLogout = item.label === "Logout"
@@ -228,7 +228,7 @@ export default function ProfilePage() {
                   }`}
                 onClick={item.onClick}
               >
-                <div className="flex items-center space-x-3">
+                <div className="flex items-center space-x-6">
                   <Icon
                     className={`w-6 h-6 ${isLogout ? "text-red-400" : "text-yellow-400"}`}
                   />
