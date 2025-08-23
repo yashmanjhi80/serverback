@@ -33,6 +33,11 @@ const fetchTransactions = async (username) => {
       }
     }
 
+useEffect(() => {
+  if (user?.username) {
+    fetchTransactions(user.username);
+  }
+}, [user]);
 
 
   // filter by selectedDate
