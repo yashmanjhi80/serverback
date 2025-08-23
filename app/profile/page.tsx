@@ -145,7 +145,7 @@ export default function ProfilePage() {
               <div className="w-20 h-20 rounded-full border-2 border-yellow-500 overflow-hidden shadow-lg">
                 <Avatar className="w-full h-full">
                   <AvatarImage
-                    src="https://i.pravatar.cc/100"
+                    src="https://img.freepik.com/premium-vector/gold-membership-icon-default-avatar-profile-icon-membership-icon-social-media-user-image-vector-illustration_561158-4191.jpg"
                     alt="Profile Avatar"
                     className="object-cover"
                   />
