@@ -94,6 +94,13 @@ export default function ProfilePage() {
     }
   }
 
+    useEffect(() => {
+    const storedCredentials = localStorage.getItem("userCredentials")
+    if (storedCredentials) {
+      setUserCredentials(JSON.parse(storedCredentials))
+    }
+  }, [])
+
   const formatBalance = (balance: string) => {
     if (balance === "Loading..." || balance === "Error") return balance
     try {
