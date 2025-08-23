@@ -150,7 +150,7 @@ export default function ProfilePage() {
                     className="object-cover"
                   />
                   <AvatarFallback className="bg-gray-800 text-yellow-400 text-lg font-semibold">
-                    {credentials?.username?.charAt(0).toUpperCase() || "U"}
+                    {userCredentials?.username?.charAt(0).toUpperCase() || "U"}
                   </AvatarFallback>
                 </Avatar>
               </div>
@@ -163,7 +163,7 @@ export default function ProfilePage() {
             <div className="flex-1 text-left">
               <div className="flex items-center space-x-2 mb-1">
                 <span className="text-lg font-semibold text-white">
-                  {credentials?.username || "Guest"}
+                  {userCredentials?.username || "Guest"}
                 </span>
                 <ChevronRight className="w-5 h-5 text-gray-400" />
               </div>
