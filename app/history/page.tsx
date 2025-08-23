@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { ChevronLeft, Calendar } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 interface Transaction {
   _id: string
@@ -13,72 +14,62 @@ interface Transaction {
   createdAt: string
 }
 
-export default function History() {
+interface UserCredentials {
+  username: string
+  password: string
+}
+
+export default function HistoryPage() {
   const [transactions, setTransactions] = useState<Transaction[]>([])
   const [selectedDate, setSelectedDate] = useState<string>("")
   const [loading, setLoading] = useState(true)
-  const [userCredentials, setUserCredentials] = useState<UserCredentials | null>(null)
- const [balance, setBalance] = useState<string>("Loading...")
-  const [isLoadingBalance, setIsLoadingBalance] = useState(true)
-  const [showBalance, setShowBalance] = useState(true)
   const [username, setUsername] = useState<string>("")
+  const router = useRouter()
 
-  // fetch from API
-const fetchTransactions = async (username) => {
-  try {
-    const response = await fetch(`/api/transactions/${username}`);
-    const data = await response.json();
-    if (data.success) {
-      setTransactions(data.transactions);
-    }
-      } catch (error) {
-        console.error("Error fetching transactions:", error)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-
+  // load user + fetch transactions
   useEffect(() => {
-    const loadUserDataAndBalance = async () => {
-      try {
-        const storedCredentials = localStorage.getItem("userCredentials")
-        if (storedCredentials) {
-          const credentials: UserCredentials = JSON.parse(storedCredentials)
-          setUsername(credentials.username)
-          await fetchBalance(credentials.username, credentials.password)
-        } else {
-          setBalance("0")
-          setIsLoadingBalance(false)
-        }
-      } catch (error) {
-        console.error("Error loading user data:", error)
-        setBalance("Error")
-        setIsLoadingBalance(false)
-      }
+    const stored = localStorage.getItem("userCredentials")
+    if (!stored) {
+      router.push("/") // redirect if not logged in
+      return
     }
 
-    loadUserDataAndBalance()
-  }, [])
+    const credentials: UserCredentials = JSON.parse(stored)
+    setUsername(credentials.username)
 
+    fetchTransactions(credentials.username)
+  }, [router])
 
-useEffect(() => {
-  if (credentials?.username) {
-    fetchTransactions(credentials.username);
+  const fetchTransactions = async (username: string) => {
+    try {
+      setLoading(true)
+      // hit proxy API route
+      const res = await fetch(`/api/auth/history?username=${encodeURIComponent(username)}`)
+      const data = await res.json()
+      if (data.success) {
+        setTransactions(data.transactions || [])
+        if (data.transactions.length > 0) {
+          const latest = new Date(data.transactions[0].createdAt)
+          setSelectedDate(latest.toISOString().split("T")[0])
+        }
+      } else {
+        console.error("History fetch failed:", data.message)
+      }
+    } catch (err) {
+      console.error("Error fetching history:", err)
+    } finally {
+      setLoading(false)
+    }
   }
-}, [credentials]);
 
-
-  // filter by selectedDate
+  // filter by selected date
   const filtered = transactions.filter((t) => t.createdAt.startsWith(selectedDate))
-
-  // calculate total
   const total = filtered.reduce((sum, t) => sum + (t.amount || 0), 0)
 
   const formatCurrency = (amount: number) => `₹${amount}`
 
   const handleBack = () => {
-    window.history.back()
+    router.back()
   }
 
   return (
@@ -94,7 +85,6 @@ useEffect(() => {
           </button>
           <h1 className="text-lg font-bold text-yellow-400">History</h1>
         </div>
-        {/* golden glow effect */}
         <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-yellow-500 to-transparent opacity-70"></div>
         <div className="absolute bottom-0 left-0 right-0 h-3 bg-gradient-to-t from-yellow-500/20 to-transparent"></div>
       </div>
@@ -131,7 +121,7 @@ useEffect(() => {
               <div key={t._id}>
                 <div className="px-4 py-3 hover:bg-black/50 transition-all">
                   <div className="flex items-center justify-between">
-                    {/* left */}
+                    {/* Left */}
                     <div className="flex-1">
                       <div className="flex items-center space-x-2 text-xs text-gray-400 mb-1">
                         <span>{formattedDate}</span>
@@ -140,10 +130,10 @@ useEffect(() => {
                       <div className="text-xs text-yellow-500/80 font-mono mb-1">
                         {t.orderId}
                       </div>
-                      <div className="text-xs text-gray-400">{t.walletProvider}</div>
+                      <div className="text-xs text-gray-400">{t.walletProvider || "Wallet"}</div>
                     </div>
 
-                    {/* right */}
+                    {/* Right */}
                     <div className="text-right">
                       <div className="text-lg font-bold text-yellow-400 mb-1">
                         +{formatCurrency(t.amount)}
@@ -158,7 +148,9 @@ useEffect(() => {
                     </div>
                   </div>
                 </div>
-                {i < filtered.length - 1 && <div className="border-b border-yellow-500/30"></div>}
+                {i < filtered.length - 1 && (
+                  <div className="border-b border-yellow-500/30"></div>
+                )}
               </div>
             )
           })
