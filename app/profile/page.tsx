@@ -221,7 +221,7 @@ export default function ProfilePage() {
 
             const content = (
               <div
-                className={`flex items-center justify-between rounded-xl p-4 cursor-pointer transition-all duration-200 mb-2
+                className={`flex items-center justify-between rounded-xl p-4 cursor-pointer transition-all duration-200 mb-3
                   ${isLogout
                     ? "bg-red-900/20 border border-red-500/30 hover:bg-red-900/40"
                     : "bg-black/50 border border-yellow-500/30 hover:bg-black/80"
