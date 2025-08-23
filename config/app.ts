@@ -12,7 +12,7 @@ export const APP_CONFIG = {
       LAUNCH_GAME: "/launch-game",
       CREATE_PAYMENT: "/create-payment",
       WITHDRAW: "/withdraw",
-      TRANSACTIONS: "/api/transactions" // For future implementation
+      TRANSACTIONS: "/api/transactions", // For future implementation
     },
     TIMEOUT: 15000, // 15 seconds
   },
