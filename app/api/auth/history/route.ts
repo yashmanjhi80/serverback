@@ -1,22 +1,23 @@
-// app/api/auth/history/route.ts
-import { type NextRequest, NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 import { getApiUrl } from "@/config/app"
 
-export async function GET(request: NextRequest) {
+export async function GET(req: NextRequest) {
   try {
-    const response = await fetch(getApiUrl("TRANSACTIONS"), {
+    const { searchParams } = new URL(req.url)
+    const username = searchParams.get("username")
+
+    if (!username) {
+      return NextResponse.json({ success: false, message: "Username required" }, { status: 400 })
+    }
+
+    const res = await fetch(getApiUrl(`TRANSACTIONS/${username}`), {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      // you might need auth headers if backend requires token
+      headers: { "Content-Type": "application/json" },
     })
 
-    const data = await response.json()
-
-    return NextResponse.json(data, { status: response.status })
+    const data = await res.json()
+    return NextResponse.json(data, { status: res.status })
   } catch (error: any) {
-    console.error("History API error:", error.message)
     return NextResponse.json(
       { success: false, message: `Failed to fetch history: ${error.message}` },
       { status: 500 },
