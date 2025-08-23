@@ -121,11 +121,11 @@ export default function ProfilePage() {
   }
 
   const menuItems = [
-    { icon: Bell, label: "Notifications", badge: 2, href: "/notifications" },
+    { icon: Bell, label: "Notifications", badge: 2, href: "/inbox" },
     { icon: CreditCard, label: "Wallet", href: "/wallet" },
-    { icon: Shield, label: "Account & Security", href: "/account" },
+    { icon: Shield, label: "Account & Security", href: "/about" },
     { icon: Headphones, label: "Help & Support", href: "/help" },
-    { icon: Gift, label: "Rewards", href: "/rewards" },
+    { icon: Gift, label: "Rewards", href: "/gifts" },
     { icon: Settings, label: "Settings", href: "/settings" },
     { icon: Ticket, label: "Tickets", href: "/tickets" },
     { icon: LogOut, label: "Logout", onClick: handleLogout },
