@@ -214,7 +214,7 @@ export default function ProfilePage() {
         </div>
 
         {/* Menu */}
-        <div className="space-y-4">
+        <div className="space-y-10">
           {menuItems.map((item, i) => {
             const Icon = item.icon
             const isLogout = item.label === "Logout"
