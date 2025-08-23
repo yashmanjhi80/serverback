@@ -58,8 +58,8 @@ const fetchTransactions = async (username) => {
 
 
 useEffect(() => {
-  if (user?.username) {
-    fetchTransactions(user.username);
+  if (credentials?.username) {
+    fetchTransactions(credentials.username);
   }
 }, [user]);
 
