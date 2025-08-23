@@ -1,9 +1,28 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { ArrowLeft, Wallet, Info, HelpCircle, LogOut, User, Calendar } from "lucide-react"
-import Link from "next/link"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/avatar"
+import { Badge } from "@/components/ui/badge"
+import {
+  Bell,
+  CreditCard,
+  Shield,
+  Headphones,
+  Gift,
+  Settings,
+  Ticket,
+  LogOut,
+  Camera,
+  ChevronRight,
+  ArrowRight,
+  User,
+} from "lucide-react"
 import BottomNavigation from "@/components/bottom-navigation"
 
 interface UserCredentials {
@@ -33,115 +52,134 @@ export default function ProfilePage() {
     router.push("/")
   }
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    })
-  }
+  const menuItems = [
+    { icon: Bell, label: "Notifications", badge: 2, href: "/notifications" },
+    { icon: CreditCard, label: "Wallet", href: "/wallet" },
+    { icon: Shield, label: "Account & Security", href: "/account" },
+    { icon: Headphones, label: "Help & Support", href: "/help" },
+    { icon: Gift, label: "Rewards", href: "/rewards" },
+    { icon: Settings, label: "Settings", href: "/settings" },
+    { icon: Ticket, label: "Tickets", href: "/tickets" },
+    { icon: LogOut, label: "Logout", onClick: handleLogout },
+  ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white pb-20">
-      {/* Header */}
-      <header className="bg-black/80 backdrop-blur-sm border-b border-yellow-500/20 p-4">
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <Link href="/home" className="text-yellow-300 hover:text-yellow-200 transition-colors">
-            <ArrowLeft size={24} />
-          </Link>
-          <h1 className="text-2xl font-bold flex items-center space-x-2">
-            <User size={28} className="text-yellow-400" />
-            <span className="text-yellow-400">Profile</span>
-          </h1>
-          <div className="w-24"></div> {/* Spacer for centering */}
-        </div>
-      </header>
+    <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black text-white">
+      <div className="max-w-md mx-auto px-4 py-6 pb-24">
+        {/* Profile Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-2xl font-bold text-yellow-400 mb-6">Profile</h1>
 
-      <div className="max-w-4xl mx-auto p-6 space-y-8">
-        {/* Profile Info Card */}
-        <div className="bg-black/60 backdrop-blur-sm rounded-xl p-8 border border-yellow-500/30 shadow-lg">
-          <div className="text-center mb-6">
-            <div className="w-24 h-24 bg-gradient-to-r from-yellow-600 to-yellow-500 rounded-full mx-auto mb-4 flex items-center justify-center border border-yellow-400/30 shadow-lg">
-              <User size={40} className="text-black" />
+          {/* Profile Info */}
+          <div className="flex items-center space-x-4 mb-6">
+            {/* Avatar with Camera */}
+            <div className="relative">
+              <div className="w-20 h-20 rounded-full border-2 border-yellow-500 overflow-hidden shadow-lg">
+                <Avatar className="w-full h-full">
+                  <AvatarImage
+                    src="https://i.pravatar.cc/100"
+                    alt="Profile Avatar"
+                    className="object-cover"
+                  />
+                  <AvatarFallback className="bg-gray-800 text-yellow-400 text-lg font-semibold">
+                    {userCredentials?.username?.charAt(0).toUpperCase() || "U"}
+                  </AvatarFallback>
+                </Avatar>
+              </div>
+              <div className="absolute -bottom-1 -right-1 bg-yellow-500 rounded-full p-1.5 shadow-md">
+                <Camera className="w-4 h-4 text-black" />
+              </div>
             </div>
-            <h2 className="text-2xl font-bold text-yellow-400">{userCredentials?.username || "Guest"}</h2>
-            <p className="text-gray-300">{userCredentials?.user?.email || "No email provided"}</p>
+
+            {/* Info */}
+            <div className="flex-1 text-left">
+              <div className="flex items-center space-x-2 mb-1">
+                <span className="text-lg font-semibold text-white">
+                  {userCredentials?.username || "Guest"}
+                </span>
+                <ChevronRight className="w-5 h-5 text-gray-400" />
+              </div>
+              <div className="text-sm text-gray-400 mb-2">
+                {userCredentials?.user?.email || "No email"}
+              </div>
+              <div className="text-lg font-bold text-yellow-400">₹0</div>
+            </div>
           </div>
-
-          {userCredentials?.loginTime && (
-            <div className="flex items-center justify-center space-x-2 text-gray-300">
-              <Calendar size={16} className="text-yellow-400" />
-              <span>Member since {formatDate(userCredentials.loginTime)}</span>
-            </div>
-          )}
         </div>
 
-        {/* Menu Options */}
-        <div className="space-y-4">
-          <Link
-            href="/wallet"
-            className="flex items-center space-x-4 bg-black/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30 hover:bg-black/80 hover:border-yellow-400/50 transition-all duration-200 group shadow-lg"
-          >
-            <div className="p-3 bg-yellow-500/20 rounded-full group-hover:bg-yellow-500/30 transition-colors border border-yellow-500/30">
-              <Wallet size={24} className="text-yellow-400" />
+        {/* Upgrade Card */}
+        <div className="rounded-2xl p-4 mb-6 bg-yellow-400/10 border border-yellow-500/30 shadow-lg">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <div className="bg-yellow-500 text-black rounded-lg p-2 text-center">
+                <div className="text-xs font-medium">V</div>
+                <div className="text-lg font-bold">V0</div>
+              </div>
+              <div>
+                <p className="text-sm text-gray-200">
+                  You need <span className="font-bold">100</span> to upgrade to
+                </p>
+                <p className="text-yellow-400 font-bold">V1</p>
+              </div>
             </div>
-            <div className="flex-1">
-              <h3 className="text-lg font-semibold text-yellow-400">Wallet</h3>
-              <p className="text-gray-300">Manage your balance and transactions</p>
+            <ArrowRight className="w-6 h-6 text-yellow-400" />
+          </div>
+          <div className="mt-4">
+            <div className="flex justify-between text-xs text-gray-400 mb-1">
+              <span>V0</span>
+              <span>V1</span>
             </div>
-            <ArrowLeft
-              size={20}
-              className="rotate-180 text-yellow-400/70 group-hover:text-yellow-400 transition-colors"
-            />
-          </Link>
+            <div className="bg-gray-700 rounded-full h-2">
+              <div className="bg-yellow-500 h-2 rounded-full w-[0%]"></div>
+            </div>
+            <div className="text-center text-gray-300 text-sm mt-1">0/100</div>
+          </div>
+        </div>
 
-          <Link
-            href="/about"
-            className="w-full flex items-center space-x-4 bg-black/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30 hover:bg-black/80 hover:border-yellow-400/50 transition-all duration-200 group shadow-lg"
-          >
-            <div className="p-3 bg-yellow-500/20 rounded-full group-hover:bg-yellow-500/30 transition-colors border border-yellow-500/30">
-              <Info size={24} className="text-yellow-400" />
-            </div>
-            <div className="flex-1 text-left">
-              <h3 className="text-lg font-semibold text-yellow-400">About</h3>
-              <p className="text-gray-300">Learn more about Mystic Realm</p>
-            </div>
-            <ArrowLeft
-              size={20}
-              className="rotate-180 text-yellow-400/70 group-hover:text-yellow-400 transition-colors"
-            />
-          </Link>
+        {/* Menu */}
+        <div className="space-y-2">
+          {menuItems.map((item, i) => {
+            const Icon = item.icon
+            const isLogout = item.label === "Logout"
 
-          <Link
-            href="/help"
-            className="w-full flex items-center space-x-4 bg-black/60 backdrop-blur-sm rounded-xl p-6 border border-yellow-500/30 hover:bg-black/80 hover:border-yellow-400/50 transition-all duration-200 group shadow-lg"
-          >
-            <div className="p-3 bg-yellow-500/20 rounded-full group-hover:bg-yellow-500/30 transition-colors border border-yellow-500/30">
-              <HelpCircle size={24} className="text-yellow-400" />
-            </div>
-            <div className="flex-1 text-left">
-              <h3 className="text-lg font-semibold text-yellow-400">Help & Support</h3>
-              <p className="text-gray-300">Get help and contact support</p>
-            </div>
-            <ArrowLeft
-              size={20}
-              className="rotate-180 text-yellow-400/70 group-hover:text-yellow-400 transition-colors"
-            />
-          </Link>
+            const content = (
+              <div
+                className={`flex items-center justify-between rounded-xl p-4 cursor-pointer transition-all duration-200
+                  ${isLogout
+                    ? "bg-red-900/20 border border-red-500/30 hover:bg-red-900/40"
+                    : "bg-black/50 border border-yellow-500/30 hover:bg-black/80"
+                  }`}
+                onClick={item.onClick}
+              >
+                <div className="flex items-center space-x-3">
+                  <Icon
+                    className={`w-6 h-6 ${isLogout ? "text-red-400" : "text-yellow-400"}`}
+                  />
+                  <span
+                    className={`font-medium ${isLogout ? "text-red-400" : "text-white"}`}
+                  >
+                    {item.label}
+                  </span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  {item.badge && (
+                    <Badge className="bg-red-500 text-white text-xs font-bold rounded-full px-2 py-0.5 min-w-[20px] text-center border-0">
+                      {item.badge}
+                    </Badge>
+                  )}
+                  {!isLogout && <ChevronRight className="w-5 h-5 text-gray-400" />}
+                </div>
+              </div>
+            )
 
-          <button
-            onClick={handleLogout}
-            className="w-full flex items-center space-x-4 bg-red-900/20 backdrop-blur-sm rounded-xl p-6 border border-red-500/30 hover:bg-red-900/40 hover:border-red-400/50 transition-all duration-200 group shadow-lg"
-          >
-            <div className="p-3 bg-red-500/20 rounded-full group-hover:bg-red-500/30 transition-colors border border-red-500/30">
-              <LogOut size={24} className="text-red-400" />
-            </div>
-            <div className="flex-1 text-left">
-              <h3 className="text-lg font-semibold text-red-400">Logout</h3>
-              <p className="text-gray-300">Sign out of your account</p>
-            </div>
-            <ArrowLeft size={20} className="rotate-180 text-red-400/70 group-hover:text-red-400 transition-colors" />
-          </button>
+            return item.href && !isLogout ? (
+              <Link href={item.href} key={i}>
+                {content}
+              </Link>
+            ) : (
+              <div key={i}>{content}</div>
+            )
+          })}
         </div>
       </div>
       <BottomNavigation />
