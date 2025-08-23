@@ -45,6 +45,19 @@ export default function HistoryPage() {
       setLoading(true)
       // hit proxy API route
       const res = await fetch(`/api/auth/history?username=${encodeURIComponent(username)}`)
+
+      if (!res.ok) {
+        console.error("History fetch failed: HTTP", res.status, res.statusText)
+        return
+      }
+
+      const contentType = res.headers.get("content-type")
+      if (!contentType || !contentType.includes("application/json")) {
+        const text = await res.text()
+        console.error("History fetch failed: Non-JSON response:", text)
+        return
+      }
+
       const data = await res.json()
       if (data.success) {
         setTransactions(data.transactions || [])
@@ -77,10 +90,7 @@ export default function HistoryPage() {
       {/* Header */}
       <div className="bg-black relative border-b border-yellow-500/20">
         <div className="px-4 py-3 flex items-center justify-center relative">
-          <button
-            className="absolute left-4 active:scale-95 transition-transform"
-            onClick={handleBack}
-          >
+          <button className="absolute left-4 active:scale-95 transition-transform" onClick={handleBack}>
             <ChevronLeft className="w-5 h-5 text-yellow-400" />
           </button>
           <h1 className="text-lg font-bold text-yellow-400">History</h1>
@@ -101,9 +111,7 @@ export default function HistoryPage() {
               className="bg-black text-yellow-400 border border-yellow-500/40 rounded px-2 py-1 text-sm focus:outline-none focus:border-yellow-400"
             />
           </div>
-          <span className="text-yellow-400 font-medium text-sm">
-            Total: {formatCurrency(total)}
-          </span>
+          <span className="text-yellow-400 font-medium text-sm">Total: {formatCurrency(total)}</span>
         </div>
       </div>
 
@@ -127,17 +135,13 @@ export default function HistoryPage() {
                         <span>{formattedDate}</span>
                         <span>{formattedTime}</span>
                       </div>
-                      <div className="text-xs text-yellow-500/80 font-mono mb-1">
-                        {t.orderId}
-                      </div>
+                      <div className="text-xs text-yellow-500/80 font-mono mb-1">{t.orderId}</div>
                       <div className="text-xs text-gray-400">{t.walletProvider || "Wallet"}</div>
                     </div>
 
                     {/* Right */}
                     <div className="text-right">
-                      <div className="text-lg font-bold text-yellow-400 mb-1">
-                        +{formatCurrency(t.amount)}
-                      </div>
+                      <div className="text-lg font-bold text-yellow-400 mb-1">+{formatCurrency(t.amount)}</div>
                       <div
                         className={`text-sm font-medium ${
                           t.status === "pending" ? "text-orange-400" : "text-green-400"
@@ -148,16 +152,12 @@ export default function HistoryPage() {
                     </div>
                   </div>
                 </div>
-                {i < filtered.length - 1 && (
-                  <div className="border-b border-yellow-500/30"></div>
-                )}
+                {i < filtered.length - 1 && <div className="border-b border-yellow-500/30"></div>}
               </div>
             )
           })
         ) : (
-          <div className="px-4 py-12 text-center text-yellow-400/60">
-            No transactions found
-          </div>
+          <div className="px-4 py-12 text-center text-yellow-400/60">No transactions found</div>
         )}
       </div>
     </div>
