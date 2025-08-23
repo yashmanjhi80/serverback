@@ -11,7 +11,8 @@ export const APP_CONFIG = {
       BALANCE: "/balance",
       LAUNCH_GAME: "/launch-game",
       CREATE_PAYMENT: "/create-payment",
-      WITHDRAW: "/withdraw", // For future implementation
+      WITHDRAW: "/withdraw",
+      TRANSACTIONS: "/api/transactions" // For future implementation
     },
     TIMEOUT: 15000, // 15 seconds
   },
