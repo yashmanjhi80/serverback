@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server"
+import { Type NextRequest, NextResponse } from "next/server"
 import { getApiUrl } from "@/config/app"
 
 export async function GET(req: NextRequest) {
