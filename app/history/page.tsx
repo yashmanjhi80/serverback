@@ -17,6 +17,7 @@ export default function History() {
   const [transactions, setTransactions] = useState<Transaction[]>([])
   const [selectedDate, setSelectedDate] = useState<string>("")
   const [loading, setLoading] = useState(true)
+  const [userCredentials, setUserCredentials] = useState<UserCredentials | null>(null)
 
   // fetch from API
 const fetchTransactions = async (username) => {
