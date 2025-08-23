@@ -19,7 +19,6 @@ export default function History() {
   const [loading, setLoading] = useState(true)
 
   // fetch from API
-  useEffect(() => {
 const fetchTransactions = async (username) => {
   try {
     const response = await fetch(`/api/transactions/${username}`);
@@ -33,8 +32,8 @@ const fetchTransactions = async (username) => {
         setLoading(false)
       }
     }
-    fetchTransactions()
-  }, [])
+
+
 
   // filter by selectedDate
   const filtered = transactions.filter((t) => t.createdAt.startsWith(selectedDate))
