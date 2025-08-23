@@ -33,6 +33,30 @@ const fetchTransactions = async (username) => {
       }
     }
 
+
+  useEffect(() => {
+    const loadUserDataAndBalance = async () => {
+      try {
+        const storedCredentials = localStorage.getItem("userCredentials")
+        if (storedCredentials) {
+          const credentials: UserCredentials = JSON.parse(storedCredentials)
+          setUsername(credentials.username)
+          await fetchBalance(credentials.username, credentials.password)
+        } else {
+          setBalance("0")
+          setIsLoadingBalance(false)
+        }
+      } catch (error) {
+        console.error("Error loading user data:", error)
+        setBalance("Error")
+        setIsLoadingBalance(false)
+      }
+    }
+
+    loadUserDataAndBalance()
+  }, [])
+
+
 useEffect(() => {
   if (user?.username) {
     fetchTransactions(user.username);
