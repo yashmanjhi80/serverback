@@ -148,6 +148,16 @@
   body {
     @apply font-sans antialiased bg-background text-foreground;
   }
+
+  /* Adding scrollbar hiding for webkit browsers */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for Firefox */
+  html {
+    scrollbar-width: none;
+  }
 }
 
 @layer utilities {
@@ -274,6 +284,33 @@
     box-shadow: 0 8px 20px rgba(128, 0, 128, 0.4), 0 0 15px rgba(168, 85, 247, 0.2);
     border-color: rgba(168, 85, 247, 0.5);
   }
+
+  /* Adding gaming profile specific styles */
+  .profile-avatar {
+    background: linear-gradient(135deg, var(--gold-500) 0%, var(--gold-400) 100%);
+  }
+
+  .upgrade-card {
+    background: linear-gradient(135deg, var(--gold-400) 0%, var(--gold-500) 50%, var(--gold-600) 100%);
+  }
+
+  .gradient-progress {
+    background: linear-gradient(90deg, var(--gold-500) 0%, var(--gold-400) 50%, var(--gold-500) 100%);
+  }
+
+  .card-shadow {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  }
+
+  .menu-item {
+    transition: all 0.3s ease;
+  }
+
+  .menu-item:hover {
+    background-color: rgba(245, 158, 11, 0.1);
+    transform: translateX(4px);
+  }
+
   @keyframes marquee {
     0% {
       transform: translateX(0%);
