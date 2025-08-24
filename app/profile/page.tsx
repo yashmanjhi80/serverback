@@ -130,16 +130,25 @@ export default function ProfilePage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-burgundy-800 to-burgundy-900">
 
-                <header className="bg-black/80 backdrop-blur-sm border-b border-yellow-500/20 p-4">
-        <div className="mx-auto flex items-center justify-between">
-           <Link href="/home" className="text-yellow-300 hover:text-yellow-200 transition-colors">
-            <ArrowLeft size={24} />
-          </Link>
-          <h1 className="text-2xl font-bold text-yellow-400">My Wallet</h1></div>
-                          <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-yellow-500 to-transparent opacity-70"></div>
-        <div className="absolute bottom-0 left-0 right-0 h-3 bg-gradient-to-t from-yellow-500/20 to-transparent"></div>
-        
-       </header>  
+<header className="relative bg-black/80 backdrop-blur-sm border-b border-yellow-500/20 p-4">
+  {/* Back Button fixed left */}
+  <Link
+    href="/home"
+    className="absolute left-4 top-1/2 -translate-y-1/2 text-yellow-300 hover:text-yellow-200 transition-colors"
+  >
+    <ArrowLeft size={24} />
+  </Link>
+
+  {/* Centered Title */}
+  <h1 className="text-center text-2xl font-bold text-yellow-400">
+    My Wallet
+  </h1>
+
+  {/* Decorative line */}
+  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-yellow-500 to-transparent opacity-70"></div>
+  <div className="absolute bottom-0 left-0 right-0 h-3 bg-gradient-to-t from-yellow-500/20 to-transparent"></div>
+</header>
+
       <div className="max-w-md mx-auto px-4 py-6">
         {/* Profile Header */}
          <div className="text-center mb-8">
