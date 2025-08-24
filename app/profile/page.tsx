@@ -131,7 +131,7 @@ export default function ProfilePage() {
     <div className="min-h-screen bg-gradient-to-b from-burgundy-800 to-burgundy-900">
 
                 <header className="bg-black/80 backdrop-blur-sm border-b border-yellow-500/20 p-4">
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
+        <div className="mx-auto flex items-center justify-between">
            <Link href="/home" className="text-yellow-300 hover:text-yellow-200 transition-colors">
             <ArrowLeft size={24} />
           </Link>
