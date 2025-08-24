@@ -135,10 +135,10 @@ export default function ProfilePage() {
            <Link href="/home" className="text-yellow-300 hover:text-yellow-200 transition-colors">
             <ArrowLeft size={24} />
           </Link>
-          <h1 className="text-2xl font-bold text-yellow-400">My Wallet</h1>
+          <h1 className="text-2xl font-bold text-yellow-400">My Wallet</h1></div>
                           <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-yellow-500 to-transparent opacity-70"></div>
         <div className="absolute bottom-0 left-0 right-0 h-3 bg-gradient-to-t from-yellow-500/20 to-transparent"></div>
-        </div>
+        
        </header>  
       <div className="max-w-md mx-auto px-4 py-6">
         {/* Profile Header */}
