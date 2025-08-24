@@ -129,8 +129,10 @@ export default function ProfilePage() {
     <div className="min-h-screen bg-gradient-to-b from-burgundy-800 to-burgundy-900">
       <div className="max-w-md mx-auto px-4 py-6">
         {/* Profile Header */}
+        <header className="bg-black/80 backdrop-blur-sm border-b border-yellow-500/20 p-4">
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold text-gold-400 mb-6">Profile</h1>
+        <header/>  
   
 
           {/* Profile Info */}
