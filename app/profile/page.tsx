@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
-import { ArrowLeft, Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { ArrowLeft, Plus, Minus, CreditCard, TrendingUp, Eye, EyeOff, RefreshCw } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 import {
