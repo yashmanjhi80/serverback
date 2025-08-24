@@ -141,7 +141,7 @@ export default function ProfilePage() {
 
   {/* Centered Title */}
   <h1 className="text-center text-2xl font-bold text-yellow-400">
-    My Wallet
+    Profile
   </h1>
 
   {/* Decorative line */}
