@@ -129,7 +129,7 @@ export default function ProfilePage() {
     <div className="min-h-screen bg-gradient-to-b from-burgundy-800 to-burgundy-900">
 
                 <header className="bg-black/80 backdrop-blur-sm border-b border-yellow-500/20 p-4">
-              <div className="max-w-4xl mx-auto flex items-center justify-between">
+              <div className="flex items-center justify-between">
 
           <h1 className="text-2xl font-bold text-gold-400">Profile</h1>
                                     <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-yellow-500 to-transparent opacity-70"></div>
