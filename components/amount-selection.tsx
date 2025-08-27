@@ -30,8 +30,8 @@ export function AmountSelection({ onAmountSelect, selectedAmount = 110 }: Amount
             onClick={() => handleAmountClick(amount)}
             className={`font-medium py-3 px-4 rounded-lg text-xs transition-all duration-300 ${
               selected === amount
-                ? "bg-golden text-pure-black shadow-lg shadow-golden/30"
-                : "bg-slate-700 text-golden hover:bg-slate-600 shadow-md"
+                ? "bg-yellow-300 text-pure-black shadow-lg shadow-golden/30"
+                : "bg-grey-700 text-golden hover:bg-slate-600 shadow-md"
             }`}
             data-testid={`button-amount-${amount}`}
           >
