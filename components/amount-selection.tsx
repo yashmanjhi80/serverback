@@ -28,7 +28,7 @@ export function AmountSelection({ onAmountSelect, selectedAmount = 110 }: Amount
           <button
             key={amount}
             onClick={() => handleAmountClick(amount)}
-            className={`font-medium py-3 px-4 rounded-lg text-xs transition-all duration-300 ${
+            className={`font-medium py-3 px-4 rounded-2xl text-xs transition-all duration-300 ${
               selected === amount
                 ? "bg-yellow-300 text-pure-black shadow-lg shadow-yellow-400/30"
                 : "bg-slate-700 text-yellow-300 hover:bg-slate-600 shadow-md"
