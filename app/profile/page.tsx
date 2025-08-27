@@ -194,7 +194,13 @@ export default function ProfilePage() {
         <div className="bg-[url('https://i.ibb.co/rfyZd16h/gold.jpg')] bg-cover bg-center rounded-2xl p-4 mb-6 card-shadow">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-
+              {/* VIP Badge */}
+              <div className="p-2">
+                <div className="text-center">
+                  <img src="https://i.ibb.co/7dZ3Z9wB/Adobe-Express-file-6.png" alt="badge" className="w-full h-12" />
+                  <div className="text-lg font-bold text-burgundy-900">V0</div>
+                </div>
+              </div>
 
               {/* Upgrade Info */}
               <div>
@@ -209,35 +215,18 @@ export default function ProfilePage() {
             <ArrowRight className="w-8 h-8 text-burgundy-900" />
           </div>
 
-          
-{/* Progress Bar */}
-<div className="mt-4 relative">
-  <div className="flex justify-between text-xs text-burgundy-900 font-medium mb-1">
-    <span>V0</span>
-    <span>V1</span>
-  </div>
-
-  <div className="relative bg-burgundy-900/30 rounded-full h-6 overflow-hidden">
-    {/* Progress Fill */}
-    <div className="bg-burgundy-900 h-6 rounded-full w-0"></div>
-
-    {/* VIP Badge Inside */}
-    <div className="absolute inset-0 flex items-center justify-center">
-      <img
-        src="https://i.ibb.co/7dZ3Z9wB/Adobe-Express-file-6.png"
-        alt="badge"
-        className="h-8 w-auto"
-      />
-      <span className="ml-2 text-burgundy-900 font-bold">V0</span>
-    </div>
-  </div>
-
-  <div className="text-center text-burgundy-900 font-medium text-sm mt-1">
-    0/100
-  </div>
-</div>
-
-
+          {/* Progress Bar */}
+          <div className="mt-4">
+            <div className="flex justify-between text-xs text-burgundy-900 font-medium mb-1">
+              <span>V0</span>
+              <span>V1</span>
+            </div>
+            <div className="bg-burgundy-900/30 rounded-full h-4">
+              <div className="bg-burgundy-900 h-4 rounded-full w-0"></div>
+            </div>
+            <div className="text-center text-burgundy-900 font-medium text-sm mt-1">0/100</div>
+          </div>
+        </div>
 
         {/* Menu Section */}
         <div className="space-y-2">
