@@ -104,7 +104,7 @@ export default function WithdrawalPage() {
 
   {/* Centered Title */}
   <h1 className="text-center text-2xl font-bold text-yellow-400">
-    Profile
+    Withdrawl
   </h1>
 
   {/* Decorative line */}
