@@ -56,6 +56,7 @@ const handleGoBack = () => {
             <ArrowLeft size={24} />
           </Link>
           <h1 className="text-2xl font-bold text-yellow-400">My Wallet</h1>
+          <div></div>
 
                           <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-yellow-500 to-transparent opacity-70"></div>
         <div className="absolute bottom-0 left-0 right-0 h-3 bg-gradient-to-t from-yellow-500/20 to-transparent"></div>
