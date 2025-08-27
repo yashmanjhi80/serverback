@@ -224,7 +224,7 @@ export default function DepositPage() {
                 key={preset.amount}
                 className={`relative cursor-pointer font-medium text-center py-3 px-4 rounded-3xl text-xs transition-all duration-300 ${
                   selectedAmount === preset.amount
-                    ? "bg-gradient-to-r from-yellow-600 to-yellow-500 border-yellow-400 text-black"
+                    ? "bg-gradient-to-r from-yellow-600 to-yellow-500 border-yellow-400 text-black shadow-lg shadow-yellow-400/30"
                     : "bg-black/60 border-yellow-500/30 text-white hover:bg-black/80 hover:border-yellow-400/50"
                 }`}
                 onClick={() => handleAmountSelect(preset.amount)}
