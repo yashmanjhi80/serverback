@@ -86,7 +86,7 @@ export default function HistoryPage() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-gradient-to-b from-burgundy-800 to-burgundy-900 text-white">
       {/* Header */}
       <div className="bg-black relative border-b border-yellow-500/20">
         <div className="px-4 py-3 flex items-center justify-center relative">

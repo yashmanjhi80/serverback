@@ -154,7 +154,7 @@ export default function DepositPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white pb-20">
+    <div className="min-h-screen bg-gradient-to-b from-burgundy-800 to-burgundy-900-white pb-20">
       {/* Header */}
       <header className="flex items-center justify-between p-4 bg-black/80 backdrop-blur-sm border-b border-yellow-500/20 shadow-lg">
         <Link
