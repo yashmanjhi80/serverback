@@ -213,9 +213,7 @@ export default function ProfilePage() {
 
             {/* Arrow */}
             <ArrowRight className="w-8 h-8 text-burgundy-900" />
-          </div>
-
-          {/* Progress Bar */}
+                      {/* Progress Bar */}
           <div className="mt-4">
             <div className="flex justify-between text-xs text-burgundy-900 font-medium mb-1">
               <span>V0</span>
@@ -227,6 +225,9 @@ export default function ProfilePage() {
             <div className="text-center text-burgundy-900 font-medium text-sm mt-1">0/100</div>
           </div>
         </div>
+          </div>
+
+
 
         {/* Menu Section */}
         <div className="space-y-2">
