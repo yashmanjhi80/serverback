@@ -63,8 +63,7 @@ const handleGoBack = () => {
         </div>
       </header>
 
-        {/* Golden Separator */}
-        <div className="w-full h-0.5 bg-golden mb-8"></div>
+
 
         {/* Verification Form */}
         <form className="space-y-7" onSubmit={handleSubmit}>
