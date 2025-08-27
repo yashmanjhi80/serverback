@@ -48,7 +48,7 @@ const handleGoBack = () => {
 
   return (
     <div className="max-w-sm mx-auto bg-linear-65 from-burgundy-800 to-burgundy-960 min-h-screen">
-      <div >
+   
         {/* Header */}
       <header className="bg-black/80 backdrop-blur-sm border-b border-yellow-500/20 p-4">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
@@ -63,7 +63,7 @@ const handleGoBack = () => {
         </div>
       </header>
 
-
+   <div className="p-4" >
 
         {/* Verification Form */}
         <form className="space-y-7" onSubmit={handleSubmit}>
