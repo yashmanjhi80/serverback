@@ -595,11 +595,11 @@ export default function HomePage() {
                 </h2>
                 <button className="text-yellow-300 text-sm hover:text-yellow-200 transition-colors">View All</button>
               </div>
-              <div className="flex gap-3 overflow-x-auto scrollbar-hide h-8 pb-2">
+              <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-2">
                 {filteredGames.slice(0, 20).map((game) => (
                   <div
                     key={`popular-${game.g_code}`}
-                    className="object-cover group-hover:scale-110 transition-transform duration-300"
+                    className="relative cursor-pointer hover:scale-105 transition-all duration-300 group flex-shrink-0"
                     onClick={() => launchGame(game.g_code, game.p_type, game.gameName, game.Pcode)}
                   >
                     <div>
@@ -610,7 +610,7 @@ export default function HomePage() {
                           src={game.imgFileName || "/placeholder.svg"}
                           alt={game.gameName}
                           fill
-                          className="object-contain drop-shadow-lg max-w-full max-h-full group-hover:scale-110 transition-transform duration-300"
+                          className="object-cover group-hover:scale-110 transition-transform duration-300"
                         />
 
                         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
