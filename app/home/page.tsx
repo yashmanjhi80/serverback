@@ -599,7 +599,7 @@ export default function HomePage() {
                 {filteredGames.slice(0, 20).map((game) => (
                   <div
                     key={`popular-${game.g_code}`}
-                    className="relative cursor-pointer hover:scale-105 transition-all duration-300 group flex-shrink-0"
+                    className="object-cover group-hover:scale-110 transition-transform duration-300"
                     onClick={() => launchGame(game.g_code, game.p_type, game.gameName, game.Pcode)}
                   >
                     <div>
