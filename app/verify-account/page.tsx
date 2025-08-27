@@ -49,17 +49,23 @@ const handleGoBack = () => {
     <div className="max-w-sm mx-auto bg-linear-65 from-burgundy-800 to-burgundy-960 min-h-screen">
       <div className="p-4">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8 pt-2">
-          <button className="text-golden text-xl" onClick={handleGoBack} data-testid="button-back-verify">
-            <ChevronLeft className="w-6 h-6" />
+      <header className="bg-black/80 backdrop-blur-sm border-b border-yellow-500/20 p-4">
+        <div className="max-w-4xl mx-auto flex items-center justify-between">
+           <Link href="/home" className="text-yellow-300 hover:text-yellow-200 transition-colors">
+            <ArrowLeft size={24} />
+          </Link>
+          <h1 className="text-2xl font-bold text-yellow-400">Verify Account</h1>
+          <button
+            onClick={refreshBalance}
+            disabled={isLoadingBalance}
+            className="p-2 text-yellow-400 hover:text-yellow-300 transition-colors disabled:opacity-50"
+          >
+            <RefreshCw size={20} className={isLoadingBalance ? "animate-spin" : ""} />
           </button>
-          <h1 className="text-golden text-xl font-medium" data-testid="text-verify-title">
-            Verify Account
-          </h1>
-          <button className="text-golden" data-testid="button-records-verify">
-            <FileText className="w-6 h-6" />
-          </button>
+                          <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-yellow-500 to-transparent opacity-70"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-3 bg-gradient-to-t from-yellow-500/20 to-transparent"></div>
         </div>
+      </header>
 
         {/* Golden Separator */}
         <div className="w-full h-0.5 bg-golden mb-8"></div>
