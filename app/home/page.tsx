@@ -609,8 +609,9 @@ export default function HomePage() {
                         <Image
                           src={game.imgFileName || "/placeholder.svg"}
                           alt={game.gameName}
-                          fill
-                          className="object-cover group-hover:scale-110 transition-transform duration-300"
+                          width={80}
+                          height={100}
+                          className="object-contain drop-shadow-lg max-w-full max-h-full group-hover:scale-110 transition-transform duration-300"
                         />
 
                         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
