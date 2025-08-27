@@ -6,7 +6,7 @@ import BottomNavigation from "@/components/bottom-navigation"
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white pb-20">
+    <div className="min-h-screen bg-linear-65 from-burgundy-800 to-burgundy-960 to-black text-white pb-20">
       {/* Header */}
       <header className="bg-black/80 backdrop-blur-sm border-b border-yellow-500/20 p-4">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
