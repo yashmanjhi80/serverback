@@ -667,8 +667,8 @@ export default function HomePage() {
                             <Image
                               src={game.imgFileName || "/placeholder.svg"}
                               alt={game.gameName}
-                              width={80}
-                              height={100}
+                              width={160}
+                              height={200}
                               className="object-contain drop-shadow-lg max-w-full max-h-full group-hover:scale-110 transition-transform duration-300"
                             />
 
