@@ -212,7 +212,7 @@ export default function DepositPage() {
               onChange={handleAmountChange}
               min={MIN_DEPOSIT}
               max={MAX_DEPOSIT}
-              className="w-full text-yellow-400 text-2xl font-bold text-center py-2 h-auto bg-black/60 border-yellow-500/30 focus:border-yellow-400 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              className="w-full text-yellow-400 text-2xl font-bold text-center py-4 h-auto bg-black/60 border-yellow-500/30 focus:border-yellow-400 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"
               placeholder="Enter amount"
             />
           </div>
@@ -222,7 +222,7 @@ export default function DepositPage() {
             {presetAmounts.map((preset) => (
               <div
                 key={preset.amount}
-                className={`relative cursor-pointer font-medium py-3 px-4 rounded-3xl text-xs transition-all duration-300 ${
+                className={`relative cursor-pointer font-medium text-center py-3 px-4 rounded-3xl text-xs transition-all duration-300 ${
                   selectedAmount === preset.amount
                     ? "bg-gradient-to-r from-yellow-600 to-yellow-500 border-yellow-400 text-black"
                     : "bg-black/60 border-yellow-500/30 text-white hover:bg-black/80 hover:border-yellow-400/50"
