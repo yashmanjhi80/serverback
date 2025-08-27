@@ -92,7 +92,7 @@ export default function WithdrawalPage() {
   }
 
   return (
-    <div className="max-w-sm mx-auto bg-linear-65 from-burgundy-600 to-burgundy-960 min-h-screen">
+    <div className="max-w-sm mx-auto bg-linear-65 from-burgundy-800 to-burgundy-960 min-h-screen">
     <header className="relative bg-black/80 backdrop-blur-sm border-b border-yellow-500/20 p-4">
   {/* Back Button fixed left */}
   <Link
