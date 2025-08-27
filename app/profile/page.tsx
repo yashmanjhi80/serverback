@@ -194,13 +194,7 @@ export default function ProfilePage() {
         <div className="bg-[url('https://i.ibb.co/rfyZd16h/gold.jpg')] bg-cover bg-center rounded-2xl p-4 mb-6 card-shadow">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              {/* VIP Badge */}
-              <div className="p-2">
-                <div className="text-center">
-                  <img src="https://i.ibb.co/7dZ3Z9wB/Adobe-Express-file-6.png" alt="badge" className="w-full h-12" />
-                  <div className="text-lg font-bold text-burgundy-900">V0</div>
-                </div>
-              </div>
+
 
               {/* Upgrade Info */}
               <div>
