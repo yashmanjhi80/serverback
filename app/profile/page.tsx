@@ -223,6 +223,8 @@ export default function ProfilePage() {
           </div>
         </div>
         </div>
+
+        </div>
           {/* Arrow */}
             <ArrowRight className="w-8 h-8 text-burgundy-900" />
                       {/* Progress Bar */}
