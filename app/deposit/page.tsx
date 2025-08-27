@@ -312,7 +312,7 @@ export default function DepositPage() {
         {/* Pay Now Button */}
         <div className="mb-6">
           <Button
-            className="bg-gradient-to-b from-yellow-300 via-golden to-yellow-600 text-black font-bold py-4 px-24 rounded-full text-base hover:from-yellow-400 hover:via-golden hover:to-yellow-700 transition-all duration-300 shadow-lg border border-yellow-400 relative overflow-hidden"
+            className="w-full bg-gradient-to-b from-yellow-300 via-golden to-yellow-600 text-black font-bold py-4 px-24 rounded-full text-base hover:from-yellow-400 hover:via-golden hover:to-yellow-700 transition-all duration-300 shadow-lg border border-yellow-400 relative overflow-hidden"
             size="lg"
             onClick={handlePayment}
             disabled={
