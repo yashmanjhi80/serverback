@@ -312,7 +312,7 @@ export default function DepositPage() {
         {/* Pay Now Button */}
         <div className="mb-6">
           <Button
-            className="w-full py-4 h-auto text-black font-bold text-lg bg-gradient-to-r from-yellow-600 to-yellow-500 hover:from-yellow-700 hover:to-yellow-600 disabled:from-gray-600 disabled:to-gray-700 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center space-x-2"
+            className="bg-gradient-to-b from-yellow-300 via-golden to-yellow-600 text-black font-bold py-4 px-24 rounded-full text-base hover:from-yellow-400 hover:via-golden hover:to-yellow-700 transition-all duration-300 shadow-lg border border-yellow-400 relative overflow-hidden"
             onClick={handlePayment}
             disabled={
               isProcessingPayment || !selectedAmount || selectedAmount < MIN_DEPOSIT || selectedAmount > MAX_DEPOSIT
