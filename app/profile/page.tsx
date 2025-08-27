@@ -203,7 +203,7 @@ export default function ProfilePage() {
               </div>
             <div>    
               {/* Upgrade Info */}
-              <div>
+              <div className="text-center" >
                 <p className="text-burgundy-900 font-medium text-sm">
                   You need <span className="font-bold">100</span> to upgrade to
                 </p>
