@@ -209,7 +209,7 @@ export default function ProfilePage() {
             <ArrowRight className="w-8 h-8 text-burgundy-900" />
           </div>
 
-          {/* Progress Bar */}
+          
 {/* Progress Bar */}
 <div className="mt-4 relative">
   <div className="flex justify-between text-xs text-burgundy-900 font-medium mb-1">
