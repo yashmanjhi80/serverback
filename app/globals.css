@@ -141,6 +141,7 @@
   --color-sidebar-ring: var(--sidebar-ring);
 
   /* Adding Tailwind color definitions for gaming profile theme */
+  --color-burgundy-960: var(--burgundy-960);
   --color-burgundy-900: var(--burgundy-900);
   --color-burgundy-800: var(--burgundy-800);
   --color-burgundy-700: var(--burgundy-700);
