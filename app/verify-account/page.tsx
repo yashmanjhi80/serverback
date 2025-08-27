@@ -19,7 +19,6 @@ interface FormData {
 }
 
 export default function VerifyAccountPage() {
-  const [, setLocation] = useLocation()
   const [formData, setFormData] = useState<FormData>({
     accountNumber: "",
     retypeAccountNumber: "",
