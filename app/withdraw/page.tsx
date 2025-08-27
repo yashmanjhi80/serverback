@@ -91,7 +91,7 @@ export default function WithdrawalPage() {
   }
 
   return (
-    <div className="max-w-sm mx-auto bg-pure-black min-h-screen">
+    <div className="max-w-sm mx-auto bg-gradient-to-b from-burgundy-800 to-burgundy-900 min-h-screen">
       <div className="p-4">
         {/* Header */}
         <div className="flex items-center justify-between mb-6 pt-2">
