@@ -7,6 +7,7 @@ import { BalanceCards } from "@/components/balance-cards"
 import { AmountSelection } from "@/components/amount-selection"
 import { BankAccountSection } from "@/components/bank-account-section"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 import BottomNavigation from "@/components/bottom-navigation"
 
 interface UserCredentials {
