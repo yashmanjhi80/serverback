@@ -201,7 +201,7 @@ export default function ProfilePage() {
                   <div className="text-lg font-bold text-burgundy-900">V0</div>
                 </div>
               </div>
-
+            <div>    
               {/* Upgrade Info */}
               <div>
                 <p className="text-burgundy-900 font-medium text-sm">
@@ -222,6 +222,7 @@ export default function ProfilePage() {
             </div>
             <div className="text-center text-burgundy-900 font-medium text-sm mt-1">0/100</div>
           </div>
+        </div>
         </div>
           {/* Arrow */}
             <ArrowRight className="w-8 h-8 text-burgundy-900" />
