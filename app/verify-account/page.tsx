@@ -29,9 +29,12 @@ export default function VerifyAccountPage() {
     email: "",
   })
 
-  const handleGoBack = () => {
-    setLocation("/")
-  }
+const router = useRouter()
+
+const handleGoBack = () => {
+  router.push("/")
+}
+
 
   const handleInputChange = (field: keyof FormData, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
