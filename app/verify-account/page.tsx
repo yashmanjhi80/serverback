@@ -44,7 +44,7 @@ export default function VerifyAccountPage() {
   }
 
   return (
-    <div className="max-w-sm mx-auto bg-pure-black min-h-screen">
+    <div className="max-w-sm mx-auto bg-linear-65 from-burgundy-800 to-burgundy-960 min-h-screen">
       <div className="p-4">
         {/* Header */}
         <div className="flex items-center justify-between mb-8 pt-2">
