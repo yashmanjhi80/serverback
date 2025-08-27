@@ -595,7 +595,7 @@ export default function HomePage() {
                 </h2>
                 <button className="text-yellow-300 text-sm hover:text-yellow-200 transition-colors">View All</button>
               </div>
-              <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-2">
+              <div className="flex gap-3 overflow-x-auto scrollbar-hide h-8 pb-2">
                 {filteredGames.slice(0, 20).map((game) => (
                   <div
                     key={`popular-${game.g_code}`}
