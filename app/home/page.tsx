@@ -602,7 +602,7 @@ export default function HomePage() {
                     className="relative cursor-pointer hover:scale-105 transition-all duration-300 group flex-shrink-0"
                     onClick={() => launchGame(game.g_code, game.p_type, game.gameName, game.Pcode)}
                   >
-                    <div className="relative w-24 md:w-32 aspect-[3/4] bg-gradient-to-br from-black via-gray-900 to-black rounded-xl overflow-hidden shadow-lg border border-yellow-500/30">
+                    <div>
                       <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 via-transparent to-yellow-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                       <div className="relative w-full h-full p-2 flex items-center justify-center">
