@@ -106,10 +106,11 @@ export default function WithdrawalPage() {
               <FileText className="w-6 h-6" />
             </button>
           </div>
-            {/* Decorative line */}
+
+        </div>
+                    {/* Decorative line */}
   <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-yellow-500 to-transparent opacity-70"></div>
   <div className="absolute bottom-0 left-0 right-0 h-3 bg-gradient-to-t from-yellow-500/20 to-transparent"></div>
-        </div>
 
         {/* Balance Cards */}
         <BalanceCards
