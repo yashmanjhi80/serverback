@@ -217,11 +217,11 @@ export default function ProfilePage() {
     <span>V1</span>
   </div>
 
-  <div className="relative bg-burgundy-900/30 rounded-full h-6">
-
+  <div className="relative bg-burgundy-900/30 rounded-full h-6 overflow-hidden">
+    {/* Progress Fill */}
     <div className="bg-burgundy-900 h-6 rounded-full w-0"></div>
 
-
+    {/* VIP Badge Inside */}
     <div className="absolute inset-0 flex items-center justify-center">
       <img
         src="https://i.ibb.co/7dZ3Z9wB/Adobe-Express-file-6.png"
@@ -232,8 +232,11 @@ export default function ProfilePage() {
     </div>
   </div>
 
-  <div className="text-center text-burgundy-900 font-medium text-sm mt-1">0/100</div>
+  <div className="text-center text-burgundy-900 font-medium text-sm mt-1">
+    0/100
+  </div>
 </div>
+
 
 
         {/* Menu Section */}
