@@ -92,26 +92,27 @@ export default function WithdrawalPage() {
 
   return (
     <div className="max-w-sm mx-auto bg-gradient-to-b from-burgundy-800 to-burgundy-900 min-h-screen">
-      <div className="p-4">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-6 pt-2">
-          <button className="text-golden text-xl" onClick={handleGoBack} data-testid="button-back">
-            <ChevronLeft className="w-6 h-6" />
-          </button>
-          <h1 className="text-center text-2xl font-bold text-yellow-400" data-testid="text-page-title">
-            Withdrawal
-          </h1>
-          <div className="flex items-center space-x-3">
-            <button className="text-golden" data-testid="button-records">
-              <FileText className="w-6 h-6" />
-            </button>
-          </div>
+    <header className="relative bg-black/80 backdrop-blur-sm border-b border-yellow-500/20 p-4">
+  {/* Back Button fixed left */}
+  <Link
+    href="/home"
+    className="absolute left-4 top-1/2 -translate-y-1/2 text-yellow-300 hover:text-yellow-200 transition-colors"
+  >
+    <ArrowLeft size={24} />
+  </Link>
 
-        </div>
-                    {/* Decorative line */}
+  {/* Centered Title */}
+  <h1 className="text-center text-2xl font-bold text-yellow-400">
+    Profile
+  </h1>
+
+  {/* Decorative line */}
   <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-yellow-500 to-transparent opacity-70"></div>
   <div className="absolute bottom-0 left-0 right-0 h-3 bg-gradient-to-t from-yellow-500/20 to-transparent"></div>
-
+</header>
+      <div className="p-4">
+        {/* Header */}
+ 
         {/* Balance Cards */}
         <BalanceCards
           cashBalance={isLoadingBalance ? 0 : cashBalance}
