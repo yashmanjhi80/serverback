@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
-import { ChevronLeft, FileText } from "lucide-react"
+import {  ArrowLeft, ChevronLeft, FileText } from "lucide-react"
 import { BalanceCards } from "@/components/balance-cards"
 import { AmountSelection } from "@/components/amount-selection"
 import { BankAccountSection } from "@/components/bank-account-section"
