@@ -127,7 +127,7 @@ export default function WithdrawalPage() {
         <BankAccountSection onAddBankAccount={handleAddBankAccount} />
 
         {/* Golden Separator */}
-        <div className="w-full h-0.5 bg-golden mb-6"></div>
+        <div className="w-full h-0.5 bg-yellow-500 mb-6"></div>
 
         {/* Amount Selection */}
         <AmountSelection onAmountSelect={setSelectedAmount} selectedAmount={selectedAmount} />
