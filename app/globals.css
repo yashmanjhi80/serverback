@@ -149,7 +149,7 @@
   --color-gold-400: var(--gold-400);
   --color-gold-500: var(--gold-500);
   --color-gold-600: var(--gold-600);
-  --color-golden: var(--gold-600);
+  --color-golden: var(--yellow-400);
 }
 
 @layer base {
