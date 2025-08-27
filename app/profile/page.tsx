@@ -211,7 +211,7 @@ export default function ProfilePage() {
               </div>
             
           
-          <div className="mt-4">
+          <div className="mt-2">
             <div className="flex justify-between text-xs text-burgundy-900 font-medium mb-1">
               <span>V0</span>
               <span>V1</span>
