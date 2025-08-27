@@ -98,7 +98,7 @@ export default function WithdrawalPage() {
           <button className="text-golden text-xl" onClick={handleGoBack} data-testid="button-back">
             <ChevronLeft className="w-6 h-6" />
           </button>
-          <h1 className="text-golden text-lg font-medium" data-testid="text-page-title">
+          <h1 className="text-center text-2xl font-bold text-yellow-400" data-testid="text-page-title">
             Withdrawal
           </h1>
           <div className="flex items-center space-x-3">
