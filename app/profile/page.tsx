@@ -128,7 +128,7 @@ export default function ProfilePage() {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-burgundy-800 to-burgundy-900">
+    <div className="min-h-screen bg-linear-65 from-burgundy-800 to-burgundy-960">
 
 <header className="relative bg-black/80 backdrop-blur-sm border-b border-yellow-500/20 p-4">
   {/* Back Button fixed left */}
