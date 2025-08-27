@@ -586,7 +586,7 @@ export default function HomePage() {
           </div>
 
           {/* Games Grid */}
-          <div className="space-y-6">
+          <div className="space-y-2">
             {/* Popular Games Section */}
             <div>
               <div className="flex items-center justify-between mb-2">
