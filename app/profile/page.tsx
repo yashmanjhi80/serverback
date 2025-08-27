@@ -222,7 +222,7 @@ export default function ProfilePage() {
               <span>V1</span>
             </div>
             <div className="bg-burgundy-900/30 rounded-full h-2">
-              <div className="bg-burgundy-900 h-2 rounded-full w-0"></div>
+              <div className="bg-burgundy-900 h-4 rounded-full w-0"></div>
             </div>
             <div className="text-center text-burgundy-900 font-medium text-sm mt-1">0/100</div>
           </div>
