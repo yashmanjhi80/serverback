@@ -475,7 +475,7 @@ export default function HomePage() {
                     className="relative cursor-pointer hover:scale-105 transition-all duration-300 group"
                     onClick={() => launchGame(game.g_code, game.p_type, game.gameName, game.Pcode)}
                   >
-                    <div >
+                    <div>
                       <Image
                         src={game.imgFileName || "/placeholder.svg"}
                         alt={game.gameName}
