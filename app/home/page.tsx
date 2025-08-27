@@ -272,7 +272,7 @@ export default function HomePage() {
   })
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-burgundy-800 to-burgundy-900 text-white">
+    <div className="min-h-screen bg-linear-65 from-burgundy-800 to-burgundy-960 to-burgundy-900 text-white">
       {/* Insufficient Balance Popup */}
       {showInsufficientBalancePopup && (
         <div className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4">
