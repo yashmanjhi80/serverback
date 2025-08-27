@@ -174,6 +174,8 @@ export default function DepositPage() {
         >
           <FileText className="h-5 w-5" />
         </Link>
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-yellow-500 to-transparent opacity-70"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-3 bg-gradient-to-t from-yellow-500/20 to-transparent"></div>
       </header>
 
       <div className="px-4 py-6 max-w-md mx-auto">
