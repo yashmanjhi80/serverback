@@ -195,9 +195,9 @@ export default function ProfilePage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               {/* VIP Badge */}
-              <div className="bg-white/20 rounded-lg p-2">
+              <div className="p-2">
                 <div className="text-center">
-                  <img src="https://i.ibb.co/7dZ3Z9wB/Adobe-Express-file-6.png" alt="badge" className="w-full h-10" />
+                  <img src="https://i.ibb.co/7dZ3Z9wB/Adobe-Express-file-6.png" alt="badge" className="w-full h-12" />
                   <div className="text-lg font-bold text-burgundy-900">V0</div>
                 </div>
               </div>
