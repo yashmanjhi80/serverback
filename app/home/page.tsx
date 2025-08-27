@@ -589,7 +589,7 @@ export default function HomePage() {
           <div className="space-y-6">
             {/* Popular Games Section */}
             <div>
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center justify-between mb-2">
                 <h2 className="text-xl md:text-2xl font-bold text-yellow-400 flex items-center gap-2">
                   🔥 Popular Games
                 </h2>
