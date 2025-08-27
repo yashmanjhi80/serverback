@@ -201,7 +201,7 @@ export default function ProfilePage() {
                   <div className="text-lg font-bold text-burgundy-900">V0</div>
                 </div>
               </div>
-            <div>    
+            <div >    
               {/* Upgrade Info */}
               <div className="text-center" >
                 <p className="text-burgundy-900 font-medium text-sm">
