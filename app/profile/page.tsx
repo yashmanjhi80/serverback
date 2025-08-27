@@ -191,7 +191,7 @@ export default function ProfilePage() {
         </div>
 
         {/* Upgrade Card */}
-        <div className="upgrade-card rounded-2xl p-4 mb-6 card-shadow">
+        <div className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-amber-600 rounded-2xl p-4 mb-6 card-shadow">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               {/* VIP Badge */}
